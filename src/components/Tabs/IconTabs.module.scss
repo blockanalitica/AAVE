@@ -1,0 +1,53 @@
+@import "../../styles/variables";
+
+.navItem {
+  display: flex;
+  align-items: center;
+  border-right: solid 1px $border-color !important;
+
+  &:last-child {
+    border-right: none !important;
+  }
+}
+
+.navLink {
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none !important;
+  padding: 0 0.5rem !important;
+  color: white !important;
+
+  &.active {
+    color: $primary !important;
+
+    &:hover {
+      color: $link-hover-color !important;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column;
+}
+
+.tabContent {
+  flex: 1;
+  background-color: transparent !important;
+  padding: 0;
+}
+
+.navTabs {
+  justify-content: end;
+  margin-bottom: 1rem !important;
+}
+
+.nameTab {
+  flex: 1;
+  cursor: auto !important;
+}
+
+.label {
+  font-size: 0.9rem;
+  padding-right: 0.2rem;
+}

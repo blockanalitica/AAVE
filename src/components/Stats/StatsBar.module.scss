@@ -1,0 +1,77 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.wrapper {
+  position: relative;
+}
+
+.sectionWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-bottom: -1rem;
+}
+
+.section {
+  border-right: solid 1px $border-color;
+  flex-grow: 1;
+  flex-basis: 20%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    border: none;
+  }
+
+  &:first-child {
+    margin-right: 0;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 16%;
+
+    &:nth-child(6n) {
+      border: none;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    flex-basis: 25%;
+
+    &:nth-child(4n) {
+      border: none;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    flex-basis: 50%;
+    &:nth-child(2n) {
+      border: none;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    flex-basis: 100%;
+    border: none;
+  }
+}
+
+.cardBody {
+  padding: 0;
+}
+
+.iconBox {
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 1.8rem;
+  position: absolute;
+  right: 1rem;
+}
+
+.list ul {
+  list-style-type: none;
+  padding: 0 !important;
+}

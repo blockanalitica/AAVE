@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+
+.title {
+  border-bottom: solid 1px $border-color;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0 !important;
+  font-weight: bold;
+  letter-spacing: 0.03rem;
+  font-size: 1.1rem;
+}
+
+.roundBorder {
+  border-radius: 1rem;
+}

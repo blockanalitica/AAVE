@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.currencySelector {
+  text-align: right;
+  display: flex;
+
+  ul {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+
+    li {
+      padding: 0 0.3rem;
+      color: $primary;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+.currencySelectorActive {
+  color: white !important;
+}

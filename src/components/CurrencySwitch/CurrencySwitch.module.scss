@@ -1,0 +1,34 @@
+@import "../../styles/variables";
+
+.currencySwitchContainer {
+  display: flex;
+  align-items: center;
+}
+
+.currencySwitch {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.currencySwitchItem {
+  padding: 0 0.3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: white !important;
+
+  &:hover {
+    color: $link-hover-color !important;
+  }
+}
+
+.currencySwitchItemActive {
+  color: $primary !important;
+}
+
+.currencySwitchLabel {
+  color: $gray;
+  font-size: 0.8rem;
+  padding-right: 0.2rem;
+}

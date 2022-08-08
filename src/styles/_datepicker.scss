@@ -1,0 +1,23 @@
+@import "variables";
+
+.form-group {
+  .form-label {
+    width: auto;
+  }
+  padding: 1rem;
+}
+
+.datepicker {
+  width: auto;
+  .rdtPicker {
+    background: $less-dark;
+
+    .rdtDay:hover,
+    .rdtMonth:hover,
+    .rdtBtn:hover,
+    .rdtActive,
+    thead tr:first-child th:hover {
+      background-color: rgba($body-color, 0.4);
+    }
+  }
+}

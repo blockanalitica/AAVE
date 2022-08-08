@@ -1,0 +1,81 @@
+@import "variables";
+
+@font-face {
+  font-family: Nunito;
+  src: url(../fonts/Nunito/static/Nunito-Light.ttf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url(../fonts/Nunito/static/Nunito-SemiBold.ttf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url(../fonts/Nunito/static/Nunito-Bold.ttf);
+  font-weight: 600;
+}
+
+html,
+body {
+  letter-spacing: 0.01rem;
+  font-weight: 300;
+  font-family: Nunito, sans-serif;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.link {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: underline;
+  }
+}
+
+.tab-content {
+  background-color: $nav-tabs-link-active-bg;
+  border-radius: 0 0.25rem 0.25rem 0.25rem;
+  padding: 0;
+}
+
+.nav-tabs .nav-item {
+  cursor: pointer;
+}
+
+.mb-6 {
+  margin-bottom: ($spacer * 4) !important;
+}
+
+button {
+  a {
+    color: white !important;
+  }
+}
+
+._loading_overlay_overlay {
+  background: rgba(6, 8, 24, 0.8);
+}
+
+.gray {
+  color: $gray;
+}
+
+.text-big {
+  font-size: $big-text;
+}
+
+.section-title {
+  font-size: $small-text;
+  color: rgba(246, 247, 248, 0.6);
+}

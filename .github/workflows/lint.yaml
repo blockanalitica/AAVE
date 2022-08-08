@@ -1,0 +1,26 @@
+name: Lint
+on:
+  pull_request:
+    branches:
+      - master
+      - production
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+      - name: Update yarn
+        run: yarn set version 3.1.x
+      - name: Yarn Install
+        run: |
+          yarn install
+      - name: Lint
+        run: |
+          yarn run lint

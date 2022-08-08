@@ -1,0 +1,25 @@
+.navbarBrand,
+.navbarBrand img {
+  height: 30px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.navbarBrand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.logo {
+  margin-right: 1rem;
+}
+
+.footerLogo {
+  height: 20px;
+  margin-right: 10px;
+}

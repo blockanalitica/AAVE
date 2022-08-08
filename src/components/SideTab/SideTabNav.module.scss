@@ -1,0 +1,19 @@
+@import "../../styles/variables";
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  display: block;
+  color: $ba-nav-color;
+  border-radius: 0.25rem;
+  font-weight: 500;
+
+  &:hover {
+    color: $text-color;
+    text-decoration: none;
+  }
+}
+
+.active {
+  color: $ba-nav-active-color;
+  background-color: $ba-nav-active-bg;
+}

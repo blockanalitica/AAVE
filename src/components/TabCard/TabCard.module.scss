@@ -1,0 +1,29 @@
+@import "../../styles/variables";
+
+.navLink {
+  font-size: 1.1rem;
+  font-weight: bold;
+  line-height: 1.2;
+  text-decoration: none !important;
+
+  &.active {
+    background-color: $less-dark !important;
+    color: white;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column;
+}
+
+.tabContent {
+  flex: 1;
+  background-color: $less-dark !important;
+  border-radius: 0 0.25rem 0.25rem 0.25rem !important;
+  padding: 1rem !important;
+}

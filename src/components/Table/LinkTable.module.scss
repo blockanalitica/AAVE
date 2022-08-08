@@ -1,0 +1,21 @@
+@import "../../styles/variables";
+.icon {
+  color: inherit;
+}
+
+tr {
+  border-style: hidden !important;
+  height: 1rem;
+}
+
+thead {
+   background-color: $dark;
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: $less-dark;
+}
+
+td {
+  padding: 1rem 0.5rem !important;
+}

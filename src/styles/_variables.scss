@@ -1,0 +1,92 @@
+$fa-font-path: "../fonts/font-awesome" !default;
+$font-path: "../fonts/Nunito" !default;
+
+$less-dark: #0e1726;
+$mid-dark: #070c13;
+$dark: #060818;
+$gray-200: #e9ecef !default;
+$primary: #51b4c5 !default;
+
+$link-hover-color: #41909e;
+
+$white: #ffffff;
+$body-color: $gray-200 !default;
+$body-bg: $dark !default;
+$content-color: $white !default;
+$text-color: $white !default;
+$border-color: #404c60 !default;
+$border-radius: 0.25rem !default;
+
+$font-weight-base: 300 !default;
+$headings-font-weight: 300 !default;
+$small-font-size: 0.8rem !default;
+
+$ba-nav-color: #888ea8;
+$ba-nav-active-bg: #191e3a;
+$ba-nav-active-color: $white;
+
+$input-color: $gray-200 !default;
+$input-bg: #000000 !default;
+$input-disabled-bg: $body-bg !default;
+$input-group-addon-bg: $body-bg !default;
+$input-border-width: 1px !default;
+$input-border-color: #333c49 !default;
+
+$custom-select-bg: $body-bg !default;
+
+$form-switch-color: $body-color;
+$form-check-input-border: 1px solid $body-color !default;
+
+$nav-tabs-link-active-color: $body-color !default;
+$nav-tabs-link-active-bg: rgba(7, 10, 14, 0.7);
+$nav-tabs-border-width: 0;
+
+$navbar-dark-color: $ba-nav-color !default;
+
+$breadcrumb-bg: transparent !default;
+$breadcrumb-active-color: $body-color !default;
+
+$pagination-bg: transparent !default;
+$pagination-border-width: 0 !default;
+$pagination-border-color: transparent !default;
+$pagination-hover-bg: transparent !default;
+$pagination-disabled-bg: transparent !default;
+$pagination-active-bg: transparent !default;
+$pagination-color: white !default;
+$pagination-active-color: $primary !default;
+
+$card-bg: $less-dark;
+
+$progress-bg: $dark !default;
+
+$modal-content-bg: $less-dark;
+$modal-header-border-color: #192531;
+$btn-close-color: white !default;
+
+$table-border-width: 1px;
+$table-border-color: #404c60 !default;
+$table-group-separator-color: #404c60 !default;
+$table-hover-bg: rgba(0, 0, 0, 0.25) !default;
+
+$dropdown-bg: #191e3a !default;
+$dropdown-link-hover-bg: $primary;
+
+$gray: rgba(246, 247, 248, 0.6);
+
+$success: #198754;
+$danger: #dc3545;
+$warning: #ffc107;
+
+$big-text: 1.5rem;
+$normal-text: 1.2rem;
+$small-text: 0.8rem;
+
+$grid-breakpoints: (
+  xxs: 0,
+  xs: 320px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
