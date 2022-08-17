@@ -22,8 +22,7 @@ function TokenAtRiskSection(props) {
 
   let description;
 
-  description =
-    "Simulation of collateral assets to be sold in liquidations after certain price drops.";
+  description = `Simulation of markets price drop (all assets fall for x% at the same time) and ${slug} is always used as collateral to liquidate.`;
 
   return (
     <div>
