@@ -35,19 +35,12 @@ function TokenBackedSection(props) {
     { id: "supply_borrow", text: "supply/borrow history" },
     { id: "rates", text: "rates history" },
   ];
-  // if (hasSupply) {
-  //   tabs.push({ id: "collateral", text: `${slug} used as collateral` });
-  // }
-  // if (hasBorrow) {
-  //   tabs.push({ id: "backed", text: `${slug} backed by assets.` });
-  //   tabs.push({ id: "backed-all", text: `${slug} backed by assets (all)` });
-  // }
-
-  if (type === "supply_borrow" || type === "rates") {
-    options.shift();
-    if (timePeriod === 1) {
-      setTimePeriod(7);
-    }
+  if (hasSupply) {
+    tabs.push({ id: "collateral", text: `${slug} used as collateral` });
+  }
+  if (hasBorrow) {
+    tabs.push({ id: "backed", text: `${slug} backed by assets.` });
+    tabs.push({ id: "backed-all", text: `${slug} backed by assets (all)` });
   }
 
   let withLtv = 1;

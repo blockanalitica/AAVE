@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Button } from "reactstrap";
 import Loader from "../../components/Loader/Loader.js";
 import Value from "../../components/Value/Value.js";
+import { Link } from "react-router-dom";
 import ValueChange from "../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle } from "../../hooks";
@@ -102,6 +103,15 @@ function Homepage(props) {
         <h3>risk</h3>
         <Col>
           <TotalAtRiskSection />
+        </Col>
+      </Row>
+      <Row className="mb-4">
+        <Col>
+          <div className="text-center mb-4">
+            <Link to={`/markets/`} key="markets">
+              <Button color="primary">see all markets</Button>
+            </Link>
+          </div>
         </Col>
       </Row>
       <Row className="mb-4">
