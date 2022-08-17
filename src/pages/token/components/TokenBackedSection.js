@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
+import { faChartBar, faChartLine } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IconTabs from "../../../components/Tabs/IconTabs.js";
 import SideTabNav from "../../../components/SideTab/SideTabNav.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import TokenBackedChart from "./TokenBackedChart.js";
@@ -9,12 +12,11 @@ import SupplyBorrowChart from "./SupplyBorrowChart.js";
 import RateHistoryChart from "./RateHistoryChart.js";
 
 function TokenBackedSection(props) {
-  const { slug, hasBorrow, ...rest } = props;
+  const { slug, hasBorrow, hasSupply, ...rest } = props;
   const [type, setType] = useState("supply_borrow");
   let [timePeriod, setTimePeriod] = useState(30);
 
   const options = [
-    { key: 1, value: "1 day" },
     { key: 7, value: "7 days" },
     { key: 30, value: "30 days" },
     { key: 90, value: "90 days" },
@@ -22,7 +24,9 @@ function TokenBackedSection(props) {
 
   let description;
   if (type === "backed") {
-    description = `${slug} borrowed against assets (collateral) in chart.`;
+    description = `assets in chart are backing borrowed ${slug}. In this case we are counting only actively backed asset amounts (Total ${slug} borrowed + LTV buffer)`;
+  } else if (type === "backed-all") {
+    description = `assets in chart are backing borrowed ${slug}. In this case we are counting all backed asset amounts.`;
   } else if (type === "collateral") {
     description = `${slug} used as collateral to borrow assets in chart.`;
   }
@@ -30,11 +34,14 @@ function TokenBackedSection(props) {
   let tabs = [
     { id: "supply_borrow", text: "supply/borrow history" },
     { id: "rates", text: "rates history" },
-    { id: "collateral", text: "used as collateral" },
   ];
-  if (hasBorrow) {
-    tabs.push({ id: "backed", text: "borrowed by collateral" });
-  }
+  // if (hasSupply) {
+  //   tabs.push({ id: "collateral", text: `${slug} used as collateral` });
+  // }
+  // if (hasBorrow) {
+  //   tabs.push({ id: "backed", text: `${slug} backed by assets.` });
+  //   tabs.push({ id: "backed-all", text: `${slug} backed by assets (all)` });
+  // }
 
   if (type === "supply_borrow" || type === "rates") {
     options.shift();
@@ -43,17 +50,39 @@ function TokenBackedSection(props) {
     }
   }
 
+  let withLtv = 1;
+  if (type === "backed-all") {
+    withLtv = 0;
+  }
+
   let content = null;
   if (type === "supply_borrow") {
     content = <SupplyBorrowChart slug={slug} timePeriod={timePeriod} />;
   } else if (type === "rates") {
     content = <RateHistoryChart slug={slug} timePeriod={timePeriod} />;
   } else {
-    if (timePeriod === 1) {
-      content = <TokenBackedChart slug={slug} type={type} />;
-    } else {
-      content = <TokenBackedHistoric slug={slug} type={type} timePeriod={timePeriod} />;
-    }
+    content = (
+      <IconTabs
+        tabs={[
+          {
+            title: <FontAwesomeIcon icon={faChartLine} />,
+            content: (
+              <TokenBackedHistoric
+                slug={slug}
+                type={type}
+                timePeriod={timePeriod}
+                withLtv={withLtv}
+              />
+            ),
+          },
+          {
+            title: <FontAwesomeIcon icon={faChartBar} />,
+            content: <TokenBackedChart slug={slug} type={type} />,
+          },
+        ]}
+        label="charts:"
+      />
+    );
   }
 
   return (
@@ -63,14 +92,14 @@ function TokenBackedSection(props) {
           <SideTabNav activeTab={type} toggleTab={setType} tabs={tabs} />
         </Col>
         <Col md={9}>
+          <div className="mb-3">{description}</div>
           <TimeSwitch
-            className="justify-content-end"
+            className="justify-content-end mb-3"
             activeOption={timePeriod}
             label={""}
             onChange={setTimePeriod}
             options={options}
           />
-          <div className="mb-3">{description}</div>
           {content}
         </Col>
       </Row>

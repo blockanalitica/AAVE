@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Button, Col, Row } from "reactstrap";
+import { useParams } from "react-router-dom";
+import { Col, Row } from "reactstrap";
 import Loader from "../../components/Loader/Loader.js";
 import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
 import CryptoIcon from "../../components/CryptoIcon/CryptoIcon.js";
@@ -10,7 +10,7 @@ import { useFetch, usePageTitle } from "../../hooks";
 import TokenBackedSection from "./components/TokenBackedSection.js";
 import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
-import TokenAtRiskSection from "./components/TokenAtRiskSection.js";
+import RiskSection from "./components/RiskSection.js";
 import CurrencySwitch from "../../components/CurrencySwitch/CurrencySwitch.js";
 
 function Token(props) {
@@ -39,6 +39,7 @@ function Token(props) {
   const { slug, underlying_symbol: underlyingSymbol, address } = data;
 
   const hasBorrow = data.total_borrow > 0;
+  const hasSupply = data.liquidation_threshold > 0;
 
   return (
     <>
@@ -72,11 +73,8 @@ function Token(props) {
       />
 
       <Row className="mb-4">
-        <Col xl={3}>
-          <InfoCard data={data} />
-        </Col>
         <Col>
-          <TokenAtRiskSection
+          <RiskSection
             slug={symbol}
             className="mb-4"
             isTokenCurrencyTotal={isTokenCurrencyTotal}
@@ -85,17 +83,17 @@ function Token(props) {
       </Row>
 
       <Row className="mb-4">
-        <Col xl={3}></Col>
         <Col>
-          <div className="text-center mb-4">
-            <Link to={`/markets/${symbol}/wallets/`} key={symbol}>
-              <Button color="primary">see all token positions</Button>
-            </Link>
-          </div>
+          <InfoCard data={data} />
         </Col>
       </Row>
 
-      <TokenBackedSection slug={symbol} hasBorrow={hasBorrow} className="mb-4" />
+      <TokenBackedSection
+        slug={symbol}
+        hasBorrow={hasBorrow}
+        hasSupply={hasSupply}
+        className="mb-4"
+      />
     </>
   );
 }
