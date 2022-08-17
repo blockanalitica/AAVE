@@ -6,7 +6,7 @@ import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
 import CryptoIcon from "../../components/CryptoIcon/CryptoIcon.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle } from "../../hooks";
-
+import Value from "../../components/Value/Value.js";
 import TokenBackedSection from "./components/TokenBackedSection.js";
 import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
@@ -51,7 +51,16 @@ function Token(props) {
             size="3rem"
             className="me-2"
           />
-          <h1 className="h3 m-0">{slug}</h1>
+          <h1 className="h3 m-0">
+            {slug} |{" "}
+            <Value
+              value={data.underlying_price}
+              decimals={2}
+              prefix="$"
+              className="text-big"
+              compact100k
+            />
+          </h1>
         </div>
         <TimeSwitch activeOption={timePeriod} label={""} onChange={setTimePeriod} />
       </div>
@@ -92,6 +101,7 @@ function Token(props) {
         slug={symbol}
         hasBorrow={hasBorrow}
         hasSupply={hasSupply}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
     </>

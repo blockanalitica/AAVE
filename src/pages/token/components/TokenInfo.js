@@ -84,6 +84,41 @@ function TokenInfo(props) {
       ),
     },
     {
+      title: "total real supply",
+      bigValue: isTokenCurrencyTotal ? (
+        <Value value={data.net_supply} decimals={2} className="text-big" compact />
+      ) : (
+        <Value
+          value={data.net_supply_usd}
+          decimals={2}
+          prefix="$"
+          className="text-big"
+          compact
+        />
+      ),
+      smallValue: isTokenCurrencyTotal ? (
+        <ValueChange
+          value={data.net_supply - change.net_supply}
+          decimals={2}
+          compact
+          icon
+          hideIfZero
+          tooltipValue={change.net_supply}
+        />
+      ) : (
+        <ValueChange
+          value={data.net_supply_usd - change.net_supply_usd}
+          decimals={2}
+          prefix="$"
+          compact
+          icon
+          hideIfZero
+          tooltipValue={change.net_supply_usd}
+        />
+      ),
+    },
+
+    {
       title: "total borrow",
       bigValue: isTokenCurrencyTotal ? (
         <Value value={data.total_borrow} decimals={2} className="text-big" compact />
@@ -118,47 +153,36 @@ function TokenInfo(props) {
       ),
     },
     {
-      title: "supply APY",
-      bigValue: (
+      title: "total real borrow",
+      bigValue: isTokenCurrencyTotal ? (
+        <Value value={data.net_borrow} decimals={2} className="text-big" compact />
+      ) : (
         <Value
-          value={data.supply_apy * 100}
+          value={data.net_borrow_usd}
           decimals={2}
-          suffix="%"
+          prefix="$"
           className="text-big"
           compact
         />
       ),
-      smallValue: (
+      smallValue: isTokenCurrencyTotal ? (
         <ValueChange
-          value={(data.supply_apy - change.supply_apy) * 100}
+          value={data.net_borrow - change.net_borrow}
           decimals={2}
-          suffix="%"
-          icon
-          hideIfZero
-          tooltipValue={change.supply_apy * 100}
-        />
-      ),
-    },
-    {
-      title: "borrow APY",
-      bigValue: (
-        <Value
-          value={data.borrow_variable_apy * 100}
-          decimals={2}
-          suffix="%"
-          className="text-big"
           compact
-        />
-      ),
-      smallValue: (
-        <ValueChange
-          value={(data.borrow_variable_apy - change.borrow_variable_apy) * 100}
-          decimals={2}
-          suffix="%"
           icon
           hideIfZero
-          reverse
-          tooltipValue={change.borrow_variable_apy * 100}
+          tooltipValue={change.net_borrow}
+        />
+      ) : (
+        <ValueChange
+          value={data.net_borrow_usd - change.net_borrow_usd}
+          decimals={2}
+          prefix="$"
+          compact
+          icon
+          hideIfZero
+          tooltipValue={change.net_borrow_usd}
         />
       ),
     },

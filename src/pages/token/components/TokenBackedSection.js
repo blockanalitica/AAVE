@@ -12,7 +12,7 @@ import SupplyBorrowChart from "./SupplyBorrowChart.js";
 import RateHistoryChart from "./RateHistoryChart.js";
 
 function TokenBackedSection(props) {
-  const { slug, hasBorrow, hasSupply, ...rest } = props;
+  const { slug, hasBorrow, hasSupply, isTokenCurrencyTotal, ...rest } = props;
   const [type, setType] = useState("supply_borrow");
   let [timePeriod, setTimePeriod] = useState(30);
 
@@ -35,19 +35,12 @@ function TokenBackedSection(props) {
     { id: "supply_borrow", text: "supply/borrow history" },
     { id: "rates", text: "rates history" },
   ];
-  // if (hasSupply) {
-  //   tabs.push({ id: "collateral", text: `${slug} used as collateral` });
-  // }
-  // if (hasBorrow) {
-  //   tabs.push({ id: "backed", text: `${slug} backed by assets.` });
-  //   tabs.push({ id: "backed-all", text: `${slug} backed by assets (all)` });
-  // }
-
-  if (type === "supply_borrow" || type === "rates") {
-    options.shift();
-    if (timePeriod === 1) {
-      setTimePeriod(7);
-    }
+  if (hasSupply) {
+    tabs.push({ id: "collateral", text: `${slug} used as collateral` });
+  }
+  if (hasBorrow) {
+    tabs.push({ id: "backed", text: `${slug} backed by assets` });
+    tabs.push({ id: "backed-all", text: `${slug} backed by assets (all)` });
   }
 
   let withLtv = 1;
@@ -57,7 +50,13 @@ function TokenBackedSection(props) {
 
   let content = null;
   if (type === "supply_borrow") {
-    content = <SupplyBorrowChart slug={slug} timePeriod={timePeriod} />;
+    content = (
+      <SupplyBorrowChart
+        slug={slug}
+        timePeriod={timePeriod}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+      />
+    );
   } else if (type === "rates") {
     content = <RateHistoryChart slug={slug} timePeriod={timePeriod} />;
   } else {

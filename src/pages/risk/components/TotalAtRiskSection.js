@@ -21,7 +21,7 @@ function TotalAtRiskSection(props) {
   let description;
 
   description =
-    "Simulation of collateral assets to be sold in liquidations after certain price drops.";
+    "Simulation of markets price drop (all assets fall for x% at the same time). When wallet reach health rate under 1, 50% of debt position is liquidated.";
 
   return (
     <div>
