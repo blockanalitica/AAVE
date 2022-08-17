@@ -16,9 +16,9 @@ function InfoCard(props) {
   const { change = {} } = data;
 
   let progressLabel = "success";
-  if (data.utilization > 0.8) {
+  if (data.utilization_rate > 0.75) {
     progressLabel = "danger";
-  } else if (data.utilization > 0.7) {
+  } else if (data.utilization_rate > 0.5) {
     progressLabel = "warning";
   }
 
