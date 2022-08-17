@@ -20,17 +20,26 @@ function MarketsChartLine(props) {
   }
 
   const results = [];
+  const real_results = [];
   data.results.forEach((row) => {
     if (dataType === "supply") {
       results.push({
         x: row.dt,
         y: row.supply,
       });
+      real_results.push({
+        x: row.dt,
+        y: row.real_supply,
+      });
     }
     if (dataType === "borrow") {
       results.push({
         x: row.dt,
         y: row.borrow,
+      });
+      real_results.push({
+        x: row.dt,
+        y: row.real_borrow,
       });
     }
     if (dataType === "tvl") {
@@ -40,14 +49,26 @@ function MarketsChartLine(props) {
       });
     }
   });
-
-  const series = [
-    {
-      label: dataType,
-      data: results,
-    },
-  ];
-
+  let series = [];
+  if (dataType === "tvl") {
+    series = [
+      {
+        label: dataType,
+        data: results,
+      },
+    ];
+  } else {
+    series = [
+      {
+        label: dataType,
+        data: results,
+      },
+      {
+        label: "real " + dataType,
+        data: real_results,
+      },
+    ];
+  }
   const options = {
     interaction: {
       axis: "x",
@@ -68,7 +89,7 @@ function MarketsChartLine(props) {
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
       tooltip: {
         callbacks: {
