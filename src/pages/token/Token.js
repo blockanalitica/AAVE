@@ -101,6 +101,7 @@ function Token(props) {
         slug={symbol}
         hasBorrow={hasBorrow}
         hasSupply={hasSupply}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
     </>

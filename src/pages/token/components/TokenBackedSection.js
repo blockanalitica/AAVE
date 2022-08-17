@@ -12,7 +12,7 @@ import SupplyBorrowChart from "./SupplyBorrowChart.js";
 import RateHistoryChart from "./RateHistoryChart.js";
 
 function TokenBackedSection(props) {
-  const { slug, hasBorrow, hasSupply, ...rest } = props;
+  const { slug, hasBorrow, hasSupply, isTokenCurrencyTotal, ...rest } = props;
   const [type, setType] = useState("supply_borrow");
   let [timePeriod, setTimePeriod] = useState(30);
 
@@ -50,7 +50,13 @@ function TokenBackedSection(props) {
 
   let content = null;
   if (type === "supply_borrow") {
-    content = <SupplyBorrowChart slug={slug} timePeriod={timePeriod} />;
+    content = (
+      <SupplyBorrowChart
+        slug={slug}
+        timePeriod={timePeriod}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+      />
+    );
   } else if (type === "rates") {
     content = <RateHistoryChart slug={slug} timePeriod={timePeriod} />;
   } else {
