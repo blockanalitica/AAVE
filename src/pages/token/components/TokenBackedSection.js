@@ -39,7 +39,7 @@ function TokenBackedSection(props) {
     tabs.push({ id: "collateral", text: `${slug} used as collateral` });
   }
   if (hasBorrow) {
-    tabs.push({ id: "backed", text: `${slug} backed by assets.` });
+    tabs.push({ id: "backed", text: `${slug} backed by assets` });
     tabs.push({ id: "backed-all", text: `${slug} backed by assets (all)` });
   }
 

@@ -61,7 +61,7 @@ function TokenAtRiskChart(props) {
         },
         title: {
           display: true,
-          text: "price drop",
+          text: "markets price drop",
         },
       },
       y: {
