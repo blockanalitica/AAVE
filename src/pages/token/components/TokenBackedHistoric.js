@@ -9,10 +9,10 @@ import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../utils/graph.j
 import { compact } from "../../../utils/number.js";
 
 function TokenBackedHistoric(props) {
-  const { slug, type, timePeriod } = props;
+  const { slug, type, timePeriod, withLtv } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `/aave/tokens/${slug}/backed/history/`,
-    { type: type, days_ago: timePeriod }
+    { type: type, days_ago: timePeriod, with_ltv: withLtv }
   );
 
   if (isLoading) {
@@ -59,6 +59,13 @@ function TokenBackedHistoric(props) {
           },
           label: (tooltipItem) => {
             return tooltipLabelNumber(tooltipItem);
+          },
+          footer: (tooltipItems) => {
+            const total = tooltipItems.reduce(
+              (total, tooltip) => total + tooltip.parsed.y,
+              0
+            );
+            return "Total: $" + compact(total, 2, true);
           },
         },
       },

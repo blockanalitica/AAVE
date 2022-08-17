@@ -200,7 +200,7 @@ function Graph(props) {
         bgColor = PROTECTION_SCORE_PALETTE[serie.protection_score];
       }
       if (serie.symbol) {
-        bgColor = SYMBOLS_PALETTE[serie.symbol] || "#03a9f4;";
+        bgColor = SYMBOLS_PALETTE[serie.symbol] || "#03a9f4";
       }
       return {
         backgroundColor: bgColor,
