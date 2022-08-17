@@ -5,6 +5,7 @@ import Value from "../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import styles from "./InfoCard.module.scss";
 import StatsBar from "../../../components/Stats/StatsBar.js";
+import ValueChange from "../../../components/Value/ValueChange.js";
 
 function InfoCard(props) {
   const { data } = props;
@@ -12,10 +13,12 @@ function InfoCard(props) {
     return null;
   }
 
+  const { change = {} } = data;
+
   let progressLabel = "success";
-  if (data.utilization > 0.8) {
+  if (data.utilization_rate > 0.75) {
     progressLabel = "danger";
-  } else if (data.utilization > 0.7) {
+  } else if (data.utilization_rate > 0.5) {
     progressLabel = "warning";
   }
 
@@ -32,18 +35,6 @@ function InfoCard(props) {
   }
 
   const totalStats = [
-    {
-      title: "price",
-      bigValue: (
-        <Value
-          value={data.underlying_price}
-          decimals={2}
-          prefix="$"
-          className="text-big"
-          compact100k
-        />
-      ),
-    },
     {
       title: "LTV",
       bigValue: (
@@ -74,6 +65,51 @@ function InfoCard(props) {
           decimals={2}
           suffix="%"
           className="text-big"
+        />
+      ),
+    },
+    {
+      title: "supply APY",
+      bigValue: (
+        <Value
+          value={data.supply_apy * 100}
+          decimals={2}
+          suffix="%"
+          className="text-big"
+          compact
+        />
+      ),
+      smallValue: (
+        <ValueChange
+          value={(data.supply_apy - change.supply_apy) * 100}
+          decimals={2}
+          suffix="%"
+          icon
+          hideIfZero
+          tooltipValue={change.supply_apy * 100}
+        />
+      ),
+    },
+    {
+      title: "borrow APY",
+      bigValue: (
+        <Value
+          value={data.borrow_variable_apy * 100}
+          decimals={2}
+          suffix="%"
+          className="text-big"
+          compact
+        />
+      ),
+      smallValue: (
+        <ValueChange
+          value={(data.borrow_variable_apy - change.borrow_variable_apy) * 100}
+          decimals={2}
+          suffix="%"
+          icon
+          hideIfZero
+          reverse
+          tooltipValue={change.borrow_variable_apy * 100}
         />
       ),
     },

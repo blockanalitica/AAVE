@@ -7,7 +7,7 @@ import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../utils/graph.j
 import { compact } from "../../../utils/number.js";
 
 function SupplyBorrowChart(props) {
-  const { slug, timePeriod } = props;
+  const { slug, timePeriod, isTokenCurrencyTotal } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `/aave/tokens/${slug}/historic-details/`,
     { days_ago: timePeriod }
@@ -23,17 +23,25 @@ function SupplyBorrowChart(props) {
   const supply = [];
   const tvl = [];
   data.forEach((row) => {
+    let y_borrow = row.total_borrow_usd;
+    let y_supply = row.total_supply_usd;
+    let y_ltv = row.available_liquidity * row.underlying_price;
+    if (isTokenCurrencyTotal) {
+      y_borrow = row.total_borrow;
+      y_supply = row.total_supply;
+      y_ltv = row.available_liquidity;
+    }
     borrow.push({
       x: row.dt,
-      y: row.total_borrow,
+      y: y_borrow,
     });
     supply.push({
       x: row.dt,
-      y: row.total_supply,
+      y: y_supply,
     });
     tvl.push({
       x: row.dt,
-      y: row.available_liquidity,
+      y: y_ltv,
     });
   });
 
