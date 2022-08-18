@@ -21,15 +21,21 @@ function SupplyBorrowChart(props) {
 
   const borrow = [];
   const supply = [];
+  const real_borrow = [];
+  const real_supply = [];
   const tvl = [];
   data.forEach((row) => {
     let y_borrow = row.total_borrow_usd;
     let y_supply = row.total_supply_usd;
+    let y_real_borrow = row.real_borrow_usd;
+    let y_real_supply = row.real_supply_usd;
     let y_ltv = row.available_liquidity * row.underlying_price;
     if (isTokenCurrencyTotal) {
       y_borrow = row.total_borrow;
       y_supply = row.total_supply;
       y_ltv = row.available_liquidity;
+      y_real_borrow = row.real_borrow;
+      y_real_supply = row.real_supply;
     }
     borrow.push({
       x: row.dt,
@@ -38,6 +44,14 @@ function SupplyBorrowChart(props) {
     supply.push({
       x: row.dt,
       y: y_supply,
+    });
+    real_borrow.push({
+      x: row.dt,
+      y: y_real_borrow,
+    });
+    real_supply.push({
+      x: row.dt,
+      y: y_real_supply,
     });
     tvl.push({
       x: row.dt,
@@ -51,8 +65,16 @@ function SupplyBorrowChart(props) {
       data: supply,
     },
     {
+      label: "real supply",
+      data: real_supply,
+    },
+    {
       label: "total borrow",
       data: borrow,
+    },
+    {
+      label: "real borrow",
+      data: real_borrow,
     },
     {
       label: "tvl",
