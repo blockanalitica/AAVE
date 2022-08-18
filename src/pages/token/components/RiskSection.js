@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SideTabNav from "../../../components/SideTab/SideTabNav.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import TokenAtRiskSection from "./TokenAtRiskSection.js";
+import DepegSection from "./DepegSection.js";
 
 function RiskSection(props) {
   const { slug } = props;
@@ -14,6 +15,13 @@ function RiskSection(props) {
   let content = null;
   if (type === "at-risk") {
     content = <TokenAtRiskSection slug={slug} />;
+  }
+
+  if (slug === "stETH") {
+    tabs.push({ id: "depeg", text: `${slug} price drop (depeg)` });
+    if (type === "depeg") {
+      content = <DepegSection slug={slug} />;
+    }
   }
 
   return (
