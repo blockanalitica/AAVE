@@ -34,6 +34,8 @@ function SupplyBorrowChart(props) {
       y_borrow = row.total_borrow;
       y_supply = row.total_supply;
       y_ltv = row.available_liquidity;
+      y_real_borrow = row.real_borrow;
+      y_real_supply = row.real_supply;
     }
     borrow.push({
       x: row.dt,
