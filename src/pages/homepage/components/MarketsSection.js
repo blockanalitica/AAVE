@@ -24,9 +24,9 @@ function MarketsSection(props) {
 
   const tabs = [
     { id: "at-risk", text: "collateral at risk" },
-    { id: "supply", text: "supply" },
-    { id: "borrow", text: "borrow" },
-    { id: "tvl", text: "tvl" },
+    { id: "supply", text: "total supply" },
+    { id: "borrow", text: "total borrow" },
+    { id: "tvl", text: "total TVL" },
   ];
 
   const timeSwitch = (
@@ -54,7 +54,7 @@ function MarketsSection(props) {
     description =
       "total borrow for all markets, real borrow removes recursive positions.";
   } else if (type === "tvl") {
-    title = `total tvl for last ${timePeriod} days`;
+    title = `total TVL for last ${timePeriod} days`;
   }
 
   if (type === "at-risk") {
