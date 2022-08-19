@@ -106,7 +106,9 @@ function Layout(props) {
       </Container>
 
       <footer className="d-flex justify-content-center align-items-baseline gray p-3 small mt-4">
-        <img src={baLogo} alt="blockanalitica" className={styles.footerLogo} />
+        <a href="https://blockanalitica.com">
+          <img src={baLogo} alt="blockanalitica" className={styles.footerLogo} />
+        </a>
         &copy;2022
       </footer>
     </>
