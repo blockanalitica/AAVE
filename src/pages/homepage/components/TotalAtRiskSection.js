@@ -28,7 +28,7 @@ function TotalAtRiskSection(props) {
       <Row>
         <Col xl={12}>
           <h4>collateral at risk</h4>
-          {description}
+          <p className="gray">{description}</p>
           <div className="d-flex flex-direction-row justify-content-end align-items-center">
             <TimeSwitch
               className="mb-3 justify-content-end"

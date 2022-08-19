@@ -8,21 +8,21 @@ function LiquidationsInfo(props) {
 
   const statsCard = [
     {
-      title: "Liquidations",
+      title: "liquidations",
       bigValue: <Value value={stats.count} decimals={0} />,
     },
     {
-      title: "Collateral seized",
+      title: "collateral seized",
       bigValue: (
         <Value value={stats.collateral_seized} decimals={2} prefix="$" compact />
       ),
     },
     {
-      title: "Debt repaid",
+      title: "debt repaid",
       bigValue: <Value value={stats.debt_repaid} decimals={2} prefix="$" compact />,
     },
     {
-      title: "Incentives",
+      title: "liquidation bonus",
       bigValue: (
         <Value
           value={stats.collateral_seized - stats.debt_repaid}

@@ -101,7 +101,7 @@ function TokenBackedSection(props) {
         </Col>
         <Col md={9}>
           <h4>{title}</h4>
-          <div className="mb-3">{description}</div>
+          <p className="gray">{description}</p>
           <TimeSwitch
             className="justify-content-end mb-3"
             activeOption={timePeriod}
