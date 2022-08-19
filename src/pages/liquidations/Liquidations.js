@@ -6,9 +6,7 @@ import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch } from "../../hooks";
 import LiquidationsTable from "./components/LiquidationsTable.js";
-import LiquidationsBarChart from "./components/LiquidationsBarChart.js";
-import CollateralSeizedChart from "./components/CollateralSeizedChart.js";
-import LiquidationShares from "./components/LiquidationShares";
+import LiquidationsSection from "./components/LiquidationsSection.js";
 import LiquidationsInfo from "./components/LiquidationsInfo.js";
 
 function PerLiquidationTab(props) {
@@ -49,15 +47,8 @@ function PerLiquidationTab(props) {
       </Col>
       {Object.keys(results).length > 0 ? (
         <>
-          <Col xl={6} className="mb-4">
-            <h3>liquidations</h3>
-            <LiquidationsBarChart results={results} daysAgo={daysAgo} />
-          </Col>
-          <Col xl={6} className="mb-4">
-            <CollateralSeizedChart daysAgo={daysAgo} />
-          </Col>
           <Col xl={12} className="mb-4">
-            <LiquidationShares daysAgo={daysAgo} />
+            <LiquidationsSection daysAgo={daysAgo} results={results} />
           </Col>
           <Col xl={12} className="mb-4">
             <LiquidationsTable daysAgo={daysAgo} />

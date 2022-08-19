@@ -22,6 +22,7 @@ function LiquidationsBarChart(props) {
   Object.entries(results).forEach(([key, rows]) => {
     series.push({
       label: key,
+      symbol: key,
       data: rows.map((row) => ({
         x: row["datetime"],
         y: row["collateral_seized_usd"],
@@ -76,7 +77,8 @@ function LiquidationsBarChart(props) {
   };
   return (
     <>
-      <p>Collateral sold in liquidations per certain time period.</p>
+      <h4>liquidations for last {daysAgo} days</h4>
+      <p>collateral sold in liquidations for selected timeframe.</p>
       <Graph series={series} options={options} type="bar" />
     </>
   );
