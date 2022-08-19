@@ -11,7 +11,7 @@ import MarketsChartBar from "./MarketsChartBar.js";
 import TotalAtRiskSection from "./TotalAtRiskSection.js";
 
 function MarketsSection(props) {
-  const [type, setType] = useState("supply");
+  const [type, setType] = useState("at-risk");
   const [timePeriod, setTimePeriod] = useState(30);
   const [currentTab, setCurrentTab] = useState("line");
 
