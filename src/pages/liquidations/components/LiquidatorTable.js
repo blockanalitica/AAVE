@@ -5,7 +5,6 @@ import { Col, Row } from "reactstrap";
 import EtherscanShort from "../../../components/EtherscanShort/EtherscanShort.js";
 import Loader from "../../../components/Loader/Loader.js";
 import RemoteTable from "../../../components/Table/RemoteTable.js";
-import WalletOrZapper from "../../../components/Other/WalletOrZapper.js";
 import Value from "../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
