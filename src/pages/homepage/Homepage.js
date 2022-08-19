@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Col, Row, Button } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.js";
 import Value from "../../components/Value/Value.js";
-import { Link } from "react-router-dom";
 import ValueChange from "../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle } from "../../hooks";
 import StatsBar from "../../components/Stats/StatsBar.js";
 import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
-import TotalAtRiskSection from "../risk/components/TotalAtRiskSection.js";
 import MarketsSection from "./components/MarketsSection.js";
+import MarketsTable from "./components/MarketsTable.js";
 
 function Homepage(props) {
   usePageTitle("Aave");
@@ -150,26 +149,22 @@ function Homepage(props) {
         </Col>
       </Row>
       <Row className="mb-4">
-        <h3>risk</h3>
-        <Col>
-          <TotalAtRiskSection />
-        </Col>
-      </Row>
-      <Row className="mb-4">
-        <Col>
-          <div className="text-center mb-4">
-            <Link to={`/markets/`} key="markets">
-              <Button color="primary">see all markets</Button>
-            </Link>
-          </div>
-        </Col>
-      </Row>
-      <Row className="mb-4">
-        <h3>markets</h3>
         <Col>
           <MarketsSection />
         </Col>
       </Row>
+      <Row className="mb-4">
+        <h3>top markets</h3>
+        <Col>
+          <MarketsTable daysAgo={timePeriod} />
+        </Col>
+      </Row>
+      {/* <Row className="mb-4">
+        <h3>risk</h3>
+        <Col>
+          <TotalAtRiskSection />
+        </Col>
+      </Row> */}
     </>
   );
 }
