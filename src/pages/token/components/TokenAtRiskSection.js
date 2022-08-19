@@ -22,14 +22,14 @@ function TokenAtRiskSection(props) {
 
   let description;
 
-  description = `Simulation of markets price drop (all assets fall for x% at the same time) and ${slug} is always used as collateral to liquidate. Each liquidation has max 5M debt size.`;
+  description = `Simulation of markets price drop (all assets fall for x% at the same time) and ${slug} is always used as collateral to liquidate. When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
 
   return (
     <div>
       <Row>
         <Col xl={12}>
           <h4>{slug} at risk</h4>
-          {description}
+          <p className="gray">{description}</p>
           <div className="d-flex flex-direction-row justify-content-end align-items-center">
             <TimeSwitch
               className="mb-3 justify-content-end"

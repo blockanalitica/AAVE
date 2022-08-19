@@ -82,7 +82,7 @@ function Wallets(props) {
   return (
     <>
       <h3 className="mb-4">wallets</h3>
-      <p>
+      <p className="gray">
         List of open positions in the protocol. When liquidation buffer is lower than 0,
         the position can be liquidated.
       </p>

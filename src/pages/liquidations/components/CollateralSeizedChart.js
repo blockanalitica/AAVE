@@ -68,7 +68,7 @@ function CollateralSeizedChart(props) {
           collateral seized per debt asset for last {daysAgo} days
         </h4>
       </div>
-      <p>
+      <p className="gray">
         shows which collateral was bought in liquidations per repaid borrowed asset for
         selected timeframe..
       </p>

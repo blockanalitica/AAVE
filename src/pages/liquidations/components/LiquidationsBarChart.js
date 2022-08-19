@@ -78,7 +78,7 @@ function LiquidationsBarChart(props) {
   return (
     <>
       <h4>liquidations for last {daysAgo} days</h4>
-      <p>collateral sold in liquidations for selected timeframe.</p>
+      <p className="gray">collateral sold in liquidations for selected timeframe.</p>
       <Graph series={series} options={options} type="bar" />
     </>
   );

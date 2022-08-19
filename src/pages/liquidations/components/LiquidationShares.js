@@ -99,7 +99,7 @@ function LiquidationShares(props) {
   return (
     <>
       <h4>{title}</h4>
-      <p>{description}</p>
+      <p className="gray">{description}</p>
       <Graph series={newSeries} options={options} type="bar" />
       {type === "top_ten" ? (
         <Col className="text-center mt-4">

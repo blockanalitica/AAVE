@@ -10,6 +10,7 @@ import { UncontrolledTooltip } from "reactstrap";
 import WalletOrZapper from "../../../components/Other/WalletOrZapper.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
+import { useNavigate } from "react-router-dom";
 import { parseUTCDateTime } from "../../../utils/datetime.js";
 import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +20,7 @@ import styles from "./LiquidationsTable.module.scss";
 import _ from "lodash";
 
 function LiquidationsTable(props) {
+  const navigate = useNavigate();
   const pageSize = 10;
   const { daysAgo } = props;
   const [page, setPage] = useState(1);
@@ -46,6 +48,10 @@ function LiquidationsTable(props) {
     return _.uniqueId("amount-");
   };
 
+  const onRowClick = (row) => {
+    navigate(`/wallets/${row.debt_wallet}/`);
+  };
+
   return (
     <>
       <div className="mb-3 d-flex flex-direction-row align-items-center justify-content-end">
@@ -63,7 +69,7 @@ function LiquidationsTable(props) {
       <RemoteTable
         loading={isPreviousData}
         keyField="id"
-        hover={false}
+        onRowClick={onRowClick}
         data={data.results}
         columns={[
           {
