@@ -68,7 +68,7 @@ function MarketsSection(props) {
     content = (
       <>
         <h4>{title}</h4>
-        <p>{description}</p>
+        <p className="gray">{description}</p>
         {timeswitchContent}
         <IconTabs
           activeTab={currentTab}

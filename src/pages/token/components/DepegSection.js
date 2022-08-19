@@ -22,14 +22,17 @@ function DepegSection(props) {
 
   let description;
 
-  description = `Simulation of ${slug} price drop (all other assets stay at current price). Each liquidation has max 5M debt size.`;
-
+  if (slug === "stETH") {
+    description = `Simulation of ${slug} depeg from ETH (all other assets stay at current price). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
+  } else {
+    description = `Simulation of ${slug} price drop (all other assets stay at current price). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
+  }
   return (
     <div>
       <Row>
         <Col xl={12}>
           <h4>{slug} at risk</h4>
-          {description}
+          <p className="gray">{description}</p>
           <div className="d-flex flex-direction-row justify-content-end align-items-center">
             <TimeSwitch
               className="mb-3 justify-content-end"

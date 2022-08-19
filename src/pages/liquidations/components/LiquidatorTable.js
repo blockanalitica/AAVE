@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 
@@ -10,13 +11,19 @@ import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { parseUTCDateTime } from "../../../utils/datetime.js";
 import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
+import { useNavigate } from "react-router-dom";
+import { UncontrolledTooltip } from "reactstrap";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
+import styles from "./LiquidationsTable.module.scss";
 
 function LiquidatorTable(props) {
   const { address, daysAgo } = props;
   const pageSize = 25;
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState(null);
-
+  const navigate = useNavigate();
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
     `aave/liquidations/liquidator/${address}`,
     {
@@ -34,51 +41,44 @@ function LiquidatorTable(props) {
     return <ErrorFallbackComponent />;
   }
 
+  const uniqueId = () => {
+    return _.uniqueId("amount-");
+  };
+
+  const onRowClick = (row) => {
+    navigate(`/wallets/${row.debt_wallet}/`);
+  };
+
   return (
     <>
       <Row>
         <Col className="mb-4">
           <RemoteTable
             loading={isPreviousData}
-            hover={false}
+            onRowClick={onRowClick}
             keyField="id"
             data={data.results}
             columns={[
               {
-                dataField: "timestamp",
-                text: "Date",
-                formatter: (cell, row) => (
-                  <DateTimeAgo dateTime={parseUTCDateTime(cell)} />
-                ),
-                sort: true,
-              },
-              {
-                dataField: "block_number",
-                text: "Block Number",
-                sort: true,
-              },
-              {
-                dataField: "tx_hash",
-                text: "Tx Hash",
-                formatter: (cell) => <EtherscanShort address={cell} type="txhash" />,
-              },
-              {
-                dataField: "debt_owner",
-                text: "Debt Owner",
+                dataField: "collateral_symbol",
+                text: "token",
                 formatter: (cell, row) => {
+                  let collId = uniqueId();
+                  let debtId = uniqueId();
                   return (
-                    <WalletOrZapper
-                      address={cell}
-                      isZapper={!row.debt_wallet}
-                      key={cell}
-                    />
+                    <span className={styles.liquidationIcons}>
+                      <CryptoIcon name={row.debt_symbol} size="2em" id={debtId} />
+                      <UncontrolledTooltip placement="bottom" target={debtId}>
+                        {row.debt_symbol}
+                      </UncontrolledTooltip>
+                      <FontAwesomeIcon icon={faArrowRight} />
+                      <CryptoIcon name={cell} size="2em" id={collId} />
+                      <UncontrolledTooltip placement="bottom" target={collId}>
+                        {cell}
+                      </UncontrolledTooltip>
+                    </span>
                   );
                 },
-              },
-              {
-                dataField: "debt_token_price",
-                text: "Debt Token Price",
-                formatter: (cell) => <Value value={cell} decimals={2} prefix="$" />,
               },
               {
                 dataField: "debt_repaid",
@@ -88,6 +88,8 @@ function LiquidatorTable(props) {
                     <Value value={cell} decimals={2} compact /> {row.debt_symbol}
                   </>
                 ),
+                headerAlign: "right",
+                align: "right",
               },
               {
                 dataField: "debt_repaid_usd",
@@ -96,11 +98,8 @@ function LiquidatorTable(props) {
                 formatter: (cell) => (
                   <Value value={cell} decimals={2} prefix="$" compact />
                 ),
-              },
-              {
-                dataField: "collateral_token_price",
-                text: "Collateral Token Price",
-                formatter: (cell) => <Value value={cell} decimals={2} prefix="$" />,
+                headerAlign: "right",
+                align: "right",
               },
               {
                 dataField: "collateral_seized",
@@ -110,6 +109,8 @@ function LiquidatorTable(props) {
                     <Value value={cell} decimals={2} compact /> {row.collateral_symbol}
                   </>
                 ),
+                headerAlign: "right",
+                align: "right",
               },
               {
                 dataField: "collateral_seized_usd",
@@ -118,6 +119,28 @@ function LiquidatorTable(props) {
                 formatter: (cell) => (
                   <Value value={cell} decimals={2} prefix="$" compact />
                 ),
+                headerAlign: "right",
+                align: "right",
+              },
+              {
+                dataField: "tx_hash",
+                text: "Tx Hash",
+                formatter: (cell) => <EtherscanShort address={cell} type="txhash" />,
+              },
+
+              {
+                dataField: "timestamp",
+                text: "Date",
+                sort: true,
+                formatter: (cell, row) => (
+                  <>
+                    <DateTimeAgo dateTime={parseUTCDateTime(cell)} />
+                    <br />
+                    <small>{row.block_number}</small>
+                  </>
+                ),
+                headerAlign: "right",
+                align: "right",
               },
             ]}
             page={page}

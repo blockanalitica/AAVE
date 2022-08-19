@@ -21,23 +21,23 @@ function LiquidatorStats(props) {
 
   const statsCard = [
     {
-      title: "Address",
+      title: "address",
       bigValue: <WalletOrZapper address={address} isZapper key={address} />,
     },
     {
-      title: "Liquidations",
+      title: "liquidations",
       bigValue: <Value value={data.count} decimals={0} />,
     },
     {
-      title: "Debt repaid",
+      title: "debt repaid",
       bigValue: <Value value={data.total_debt} decimals={2} prefix="$" compact />,
     },
     {
-      title: "Collateral seized",
+      title: "collateral seized",
       bigValue: <Value value={data.total_collateral} decimals={2} prefix="$" compact />,
     },
     {
-      title: "Incentives",
+      title: "liquidation bonus",
       bigValue: <Value value={data.total_profits} decimals={2} prefix="$" compact />,
     },
   ];

@@ -21,13 +21,13 @@ function TotalAtRiskSection(props) {
   let description;
 
   description =
-    "Simulation of markets price drop (all assets fall for x% at the same time). When wallet reach health rate under 1, 50% of debt position is liquidated.";
+    "Simulation of markets price drop (all assets fall for x% at the same time). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.";
 
   return (
     <div>
       <Row>
         <Col xl={12}>
-          {description}
+          <p className="gray">{description}</p>
           <div className="d-flex flex-direction-row justify-content-end align-items-center">
             <TimeSwitch
               className="mb-3 justify-content-end"

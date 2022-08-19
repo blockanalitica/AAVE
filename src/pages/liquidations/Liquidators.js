@@ -45,21 +45,21 @@ function Liquidators(props) {
 
   const statsCard = [
     {
-      title: "Liquidations",
+      title: "liquidations",
       bigValue: <Value value={stats.liquidations} decimals={0} />,
     },
     {
-      title: "Debt repaid",
+      title: "debt repaid",
       bigValue: <Value value={stats.total_debt} decimals={2} prefix="$" compact />,
     },
     {
-      title: "Collateral seized",
+      title: "collateral seized",
       bigValue: (
         <Value value={stats.total_collateral} decimals={2} prefix="$" compact />
       ),
     },
     {
-      title: "Incentives",
+      title: "liquidation bonus",
       bigValue: <Value value={stats.total_profits} decimals={2} prefix="$" compact />,
     },
   ];
@@ -99,36 +99,48 @@ function Liquidators(props) {
           dataField: "liquidations",
           text: "Liquidations",
           sort: true,
+          headerAlign: "right",
+          align: "right",
         },
         {
           dataField: "total_debt",
           text: "Total Debt Repaid",
           sort: true,
           formatter: (cell) => <Value value={cell} decimals={2} prefix="$" compact />,
+          headerAlign: "right",
+          align: "right",
         },
         {
           dataField: "total_collateral",
           text: "Total Collateral Seized",
           sort: true,
           formatter: (cell) => <Value value={cell} decimals={2} prefix="$" compact />,
+          headerAlign: "right",
+          align: "right",
         },
         {
           dataField: "total_profits",
           text: "Total Profits",
           sort: true,
           formatter: (cell) => <Value value={cell} decimals={2} prefix="$" compact />,
+          headerAlign: "right",
+          align: "right",
         },
         {
           dataField: "share",
           text: "Share",
           sort: true,
           formatter: (cell) => <Value value={cell} decimals={2} suffix="%" />,
+          headerAlign: "right",
+          align: "right",
         },
         {
           dataField: "last_active",
           text: "Last Active",
           formatter: (cell, row) => <DateTimeAgo dateTime={parseUTCDateTime(cell)} />,
           sort: true,
+          headerAlign: "right",
+          align: "right",
         },
       ]}
     />
