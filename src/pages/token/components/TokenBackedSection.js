@@ -21,19 +21,23 @@ function TokenBackedSection(props) {
     { key: 30, value: "30 days" },
     { key: 90, value: "90 days" },
   ];
-
+  let title;
   let description;
   if (type === "backed") {
+    title = `${slug} backed by assets for last ${timePeriod} days`;
+
     description = `assets in chart are backing borrowed ${slug}. In this case we are counting only actively backed asset amounts (Total ${slug} borrowed + LTV buffer)`;
   } else if (type === "backed-all") {
+    title = `${slug} backed by assets for last ${timePeriod} days`;
     description = `assets in chart are backing borrowed ${slug}. In this case we are counting all backed asset amounts.`;
   } else if (type === "collateral") {
+    title = `${slug} used as collateral for last ${timePeriod} days`;
     description = `${slug} used as collateral to borrow assets in chart.`;
   }
 
   let tabs = [
     { id: "supply_borrow", text: "supply/borrow history" },
-    { id: "rates", text: "rates history" },
+    { id: "rates", text: "rates" },
   ];
   if (hasSupply) {
     tabs.push({ id: "collateral", text: `${slug} used as collateral` });
@@ -49,7 +53,10 @@ function TokenBackedSection(props) {
   }
 
   let content = null;
+
   if (type === "supply_borrow") {
+    title = `total supply/borrow for last ${timePeriod} days`;
+    description = `total supply/borrow for ${slug}, real supply/borrow removes recursive positions.`;
     content = (
       <SupplyBorrowChart
         slug={slug}
@@ -58,6 +65,8 @@ function TokenBackedSection(props) {
       />
     );
   } else if (type === "rates") {
+    title = `rates for last ${timePeriod} days`;
+    description = `supply/borrow APY changes`;
     content = <RateHistoryChart slug={slug} timePeriod={timePeriod} />;
   } else {
     content = (
@@ -91,6 +100,7 @@ function TokenBackedSection(props) {
           <SideTabNav activeTab={type} toggleTab={setType} tabs={tabs} />
         </Col>
         <Col md={9}>
+          <h4>{title}</h4>
           <div className="mb-3">{description}</div>
           <TimeSwitch
             className="justify-content-end mb-3"
@@ -99,6 +109,7 @@ function TokenBackedSection(props) {
             onChange={setTimePeriod}
             options={options}
           />
+
           {content}
         </Col>
       </Row>
