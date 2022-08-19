@@ -23,6 +23,7 @@ function CollateralSeizedChart(props) {
   Object.entries(data).forEach(([key, rows]) => {
     series.push({
       label: key,
+      symbol: key,
       data: rows.map((row) => ({
         x: row["debt_symbol"],
         y: row["collateral_seized_usd"],
@@ -63,10 +64,13 @@ function CollateralSeizedChart(props) {
   return (
     <>
       <div className="d-flex">
-        <h5 className="flex-grow-1">collateral seized per debt asset</h5>
+        <h4 className="flex-grow-1">
+          collateral seized per debt asset for last {daysAgo} days
+        </h4>
       </div>
       <p>
-        Shows which collateral was bought in liquidations per repaid borrowed asset.
+        shows which collateral was bought in liquidations per repaid borrowed asset for
+        selected timeframe..
       </p>
       <Graph series={series} options={options} type="bar" />
     </>

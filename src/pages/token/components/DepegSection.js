@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 import IconTabs from "../../../components/Tabs/IconTabs.js";
 import { withErrorBoundary } from "../../../hoc.js";
-import TokenAtRiskChart from "./TokenAtRiskChart.js";
+import TokenDepegChart from "./TokenDepegChart.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 
-function TokenAtRiskSection(props) {
+function DepegSection(props) {
   const { slug, isTokenCurrencyTotal } = props;
 
   const [drop, setDrop] = useState(80);
@@ -22,7 +22,7 @@ function TokenAtRiskSection(props) {
 
   let description;
 
-  description = `Simulation of markets price drop (all assets fall for x% at the same time) and ${slug} is always used as collateral to liquidate. Each liquidation has max 5M debt size.`;
+  description = `Simulation of ${slug} price drop (all other assets stay at current price). Each liquidation has max 5M debt size.`;
 
   return (
     <div>
@@ -45,7 +45,7 @@ function TokenAtRiskSection(props) {
               {
                 title: <FontAwesomeIcon icon={faChartLine} />,
                 content: (
-                  <TokenAtRiskChart
+                  <TokenDepegChart
                     slug={slug}
                     drop={drop}
                     chartType="line"
@@ -56,7 +56,7 @@ function TokenAtRiskSection(props) {
               {
                 title: <FontAwesomeIcon icon={faChartBar} />,
                 content: (
-                  <TokenAtRiskChart
+                  <TokenDepegChart
                     slug={slug}
                     drop={drop}
                     chartType="bar"
@@ -73,4 +73,4 @@ function TokenAtRiskSection(props) {
   );
 }
 
-export default withErrorBoundary(TokenAtRiskSection);
+export default withErrorBoundary(DepegSection);

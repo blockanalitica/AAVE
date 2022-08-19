@@ -1,17 +1,8 @@
-import { faChartArea, faTable } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from "prop-types";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import { Link } from "react-router-dom";
-import Address from "../../../components/Address/Address.js";
-import { Button, Col, Row } from "reactstrap";
-import React, { useState } from "react";
-import SideTabNav from "../../../components/SideTab/SideTabNav.js";
-import BootstrapTable from "react-bootstrap-table-next";
+import { Button, Col } from "reactstrap";
+import React from "react";
 import Graph from "../../../components/Graph/Graph.js";
 import Loader from "../../../components/Loader/Loader.js";
-import IconTabs from "../../../components/Tabs/IconTabs.js";
-import Value from "../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { compact } from "../../../utils/number.js";
@@ -23,8 +14,7 @@ import {
 } from "../../../utils/graph.js";
 
 function LiquidationShares(props) {
-  const { daysAgo, address } = props;
-  const [type, setType] = useState("collateral");
+  const { type, daysAgo, address } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     "aave/liquidations/share/",
     { type, days_ago: daysAgo, address }
@@ -87,15 +77,16 @@ function LiquidationShares(props) {
   let title;
   if (type === "collateral") {
     description =
-      "Shows distribution of bought collateral assets in the protocol since April 2021.";
-    title = "collateral seized";
+      "shows distribution of bought collateral assets in the protocol for selected timeframe.";
+    title = `collateral seized for last ${daysAgo} days`;
   } else if (type === "debt") {
     description =
-      "Shows distribution of repaid borrowed assets in the protocol since April 2021.";
-    title = "debt repaid";
+      "shows distribution of repaid borrowed assets in the protocol for selected timeframe.";
+    title = `debt repaid for last ${daysAgo} days`;
   } else {
-    description = "Shows distribution of volume in liquidation events per liquidator.";
-    title = "top ten liquidators";
+    description =
+      "shows distribution of volume in liquidation events per liquidator for selected timeframe.";
+    title = `top ten liquidators for last ${daysAgo} days`;
     options["scales"]["x"] = {
       ticks: {
         callback: function (value, index, ticks) {
@@ -104,113 +95,23 @@ function LiquidationShares(props) {
       },
     };
   }
-  return (
-    <Row>
-      <Col md={3}>
-        <SideTabNav
-          activeTab={type}
-          toggleTab={setType}
-          tabs={[
-            { id: "collateral", text: "collateral seized" },
-            { id: "debt", text: "debt repaid" },
-            { id: "top_ten", text: "top 10 liquidators" },
-          ]}
-        />
-      </Col>
-      <Col md={9}>
-        <IconTabs
-          name={title}
-          description={description}
-          tabs={[
-            {
-              title: <FontAwesomeIcon icon={faChartArea} />,
-              content: (
-                <>
-                  <Graph series={newSeries} options={options} type="bar" />
-                  {type === "top_ten" ? (
-                    <Col className="text-center mt-4">
-                      <Link to={`/liquidations/liquidators/?daysAgo=${daysAgo}`}>
-                        <Button color="primary">View More</Button>
-                      </Link>
-                    </Col>
-                  ) : (
-                    <></>
-                  )}
-                </>
-              ),
-            },
-            {
-              title: <FontAwesomeIcon icon={faTable} />,
-              content: (
-                <>
-                  <BootstrapTable
-                    wrapperClasses="mt-3"
-                    bootstrap4
-                    bordered={false}
-                    keyField="key"
-                    defaultSorted={[
-                      {
-                        dataField: "share",
-                        order: "desc",
-                      },
-                    ]}
-                    pagination={paginationFactory({
-                      sizePerPageList: [],
-                      sizePerPage: 5,
-                      showTotal: true,
-                    })}
-                    data={data}
-                    columns={[
-                      {
-                        dataField: "key",
-                        text: "Symbol",
-                        sort: true,
-                        formatter: (cell) =>
-                          cell.length === 42 ? (
-                            <Link to={`/wallets/${cell}/`} key={cell}>
-                              <Address value={cell} short />
-                            </Link>
-                          ) : (
-                            cell
-                          ),
-                      },
 
-                      {
-                        dataField: "value",
-                        text: "Total",
-                        sort: true,
-                        headerAlign: "right",
-                        align: "right",
-                        formatter: (cell, row) => (
-                          <Value value={cell} decimals={2} prefix="$" compact />
-                        ),
-                      },
-                      {
-                        dataField: "share",
-                        text: "Share",
-                        sort: true,
-                        headerAlign: "right",
-                        align: "right",
-                        formatter: (cell) => (
-                          <Value value={cell} decimals={2} suffix="%" />
-                        ),
-                      },
-                    ]}
-                  />
-                </>
-              ),
-            },
-          ]}
-        />
-      </Col>
-    </Row>
+  return (
+    <>
+      <h4>{title}</h4>
+      <p>{description}</p>
+      <Graph series={newSeries} options={options} type="bar" />
+      {type === "top_ten" ? (
+        <Col className="text-center mt-4">
+          <Link to={`/liquidations/liquidators/?daysAgo=${daysAgo}`}>
+            <Button color="primary">View More</Button>
+          </Link>
+        </Col>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
-
-LiquidationShares.propTypes = {
-  type: PropTypes.string,
-  address: PropTypes.string,
-  daysAgo: PropTypes.number.isRequired,
-};
 
 export default withErrorBoundary(LiquidationShares);
