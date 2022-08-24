@@ -38,8 +38,8 @@ function TokenBackedSection(props) {
 
   let tabs = [
     { id: "supply_borrow", text: "supply/borrow history" },
-    { id: "rates", text: "rates" },
-    { id: "utilization", text: `utilization` },
+    { id: "rates", text: "rates history" },
+    { id: "utilization", text: "utilization history" },
   ];
   if (hasSupply) {
     tabs.push({ id: "collateral", text: `${slug} used as collateral` });
