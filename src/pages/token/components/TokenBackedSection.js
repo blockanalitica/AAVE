@@ -10,6 +10,7 @@ import TokenBackedHistoric from "./TokenBackedHistoric.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 import SupplyBorrowChart from "./SupplyBorrowChart.js";
 import RateHistoryChart from "./RateHistoryChart.js";
+import UtilizationChart from "./UtilizationChart.js";
 
 function TokenBackedSection(props) {
   const { slug, hasBorrow, hasSupply, isTokenCurrencyTotal, ...rest } = props;
@@ -38,6 +39,7 @@ function TokenBackedSection(props) {
   let tabs = [
     { id: "supply_borrow", text: "supply/borrow history" },
     { id: "rates", text: "rates" },
+    { id: "utilization", text: `utilization` },
   ];
   if (hasSupply) {
     tabs.push({ id: "collateral", text: `${slug} used as collateral` });
@@ -64,6 +66,10 @@ function TokenBackedSection(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
       />
     );
+  } else if (type === "utilization") {
+    title = `utilization for last ${timePeriod} days`;
+    description = "";
+    content = <UtilizationChart slug={slug} timePeriod={timePeriod} />;
   } else if (type === "rates") {
     title = `rates for last ${timePeriod} days`;
     description = `supply/borrow APY changes`;
