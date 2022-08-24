@@ -26,7 +26,7 @@ function InfoCard(props) {
   if (data.borrow_stable_apy) {
     stable_borrow = (
       <Value
-        value={data.borrow_stable_apy}
+        value={data.borrow_stable_apy * 100}
         decimals={2}
         suffix="%"
         className="text-big"
