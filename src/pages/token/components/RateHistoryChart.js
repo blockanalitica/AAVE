@@ -21,6 +21,7 @@ function RateHistoryChart(props) {
 
   const borrow = [];
   const supply = [];
+  const stable_borrow_apy = [];
   data.forEach((row) => {
     borrow.push({
       x: row.dt,
@@ -29,6 +30,10 @@ function RateHistoryChart(props) {
     supply.push({
       x: row.dt,
       y: row.supply_apy * 100,
+    });
+    stable_borrow_apy.push({
+      x: row.dt,
+      y: row.stable_borrow_apy * 100,
     });
   });
 
@@ -40,6 +45,10 @@ function RateHistoryChart(props) {
     {
       label: "borrow APY",
       data: borrow,
+    },
+    {
+      label: "borrow stable APY",
+      data: stable_borrow_apy,
     },
   ];
 

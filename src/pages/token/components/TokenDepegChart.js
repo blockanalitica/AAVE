@@ -6,7 +6,7 @@ import { useFetch } from "../../../hooks";
 import { compact } from "../../../utils/number.js";
 
 function TokenDepegChart(props) {
-  const { slug, drop, isTokenCurrencyTotal, chartType } = props;
+  const { slug, drop, isTokenCurrencyTotal, chartType, showPrice } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `aave/tokens/${slug}/at-risk/depeg/`
@@ -20,8 +20,6 @@ function TokenDepegChart(props) {
   if (!data) {
     return <div>No data</div>;
   }
-
-  console.log(data);
 
   const amounts = [];
   data.forEach((row) => {
@@ -40,8 +38,14 @@ function TokenDepegChart(props) {
           y = row["total_amount_usd"];
         }
       }
+      let x;
+      if (showPrice) {
+        x = row["price_drop"];
+      } else {
+        x = row["drop"];
+      }
 
-      amounts.push({ x: row["drop"], y: y });
+      amounts.push({ x: x, y: y });
     }
   });
   const series = [
@@ -49,6 +53,11 @@ function TokenDepegChart(props) {
       data: amounts,
     },
   ];
+
+  let text = slug + " price";
+  if (!showPrice) {
+    text = slug + " depeg";
+  }
 
   const options = {
     fill: true,
@@ -59,12 +68,19 @@ function TokenDepegChart(props) {
       x: {
         type: "linear",
         ticks: {
-          callback: (value) => `-${value}%`,
+          callback: (value) => {
+            let xTick = "$" + value;
+            if (!showPrice) {
+              xTick = "-" + value + "%";
+            }
+            return xTick;
+          },
         },
         title: {
           display: true,
-          text: `${slug} depeg`,
+          text: text,
         },
+        reverse: showPrice,
       },
       y: {
         ticks: {
@@ -89,7 +105,11 @@ function TokenDepegChart(props) {
       tooltip: {
         callbacks: {
           title: (tooltipItems) => {
-            return `At ${compact(tooltipItems[0].parsed.x, 2)}% depeg`;
+            if (showPrice) {
+              return `At $${compact(tooltipItems[0].parsed.x, 2)} price`;
+            } else {
+              return `At ${compact(tooltipItems[0].parsed.x, 2)}% depeg`;
+            }
           },
           label: (tooltipItem) => {
             let label = `Total ${slug} at risk: `;

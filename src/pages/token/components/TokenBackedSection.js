@@ -91,7 +91,7 @@ function TokenBackedSection(props) {
           },
           {
             title: <FontAwesomeIcon icon={faChartBar} />,
-            content: <TokenBackedChart slug={slug} type={type} />,
+            content: <TokenBackedChart slug={slug} type={type} withLtv={withLtv} />,
           },
         ]}
         label="charts:"
