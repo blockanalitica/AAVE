@@ -86,6 +86,10 @@ function Wallets(props) {
         List of open positions in the protocol. When liquidation buffer is lower than 0,
         the position can be liquidated.
       </p>
+      <p className="gray">
+        *drop: markets price drop for wallet to be liquidated. All assets fall for x% at
+        the same time (excluding stable coins)
+      </p>
       <ToolkitProvider
         bootstrap4
         search
@@ -142,6 +146,14 @@ function Wallets(props) {
             text: "Health rate",
             sort: true,
             formatter: (cell, row) => <Value value={cell} decimals={2} />,
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "liquidation_drop",
+            text: "Drop*",
+            sort: true,
+            formatter: (cell, row) => <Value value={cell} decimals={2} suffix="%" />,
             headerAlign: "right",
             align: "right",
           },

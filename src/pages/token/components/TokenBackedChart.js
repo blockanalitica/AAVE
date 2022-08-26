@@ -8,11 +8,11 @@ import { compact } from "../../../utils/number.js";
 import { SYMBOLS_PALETTE } from "../../../utils/colors.js";
 
 function TokenBackedChart(props) {
-  const { slug, type } = props;
+  const { slug, type, withLtv } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `aave/tokens/${slug}/backed/`,
-    { type }
+    { type: type, with_ltv: withLtv }
   );
 
   if (isLoading) {
