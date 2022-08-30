@@ -19,10 +19,12 @@ function RiskSection(props) {
 
   let showPrice = true;
 
+  const price_drop_market = ["USDC", "DAI"];
+
   if (slug === "stETH") {
     tabs.push({ id: "depeg", text: `${slug} price drop (depeg)` });
     showPrice = false;
-  } else {
+  } else if (price_drop_market.includes(slug)) {
     tabs.push({ id: "depeg", text: `${slug} price drop` });
   }
   if (type === "depeg") {
