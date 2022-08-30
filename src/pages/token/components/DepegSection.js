@@ -8,9 +8,9 @@ import TokenDepegChart from "./TokenDepegChart.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 
 function DepegSection(props) {
-  const { slug, isTokenCurrencyTotal } = props;
+  const { slug, isTokenCurrencyTotal, showPrice } = props;
 
-  const [drop, setDrop] = useState(80);
+  const [drop, setDrop] = useState(99);
 
   const dropOptions = [
     { key: 5, value: "5%" },
@@ -18,14 +18,15 @@ function DepegSection(props) {
     { key: 25, value: "25%" },
     { key: 50, value: "50%" },
     { key: 80, value: "80%" },
+    { key: 99, value: "99%" },
   ];
 
   let description;
 
   if (slug === "stETH") {
-    description = `Simulation of ${slug} depeg from ETH (all other assets stay at current price). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
+    description = `Simulation of ${slug} depeg from ETH (all other assets stay at current prices). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
   } else {
-    description = `Simulation of ${slug} price drop (all other assets stay at current price). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
+    description = `Simulation of ${slug} price drop (all other assets stay at current prices). When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.`;
   }
   return (
     <div>
@@ -51,6 +52,7 @@ function DepegSection(props) {
                   <TokenDepegChart
                     slug={slug}
                     drop={drop}
+                    showPrice={showPrice}
                     chartType="line"
                     isTokenCurrencyTotal={isTokenCurrencyTotal}
                   />
@@ -62,6 +64,7 @@ function DepegSection(props) {
                   <TokenDepegChart
                     slug={slug}
                     drop={drop}
+                    showPrice={showPrice}
                     chartType="bar"
                     isTokenCurrencyTotal={isTokenCurrencyTotal}
                   />
