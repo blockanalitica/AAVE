@@ -40,6 +40,7 @@ function InfoCard(props) {
         suffix="%"
         icon
         hideIfZero
+        reverse
         tooltipValue={change.borrow_stable_apy * 100}
       />
     );
