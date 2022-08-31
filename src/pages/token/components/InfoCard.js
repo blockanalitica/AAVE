@@ -23,6 +23,7 @@ function InfoCard(props) {
   }
 
   let stable_borrow = "-";
+  let stable_borrow_change = null;
   if (data.borrow_stable_apy) {
     stable_borrow = (
       <Value
@@ -30,6 +31,17 @@ function InfoCard(props) {
         decimals={2}
         suffix="%"
         className="text-big"
+      />
+    );
+    stable_borrow_change = (
+      <ValueChange
+        value={(data.borrow_stable_apy - change.borrow_stable_apy) * 100}
+        decimals={2}
+        suffix="%"
+        icon
+        hideIfZero
+        reverse
+        tooltipValue={change.borrow_stable_apy * 100}
       />
     );
   }
@@ -116,6 +128,7 @@ function InfoCard(props) {
     {
       title: "borrow stable APY",
       bigValue: stable_borrow,
+      smallValue: stable_borrow_change,
     },
     {
       title: "utilization",
@@ -129,6 +142,17 @@ function InfoCard(props) {
           ></Progress>
           <Value value={data.utilization_rate * 100} decimals={2} suffix="%" />
         </>
+      ),
+      smallValue: (
+        <ValueChange
+          value={(data.utilization_rate - change.utilization_rate) * 100}
+          decimals={2}
+          suffix="%"
+          icon
+          hideIfZero
+          reverse
+          tooltipValue={change.utilization_rate * 100}
+        />
       ),
     },
   ];
