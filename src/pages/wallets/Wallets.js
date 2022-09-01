@@ -158,6 +158,13 @@ function Wallets(props) {
             align: "right",
           },
           {
+            dataField: "protection_score",
+            text: "risk",
+            sort: true,
+            headerAlign: "center",
+            align: "center",
+          },
+          {
             dataField: "first_activity",
             text: "first activity",
             sort: true,
