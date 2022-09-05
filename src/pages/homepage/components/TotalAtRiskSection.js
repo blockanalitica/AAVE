@@ -1,4 +1,4 @@
-import { faChartBar, faChartLine } from "@fortawesome/free-solid-svg-icons";
+import { faChartBar, faChartArea } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
@@ -42,7 +42,7 @@ function TotalAtRiskSection(props) {
           <IconTabs
             tabs={[
               {
-                title: <FontAwesomeIcon icon={faChartLine} />,
+                title: <FontAwesomeIcon icon={faChartArea} />,
                 content: <TotalAtRiskChart drop={drop} chartType="line" />,
               },
               {

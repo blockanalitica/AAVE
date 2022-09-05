@@ -5,6 +5,7 @@ import Loader from "../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { compact } from "../../../utils/number.js";
+import { tooltipLabelNumber } from "../../../utils/graph.js";
 
 function TokenAtRiskChart(props) {
   const { slug, drop, isTokenCurrencyTotal, chartType } = props;
@@ -96,21 +97,21 @@ function TokenAtRiskChart(props) {
       tooltip: {
         callbacks: {
           title: (tooltipItems) => {
-            return `At ${compact(tooltipItems[0].parsed.x, 2)}% market drop`;
+            return `At ${tooltipItems[0].parsed.x}% markets price drop`;
           },
           label: (tooltipItem) => {
-            let label = `Total ${slug} at risk: `;
-            let info;
-
-            if (tooltipItem.parsed.y !== null) {
-              if (isTokenCurrencyTotal) {
-                info = compact(tooltipItem.parsed.y, 2, true) + ` ${slug}`;
-              } else {
-                info = "$" + compact(tooltipItem.parsed.y, 2, true);
-              }
-              label += info;
+            if (isTokenCurrencyTotal) {
+              return tooltipLabelNumber(tooltipItem, null, ` ${slug}`);
+            } else {
+              return tooltipLabelNumber(tooltipItem, "$");
             }
-            return label;
+          },
+          footer: (tooltipItems) => {
+            const total = tooltipItems.reduce(
+              (total, tooltip) => total + tooltip.parsed.y,
+              0
+            );
+            return "Total: $" + compact(total, 2, true);
           },
         },
       },
