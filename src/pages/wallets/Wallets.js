@@ -154,7 +154,13 @@ function Wallets(props) {
             dataField: "liquidation_drop",
             text: "Drop*",
             sort: true,
-            formatter: (cell, row) => <Value value={cell} decimals={2} suffix="%" />,
+            formatter: (cell, row) => {
+              if (cell === null) {
+                return "80%+";
+              } else {
+                return <Value value={cell} decimals={2} suffix="%" />;
+              }
+            },
             headerAlign: "right",
             align: "right",
           },
