@@ -5,6 +5,7 @@ import Loader from "../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { compact } from "../../../utils/number.js";
+import { tooltipLabelNumber } from "../../../utils/graph.js";
 
 function TotalAtRiskChart(props) {
   const { drop, chartType } = props;
@@ -83,17 +84,17 @@ function TotalAtRiskChart(props) {
       tooltip: {
         callbacks: {
           title: (tooltipItems) => {
-            return `At ${compact(tooltipItems[0].parsed.x, 2)}% market drop`;
+            return `At ${tooltipItems[0].parsed.x}% markets price drop`;
           },
           label: (tooltipItem) => {
-            let label = `Total at risk: `;
-            let info;
-
-            if (tooltipItem.parsed.y !== null) {
-              info = "$" + compact(tooltipItem.parsed.y, 2, true);
-              label += info;
-            }
-            return label;
+            return tooltipLabelNumber(tooltipItem, "$");
+          },
+          footer: (tooltipItems) => {
+            const total = tooltipItems.reduce(
+              (total, tooltip) => total + tooltip.parsed.y,
+              0
+            );
+            return "Total: $" + compact(total, 2, true);
           },
         },
       },

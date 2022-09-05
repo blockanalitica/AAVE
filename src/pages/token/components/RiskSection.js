@@ -7,14 +7,16 @@ import TokenAtRiskSection from "./TokenAtRiskSection.js";
 import DepegSection from "./DepegSection.js";
 
 function RiskSection(props) {
-  const { slug } = props;
+  const { slug, isTokenCurrencyTotal } = props;
   const [type, setType] = useState("at-risk");
 
   let tabs = [{ id: "at-risk", text: "markets price drop" }];
 
   let content = null;
   if (type === "at-risk") {
-    content = <TokenAtRiskSection slug={slug} />;
+    content = (
+      <TokenAtRiskSection slug={slug} isTokenCurrencyTotal={isTokenCurrencyTotal} />
+    );
   }
 
   let showPrice = true;
@@ -28,7 +30,13 @@ function RiskSection(props) {
     tabs.push({ id: "depeg", text: `${slug} price drop` });
   }
   if (type === "depeg") {
-    content = <DepegSection slug={slug} showPrice={showPrice} />;
+    content = (
+      <DepegSection
+        slug={slug}
+        showPrice={showPrice}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+      />
+    );
   }
 
   return (
