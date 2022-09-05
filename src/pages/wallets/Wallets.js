@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 import { Badge } from "reactstrap";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,8 @@ import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
 import { getAllQueryParams } from "../../utils/url.js";
 import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
 import { parseUTCDateTime } from "../../utils/datetime.js";
+import makeBlockie from "ethereum-blockies-base64";
+import styles from "./Wallets.module.scss";
 
 function Wallets(props) {
   usePageTitle("Wallets");
@@ -98,6 +101,24 @@ function Wallets(props) {
         data={data.results}
         columns={[
           {
+            dataField: "",
+            text: "",
+            formatter: (cell, row) => {
+              const blockie = makeBlockie(row.address);
+              return (
+                <img
+                  className={classnames(
+                    styles.roundedCircle,
+                    styles.walletLogo,
+                    "me-3"
+                  )}
+                  src={blockie}
+                  alt={row.address}
+                />
+              );
+            },
+          },
+          {
             dataField: "address",
             text: "Address",
             formatter: (cell, row) => row.ens || <Address value={cell} short />,
@@ -156,7 +177,7 @@ function Wallets(props) {
             sort: true,
             formatter: (cell, row) => {
               if (cell === null) {
-                return "80%+";
+                return ">80%";
               } else {
                 return <Value value={cell} decimals={2} suffix="%" />;
               }
@@ -193,9 +214,10 @@ function Wallets(props) {
               return null;
             },
           },
+
           {
-            dataField: "first_activity",
-            text: "first activity",
+            dataField: "last_activity",
+            text: "lastest activity",
             sort: true,
             formatter: (cell, row) => (
               <DateTimeAgo dateTime={parseUTCDateTime(cell)} inDays />
@@ -204,8 +226,8 @@ function Wallets(props) {
             align: "right",
           },
           {
-            dataField: "last_activity",
-            text: "last activity",
+            dataField: "first_activity",
+            text: "earliest activity",
             sort: true,
             formatter: (cell, row) => (
               <DateTimeAgo dateTime={parseUTCDateTime(cell)} inDays />
