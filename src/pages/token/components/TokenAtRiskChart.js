@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import Graph from "../../../components/Graph/Graph.js";
 import Loader from "../../../components/Loader/Loader.js";
@@ -9,7 +10,7 @@ function TokenAtRiskChart(props) {
   const { slug, drop, isTokenCurrencyTotal, chartType } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/tokens/${slug}/at-risk/`
+    `aave/tokens/${slug}/at-risk/protection-score/`
   );
   if (isLoading) {
     return <Loader />;
@@ -21,32 +22,39 @@ function TokenAtRiskChart(props) {
     return <div>No data</div>;
   }
 
-  const amounts = [];
-  data.forEach((row) => {
-    if (drop >= row["drop"]) {
-      let y;
-      if (isTokenCurrencyTotal) {
-        if (chartType === "bar") {
-          y = row["amount"];
-        } else {
-          y = row["total_amount"];
-        }
-      } else {
-        if (chartType === "bar") {
-          y = row["amount_usd"];
-        } else {
-          y = row["total_amount_usd"];
-        }
-      }
-
-      amounts.push({ x: row["drop"], y: y });
+  let y;
+  if (isTokenCurrencyTotal) {
+    if (chartType === "bar") {
+      y = "amount";
+    } else {
+      y = "total_amount";
     }
+  } else {
+    if (chartType === "bar") {
+      y = "amount_usd";
+    } else {
+      y = "total_amount_usd";
+    }
+  }
+
+  let grouped;
+  grouped = _.groupBy(data, "protection_score");
+  const series = [];
+  Object.entries(grouped).forEach(([key, rows]) => {
+    let item = {
+      label: key + " risk",
+      protection_score: key,
+      data: rows.map((row) =>
+        row.drop <= drop
+          ? {
+              x: row["drop"],
+              y: row[y],
+            }
+          : true
+      ),
+    };
+    series.push(item);
   });
-  const series = [
-    {
-      data: amounts,
-    },
-  ];
 
   const options = {
     fill: true,
@@ -65,6 +73,7 @@ function TokenAtRiskChart(props) {
         },
       },
       y: {
+        stacked: true,
         ticks: {
           callback: (value) => {
             if (isTokenCurrencyTotal) {
@@ -82,7 +91,7 @@ function TokenAtRiskChart(props) {
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
       tooltip: {
         callbacks: {

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import Graph from "../../../components/Graph/Graph.js";
 import Loader from "../../../components/Loader/Loader.js";
@@ -9,7 +10,7 @@ function TotalAtRiskChart(props) {
   const { drop, chartType } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/risk/total-at-risk/`
+    `aave/risk/total-at-risk/protection-score/`
   );
   if (isLoading) {
     return <Loader />;
@@ -21,23 +22,31 @@ function TotalAtRiskChart(props) {
     return <div>No data</div>;
   }
 
-  const amounts = [];
-  data.forEach((row) => {
-    if (drop >= row["drop"]) {
-      let y;
-      if (chartType === "bar") {
-        y = row["amount_usd"];
-      } else {
-        y = row["total_amount_usd"];
-      }
-      amounts.push({ x: row["drop"], y: y });
-    }
+  let y;
+  if (chartType === "bar") {
+    y = "amount_usd";
+  } else {
+    y = "total_amount_usd";
+  }
+
+  let grouped;
+  grouped = _.groupBy(data, "protection_score");
+  const series = [];
+  Object.entries(grouped).forEach(([key, rows]) => {
+    let item = {
+      label: key + " risk",
+      protection_score: key,
+      data: rows.map((row) =>
+        row.drop <= drop
+          ? {
+              x: row["drop"],
+              y: row[y],
+            }
+          : true
+      ),
+    };
+    series.push(item);
   });
-  const series = [
-    {
-      data: amounts,
-    },
-  ];
 
   const options = {
     aspectRatio: 2.5,
@@ -57,6 +66,7 @@ function TotalAtRiskChart(props) {
         },
       },
       y: {
+        stacked: true,
         ticks: {
           callback: (value) => "$" + compact(value, 2, true),
         },
@@ -68,7 +78,7 @@ function TotalAtRiskChart(props) {
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
       tooltip: {
         callbacks: {
