@@ -6,6 +6,8 @@ import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { compact } from "../../../utils/number.js";
 import { tooltipLabelNumber } from "../../../utils/graph.js";
+import { parseUTCDateTime } from "../../../utils/datetime.js";
+import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
 
 function TotalAtRiskChart(props) {
   const { drop, chartType } = props;
@@ -30,8 +32,10 @@ function TotalAtRiskChart(props) {
     y = "total_amount_usd";
   }
 
+  const { results, last_updated } = data;
+
   let grouped;
-  grouped = _.groupBy(data, "protection_score");
+  grouped = _.groupBy(results, "protection_score");
   const series = [];
   Object.entries(grouped).forEach(([key, rows]) => {
     let item = {
@@ -102,7 +106,16 @@ function TotalAtRiskChart(props) {
     },
   };
 
-  return <Graph series={series} options={options} type={chartType} />;
+  return (
+    <>
+      <Graph series={series} options={options} type={chartType} />
+      <div className="d-flex flex-direction-row justify-content-end align-items-center">
+        <small className="mb-3 justify-content-end">
+          last updated: <DateTimeAgo dateTime={parseUTCDateTime(last_updated)} />
+        </small>
+      </div>
+    </>
+  );
 }
 
 export default withErrorBoundary(TotalAtRiskChart);

@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 import { Badge } from "reactstrap";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate } from "react-router-dom";
@@ -7,10 +8,13 @@ import SearchInput from "../../components/SearchInput/SearchInput.js";
 import Loader from "../../components/Loader/Loader.js";
 import RemoteTable from "../../components/Table/RemoteTable.js";
 import Value from "../../components/Value/Value.js";
+import ValueChange from "../../components/Value/ValueChange.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
 import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
 import { parseUTCDateTime } from "../../utils/datetime.js";
 import AdditionalFilters from "./components/AdditionalFilters.js";
+import makeBlockie from "ethereum-blockies-base64";
+import styles from "./Wallets.module.scss";
 
 function Wallets(props) {
   usePageTitle("Wallets");
@@ -69,15 +73,36 @@ function Wallets(props) {
         columns={[
           {
             dataField: "address",
-            text: "Address",
-            formatter: (cell, row) => row.ens || <Address value={cell} short />,
+            text: "",
+            formatter: (cell, row) => {
+              const blockie = makeBlockie(cell);
+              return (
+                <>
+                  <img
+                    className={classnames(
+                      styles.roundedCircle,
+                      styles.walletLogo,
+                      "me-3"
+                    )}
+                    src={blockie}
+                    alt={row.address}
+                  />
+                </>
+              );
+            },
           },
           {
             dataField: "supply",
             text: "Supply",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <Value
+                value={cell}
+                decimals={2}
+                prefix="$"
+                compact
+                className={styles.bigText}
+              />
             ),
             headerAlign: "right",
             align: "right",
@@ -87,7 +112,13 @@ function Wallets(props) {
             text: "Borrow",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <Value
+                value={cell}
+                decimals={2}
+                prefix="$"
+                compact
+                className={styles.bigText}
+              />
             ),
             headerAlign: "right",
             align: "right",
@@ -97,7 +128,7 @@ function Wallets(props) {
             text: "Account liquidity",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <ValueChange value={cell} decimals={2} prefix="$" compact />
             ),
             headerAlign: "right",
             align: "right",
@@ -107,7 +138,7 @@ function Wallets(props) {
             text: "Liquidation Buffer",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <ValueChange value={cell} decimals={2} prefix="$" compact />
             ),
             headerAlign: "right",
             align: "right",
@@ -124,7 +155,13 @@ function Wallets(props) {
             dataField: "liquidation_drop",
             text: "Drop*",
             sort: true,
-            formatter: (cell, row) => <Value value={cell} decimals={2} suffix="%" />,
+            formatter: (cell, row) => {
+              if (cell === null) {
+                return ">80%";
+              } else {
+                return <Value value={cell} decimals={2} suffix="%" />;
+              }
+            },
             headerAlign: "right",
             align: "right",
           },
@@ -157,9 +194,10 @@ function Wallets(props) {
               return null;
             },
           },
+
           {
-            dataField: "first_activity",
-            text: "first activity",
+            dataField: "last_activity",
+            text: "lastest activity",
             sort: true,
             formatter: (cell, row) => (
               <DateTimeAgo dateTime={parseUTCDateTime(cell)} inDays />
@@ -168,14 +206,19 @@ function Wallets(props) {
             align: "right",
           },
           {
-            dataField: "last_activity",
-            text: "last activity",
+            dataField: "first_activity",
+            text: "earliest activity",
             sort: true,
             formatter: (cell, row) => (
               <DateTimeAgo dateTime={parseUTCDateTime(cell)} inDays />
             ),
             headerAlign: "right",
             align: "right",
+          },
+          {
+            dataField: "address",
+            text: "Address",
+            formatter: (cell, row) => row.ens || <Address value={cell} short />,
           },
         ]}
       >
