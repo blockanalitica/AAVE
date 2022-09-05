@@ -10,6 +10,7 @@ import SearchInput from "../../components/SearchInput/SearchInput.js";
 import Loader from "../../components/Loader/Loader.js";
 import RemoteTable from "../../components/Table/RemoteTable.js";
 import Value from "../../components/Value/Value.js";
+import ValueChange from "../../components/Value/ValueChange.js";
 import Select from "../../components/Select/Select.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
 import { getAllQueryParams } from "../../utils/url.js";
@@ -101,34 +102,37 @@ function Wallets(props) {
         data={data.results}
         columns={[
           {
-            dataField: "",
+            dataField: "address",
             text: "",
             formatter: (cell, row) => {
-              const blockie = makeBlockie(row.address);
+              const blockie = makeBlockie(cell);
               return (
-                <img
-                  className={classnames(
-                    styles.roundedCircle,
-                    styles.walletLogo,
-                    "me-3"
-                  )}
-                  src={blockie}
-                  alt={row.address}
-                />
+                <>
+                  <img
+                    className={classnames(
+                      styles.roundedCircle,
+                      styles.walletLogo,
+                      "me-3"
+                    )}
+                    src={blockie}
+                    alt={row.address}
+                  />
+                </>
               );
             },
-          },
-          {
-            dataField: "address",
-            text: "Address",
-            formatter: (cell, row) => row.ens || <Address value={cell} short />,
           },
           {
             dataField: "supply",
             text: "Supply",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <Value
+                value={cell}
+                decimals={2}
+                prefix="$"
+                compact
+                className={styles.bigText}
+              />
             ),
             headerAlign: "right",
             align: "right",
@@ -138,7 +142,13 @@ function Wallets(props) {
             text: "Borrow",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <Value
+                value={cell}
+                decimals={2}
+                prefix="$"
+                compact
+                className={styles.bigText}
+              />
             ),
             headerAlign: "right",
             align: "right",
@@ -148,7 +158,7 @@ function Wallets(props) {
             text: "Account liquidity",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <ValueChange value={cell} decimals={2} prefix="$" compact />
             ),
             headerAlign: "right",
             align: "right",
@@ -158,7 +168,7 @@ function Wallets(props) {
             text: "Liquidation Buffer",
             sort: true,
             formatter: (cell, row) => (
-              <Value value={cell} decimals={2} prefix="$" compact />
+              <ValueChange value={cell} decimals={2} prefix="$" compact />
             ),
             headerAlign: "right",
             align: "right",
@@ -234,6 +244,11 @@ function Wallets(props) {
             ),
             headerAlign: "right",
             align: "right",
+          },
+          {
+            dataField: "address",
+            text: "Address",
+            formatter: (cell, row) => row.ens || <Address value={cell} short />,
           },
         ]}
       >
