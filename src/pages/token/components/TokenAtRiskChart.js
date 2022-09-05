@@ -42,8 +42,6 @@ function TokenAtRiskChart(props) {
 
   const { results, last_updated } = data;
 
-  const updated = parseUTCDateTime(last_updated);
-
   let grouped;
   grouped = _.groupBy(results, "protection_score");
   const series = [];
