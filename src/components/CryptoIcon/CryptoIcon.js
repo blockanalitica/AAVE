@@ -38,6 +38,7 @@ import wbtcIcon from "../../images/crypto/color/wbtc.svg";
 import yfiIcon from "../../images/crypto/color/yfi.svg";
 import zrxIcon from "../../images/crypto/color/zrx.svg";
 import cvxIcon from "../../images/crypto/color/cvx.svg";
+import lusdIcon from "../../images/crypto/color/lusd.svg";
 import oneinchIcon from "../../images/crypto/color/1inch.svg";
 
 function CryptoIcon(props) {
@@ -85,6 +86,7 @@ function CryptoIcon(props) {
     stkAAVE: stkAaveIcon,
     CVX: cvxIcon,
     "1INCH": oneinchIcon,
+    LUSD: lusdIcon,
   };
   const icon = mapping[name];
   if (!icon) {
