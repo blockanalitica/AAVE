@@ -1,4 +1,3 @@
-import classnames from "classnames";
 import React, { useState } from "react";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,9 +9,9 @@ import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
 import SearchInput from "../../components/SearchInput/SearchInput.js";
 import Value from "../../components/Value/Value.js";
 import ValueChange from "../../components/Value/ValueChange.js";
+import CurrencySwitch from "../../components/CurrencySwitch/CurrencySwitch.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
-import styles from "./TokenWallets.module.scss";
 
 function TokenWallets(props) {
   const navigate = useNavigate();
@@ -152,33 +151,23 @@ function TokenWallets(props) {
                     lg={6}
                     className="d-flex react-bootstrap-table-filter align-items-center"
                   >
-                    <div className={styles.currencySelector}>
-                      <label>Show amounts in: </label>
-                      <ul>
-                        <li
-                          className={classnames({
-                            [styles.currencySelectorActive]: !isTokenCurrency,
-                          })}
-                          onClick={() => setIsTokenCurrency(false)}
-                        >
-                          $
-                        </li>
-                        <li
-                          className={classnames({
-                            [styles.currencySelectorActive]: isTokenCurrency,
-                          })}
-                          onClick={() => setIsTokenCurrency(true)}
-                        >
-                          {symbol}
-                        </li>
-                      </ul>
-                    </div>
+                    <CurrencySwitch
+                      className="mb-2"
+                      label="show amounts in:"
+                      options={[
+                        { key: "$", value: "$" },
+                        { key: symbol, value: symbol },
+                      ]}
+                      onChange={(option) => setIsTokenCurrency(option === symbol)}
+                    />
                   </Col>
                   <Col
                     lg={6}
                     className="d-flex react-bootstrap-table-filter align-items-center justify-content-end mb-4"
                   >
-                    <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
+                    <div>
+                      <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
+                    </div>
                   </Col>
                 </Row>
                 <RemoteTable
