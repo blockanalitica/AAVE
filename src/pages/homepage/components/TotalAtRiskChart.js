@@ -57,6 +57,7 @@ function TotalAtRiskChart(props) {
     },
     scales: {
       x: {
+        stacked: true,
         type: "linear",
         ticks: {
           callback: (value) => `-${value}%`,

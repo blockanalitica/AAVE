@@ -64,6 +64,7 @@ function TokenAtRiskChart(props) {
     },
     scales: {
       x: {
+        stacked: true,
         type: "linear",
         ticks: {
           callback: (value) => `-${value}%`,
