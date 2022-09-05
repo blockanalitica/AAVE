@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge } from "reactstrap";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate } from "react-router-dom";
 import queryString from "query-string";
@@ -163,6 +164,28 @@ function Wallets(props) {
             sort: true,
             headerAlign: "center",
             align: "center",
+            formatter: (cell, row) => {
+              if (cell === "low") {
+                return (
+                  <Badge color="success" className="mr-1">
+                    {cell} risk
+                  </Badge>
+                );
+              } else if (cell === "medium") {
+                return (
+                  <Badge color="warning" className="mr-1">
+                    {cell} risk
+                  </Badge>
+                );
+              } else if (cell === "high") {
+                return (
+                  <Badge color="danger" className="mr-1">
+                    {cell} risk
+                  </Badge>
+                );
+              }
+              return null;
+            },
           },
           {
             dataField: "first_activity",
