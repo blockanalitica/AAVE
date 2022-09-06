@@ -20,7 +20,7 @@ import Liquidator from "../../pages/liquidations/Liquidator.js";
 import Liquidators from "../../pages/liquidations/Liquidators.js";
 import Token from "../../pages/token/Token.js";
 import TokenWallets from "../../pages/token/TokenWallets.js";
-import WalletsAtRisk from "../../pages/walletAtRisk/WalletsAtRisk";
+import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import Wallet from "../../pages/wallets/Wallet.js";
 import Wallets from "../../pages/wallets/Wallets.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
@@ -60,6 +60,11 @@ function Layout(props) {
                   </NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink tag={Link} to="/wallets-at-risk/">
+                    Wallets at Risk
+                  </NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink tag={Link} to="/ecosystem/">
                     Ecosystem
                   </NavLink>
@@ -69,11 +74,7 @@ function Layout(props) {
                     Activity
                   </NavLink>
                 </NavItem>
-                {/* <NavItem>
-                  <NavLink tag={Link} to="/wallets-at-risk/">
-                    Wallets at Risk
-                  </NavLink>
-                </NavItem> */}
+
                 {/*<NavItem>
                   <NavLink tag={Link} to="/">
                     Assets
