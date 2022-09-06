@@ -147,7 +147,13 @@ function Wallets(props) {
             dataField: "health_rate",
             text: "Health rate",
             sort: true,
-            formatter: (cell, row) => <Value value={cell} decimals={2} />,
+            formatter: (cell, row) => {
+              if (cell === null) {
+                return "-";
+              } else {
+                return <Value value={cell} decimals={2} />;
+              }
+            },
             headerAlign: "right",
             align: "right",
           },
@@ -156,7 +162,9 @@ function Wallets(props) {
             text: "Drop*",
             sort: true,
             formatter: (cell, row) => {
-              if (cell === null) {
+              if (row.borrow === 0) {
+                return "-";
+              } else if (cell === null) {
                 return ">80%";
               } else {
                 return <Value value={cell} decimals={2} suffix="%" />;
@@ -191,7 +199,7 @@ function Wallets(props) {
                   </Badge>
                 );
               }
-              return null;
+              return "-";
             },
           },
 
