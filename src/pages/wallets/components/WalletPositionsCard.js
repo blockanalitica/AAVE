@@ -51,6 +51,18 @@ function WalletPositionsCard(props) {
         ),
       },
       {
+        dataField: "price",
+        text: "price",
+        sort: false,
+        formatter: (cell, row) => <Value value={row.price} decimals={2} prefix="$" />,
+        footer: () => {
+          <></>;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
+      },
+      {
         dataField: "supply",
         text: "Supply",
         sort: true,
@@ -81,10 +93,32 @@ function WalletPositionsCard(props) {
         align: "right",
       },
       {
-        dataField: "price",
-        text: "price",
+        dataField: "net_with_lt",
+        text: "Token liquidation buffer",
+        sort: true,
+        formatter: (cell, row) => (
+          <ValueChange value={cell} decimals={2} compact noPositive />
+        ),
+        headerAlign: "right",
+        align: "right",
+      },
+      {
+        dataField: "liquidation_threshold",
+        text: "liquidation threshold",
         sort: false,
-        formatter: (cell, row) => <Value value={row.price} decimals={2} prefix="$" />,
+        formatter: (cell, row) => <Value value={cell * 100} decimals={2} suffix="%" />,
+        footer: () => {
+          <></>;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
+      },
+      {
+        dataField: "collateral_factor",
+        text: "ltv",
+        sort: false,
+        formatter: (cell, row) => <Value value={cell * 100} decimals={2} suffix="%" />,
         footer: () => {
           <></>;
         },
@@ -113,6 +147,18 @@ function WalletPositionsCard(props) {
         footer: () => {
           <></>;
         },
+      },
+      {
+        dataField: "price",
+        text: "price",
+        sort: false,
+        formatter: (cell, row) => <Value value={row.price} decimals={2} prefix="$" />,
+        footer: () => {
+          <></>;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
       },
 
       {
@@ -161,10 +207,37 @@ function WalletPositionsCard(props) {
         footerAlign: "right",
       },
       {
-        dataField: "price",
-        text: "price",
+        dataField: "net_with_lt_usd",
+        text: "token liquidation buffer",
+        sort: true,
+        formatter: (cell, row) => (
+          <ValueChange value={cell} decimals={2} prefix="$" compact noPositive />
+        ),
+        footer: (columnData) => {
+          let sum = columnData.reduce((acc, item) => acc + item, 0);
+          return <ValueChange value={sum} decimals={2} prefix="$" compact noPositive />;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
+      },
+      {
+        dataField: "liquidation_threshold",
+        text: "liquidation threshold",
         sort: false,
-        formatter: (cell, row) => <Value value={row.price} decimals={2} prefix="$" />,
+        formatter: (cell, row) => <Value value={cell * 100} decimals={2} suffix="%" />,
+        footer: () => {
+          <></>;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
+      },
+      {
+        dataField: "collateral_factor",
+        text: "ltv",
+        sort: false,
+        formatter: (cell, row) => <Value value={cell * 100} decimals={2} suffix="%" />,
         footer: () => {
           <></>;
         },
