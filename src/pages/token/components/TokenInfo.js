@@ -5,14 +5,21 @@ import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
 import StatsBar from "../../../components/Stats/StatsBar.js";
 import { withErrorBoundary } from "../../../hoc.js";
+import { useNavigate } from "react-router-dom";
 
 function TokenInfo(props) {
   const { data, isTokenCurrencyTotal } = props;
-
+  const navigate = useNavigate();
   if (!data) {
     return null;
   }
+
   const { change = {} } = data;
+
+  const onValueClick = (e, url) => {
+    navigate(url);
+    e.stopPropagation();
+  };
 
   const totalStats = [
     {
@@ -193,7 +200,12 @@ function TokenInfo(props) {
       <Row>
         <Col xl={12}>
           <Card className="mb-4">
-            <StatsBar stats={totalStats} cardTag="div" />
+            <StatsBar
+              stats={totalStats}
+              cardTag="div"
+              role="button"
+              onClick={(e) => onValueClick(e, `wallets/`)}
+            />
           </Card>
         </Col>
       </Row>
