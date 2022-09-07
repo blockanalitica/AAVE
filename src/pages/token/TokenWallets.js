@@ -13,6 +13,9 @@ import CurrencySwitch from "../../components/CurrencySwitch/CurrencySwitch.js";
 import EventStatsChart from "./components/EventStatsChart.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
+import makeBlockie from "ethereum-blockies-base64";
+import classnames from "classnames";
+import styles from "./TokenWallets.module.scss";
 
 function TokenWallets(props) {
   const navigate = useNavigate();
@@ -47,7 +50,13 @@ function TokenWallets(props) {
   };
 
   const priceFormatter = (cell, row) => (
-    <Value value={cell} decimals={2} prefix={isTokenCurrency ? "" : "$"} compact />
+    <Value
+      value={cell}
+      decimals={2}
+      prefix={isTokenCurrency ? "" : "$"}
+      compact
+      className={styles.bigText}
+    />
   );
 
   const priceChangeFormatter = (cell, row) => (
@@ -71,9 +80,21 @@ function TokenWallets(props) {
   const columns = [
     {
       dataField: "address",
-      text: "Wallet Address",
-      formatter: (cell, row) => <Address value={cell} short />,
+      text: "",
+      formatter: (cell, row) => {
+        const blockie = makeBlockie(cell);
+        return (
+          <>
+            <img
+              className={classnames(styles.roundedCircle, styles.walletLogo, "me-3")}
+              src={blockie}
+              alt={row.address}
+            />
+          </>
+        );
+      },
     },
+
     {
       dataField: `supply${fieldSuffix}`,
       text: "Supply",
@@ -112,9 +133,14 @@ function TokenWallets(props) {
       dataField: `net_with_cf${fieldSuffix}`,
       text: "token liquidity",
       sort: true,
-      formatter: priceFormatter,
+      formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
+    },
+    {
+      dataField: "address",
+      text: "Wallet Address",
+      formatter: (cell, row) => <Address value={cell} short />,
     },
   ];
 
