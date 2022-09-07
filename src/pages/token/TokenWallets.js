@@ -10,6 +10,7 @@ import SearchInput from "../../components/SearchInput/SearchInput.js";
 import Value from "../../components/Value/Value.js";
 import ValueChange from "../../components/Value/ValueChange.js";
 import CurrencySwitch from "../../components/CurrencySwitch/CurrencySwitch.js";
+import EventStatsChart from "./components/EventStatsChart.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
 
@@ -119,70 +120,63 @@ function TokenWallets(props) {
 
   return (
     <>
-      <Row>
-        <Col>
-          <h1 className="h3 mb-4">{symbol} positions</h1>
-          <ToolkitProvider
-            bootstrap4
-            search
-            keyField="address"
-            data={data.results}
-            columns={columns}
-          >
-            {(props) => (
-              <div>
-                <Row>
-                  <Col
-                    lg={12}
-                    className="d-flex react-bootstrap-table-filter align-items-baseline justify-content-end mb-4"
-                  >
-                    <div className="text-content">Search:</div>
-                    <div className="ps-2">
-                      <SearchInput
-                        initialSearchText={searchText}
-                        placeholder="address"
-                        {...props.searchProps}
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    lg={6}
-                    className="d-flex react-bootstrap-table-filter align-items-center"
-                  >
-                    <CurrencySwitch
-                      className="mb-2"
-                      label="show amounts in:"
-                      options={[
-                        { key: "$", value: "$" },
-                        { key: symbol, value: symbol },
-                      ]}
-                      onChange={(option) => setIsTokenCurrency(option === symbol)}
-                    />
-                  </Col>
-                  <Col
-                    lg={6}
-                    className="d-flex react-bootstrap-table-filter align-items-center justify-content-end mb-4"
-                  >
-                    <div>
-                      <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
-                    </div>
-                  </Col>
-                </Row>
-                <RemoteTable
-                  {...props.baseProps}
-                  loading={isPreviousData}
-                  onRowClick={onRowClick}
-                  page={page}
-                  pageSize={pageSize}
-                  totalPageSize={data.count}
+      <div className="d-flex align-items-center mb-4">
+        <div className="mb-2 flex-grow-1 d-flex align-items-center">
+          <h1 className="h3 m-0">{symbol} positions</h1>
+        </div>
+        <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
+      </div>
+
+      <EventStatsChart className="mb-4" symbol={symbol} timePeriod={timePeriod} />
+      <ToolkitProvider
+        bootstrap4
+        search
+        keyField="address"
+        data={data.results}
+        columns={columns}
+      >
+        {(props) => (
+          <div>
+            <Row>
+              <Col
+                lg={6}
+                className="d-flex react-bootstrap-table-filter align-items-center"
+              >
+                <CurrencySwitch
+                  className="mb-2"
+                  label="show amounts in:"
+                  options={[
+                    { key: "$", value: "$" },
+                    { key: symbol, value: symbol },
+                  ]}
+                  onChange={(option) => setIsTokenCurrency(option === symbol)}
                 />
-              </div>
-            )}
-          </ToolkitProvider>
-        </Col>
-      </Row>
+              </Col>
+              <Col
+                lg={6}
+                className="d-flex react-bootstrap-table-filter align-items-baseline justify-content-end mb-4"
+              >
+                <div className="text-content">Search:</div>
+                <div className="ps-2">
+                  <SearchInput
+                    initialSearchText={searchText}
+                    placeholder="address"
+                    {...props.searchProps}
+                  />
+                </div>
+              </Col>
+            </Row>
+            <RemoteTable
+              {...props.baseProps}
+              loading={isPreviousData}
+              onRowClick={onRowClick}
+              page={page}
+              pageSize={pageSize}
+              totalPageSize={data.count}
+            />
+          </div>
+        )}
+      </ToolkitProvider>
     </>
   );
 }
