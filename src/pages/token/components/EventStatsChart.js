@@ -9,7 +9,7 @@ import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../utils/graph.j
 import { compact } from "../../../utils/number.js";
 
 function EventStatsChart(props) {
-  const { symbol, timePeriod, ...rest } = props;
+  const { symbol, timePeriod, isTokenCurrency, ...rest } = props;
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
     `/aave/tokens/${symbol}/event-stats/`,
     { days_ago: timePeriod },
@@ -30,8 +30,9 @@ function EventStatsChart(props) {
       label: key,
       data: rows.map((row) => ({
         x: row["dt"],
-        y: row["total"],
+        y: row[isTokenCurrency ? "amount" : "amount_usd"],
       })),
+      stack: ["Borrow", "Repay"].includes(key) ? "0" : "1",
     };
     series.push(item);
   });
@@ -52,7 +53,7 @@ function EventStatsChart(props) {
       y: {
         stacked: true,
         ticks: {
-          callback: (value) => "$" + compact(value, 2, true),
+          callback: (value) => (!isTokenCurrency ? "$" : "") + compact(value, 2, true),
         },
       },
     },
@@ -63,7 +64,10 @@ function EventStatsChart(props) {
             return tooltipTitleDateTime(tooltipItems, true, false);
           },
           label: (tooltipItem) => {
-            return tooltipLabelNumber(tooltipItem, "$");
+            return tooltipLabelNumber(
+              tooltipItem,
+              isTokenCurrency ? `${symbol} ` : "$"
+            );
           },
         },
       },
