@@ -120,14 +120,33 @@ function TokenWallets(props) {
 
   return (
     <>
-      <div className="d-flex align-items-center mb-4">
-        <div className="mb-2 flex-grow-1 d-flex align-items-center">
-          <h1 className="h3 m-0">{symbol} positions</h1>
-        </div>
-        <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
-      </div>
+      <h1 className="h3 mb-4">{symbol} positions</h1>
+      <Row className="mb-3">
+        <Col lg={6} className="d-flex react-bootstrap-table-filter align-items-center">
+          <CurrencySwitch
+            label="show amounts in:"
+            options={[
+              { key: "$", value: "$" },
+              { key: symbol, value: symbol },
+            ]}
+            onChange={(option) => setIsTokenCurrency(option === symbol)}
+          />
+        </Col>
+        <Col
+          lg={6}
+          className="d-flex react-bootstrap-table-filter align-items-center justify-content-end"
+        >
+          <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
+        </Col>
+      </Row>
 
-      <EventStatsChart className="mb-4" symbol={symbol} timePeriod={timePeriod} />
+      <EventStatsChart
+        className="mb-4"
+        symbol={symbol}
+        timePeriod={timePeriod}
+        isTokenCurrency={isTokenCurrency}
+      />
+
       <ToolkitProvider
         bootstrap4
         search
@@ -139,22 +158,8 @@ function TokenWallets(props) {
           <div>
             <Row>
               <Col
-                lg={6}
-                className="d-flex react-bootstrap-table-filter align-items-center"
-              >
-                <CurrencySwitch
-                  className="mb-2"
-                  label="show amounts in:"
-                  options={[
-                    { key: "$", value: "$" },
-                    { key: symbol, value: symbol },
-                  ]}
-                  onChange={(option) => setIsTokenCurrency(option === symbol)}
-                />
-              </Col>
-              <Col
-                lg={6}
-                className="d-flex react-bootstrap-table-filter align-items-baseline justify-content-end mb-4"
+                lg={12}
+                className="d-flex react-bootstrap-table-filter align-items-baseline justify-content-end mb-3"
               >
                 <div className="text-content">Search:</div>
                 <div className="ps-2">
