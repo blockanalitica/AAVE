@@ -22,6 +22,13 @@ function EventStatsChart(props) {
     return <ErrorFallbackComponent />;
   }
 
+  const colorMap = {
+    Borrow: "#23c278",
+    Repay: "#df4957",
+    Deposit: "#11613c",
+    Withdraw: "#7d161f",
+  };
+
   let grouped;
   grouped = _.groupBy(data, "event");
   const series = [];
@@ -33,6 +40,8 @@ function EventStatsChart(props) {
         y: row[isTokenCurrency ? "amount" : "amount_usd"],
       })),
       stack: ["Borrow", "Repay"].includes(key) ? "0" : "1",
+      backgroundColor: colorMap[key],
+      borderColor: colorMap[key],
     };
     series.push(item);
   });
