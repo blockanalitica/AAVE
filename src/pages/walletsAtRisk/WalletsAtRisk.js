@@ -8,10 +8,8 @@ import SearchInput from "../../components/SearchInput/SearchInput.js";
 import Loader from "../../components/Loader/Loader.js";
 import RemoteTable from "../../components/Table/RemoteTable.js";
 import Value from "../../components/Value/Value.js";
-import queryString from "query-string";
-import { getAllQueryParams } from "../../utils/url.js";
 import ValueChange from "../../components/Value/ValueChange.js";
-import { useFetch, usePageTitle, useDidMountEffect, useQueryParams } from "../../hooks";
+import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
 import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
 import { parseUTCDateTime } from "../../utils/datetime.js";
 import AdditionalFilters from "../wallets/components/AdditionalFilters.js";
@@ -24,23 +22,12 @@ function WalletsAtRisk(props) {
 
   const navigate = useNavigate();
   const queryParams = useQueryParams();
-  const qParams = getAllQueryParams(queryParams);
   const pageSize = 25;
   const page = parseInt(queryParams.get("page")) || 1;
   const searchText = queryParams.get("search");
   const assets = queryParams.getAll("asset");
   const queryParamDrop = queryParams.get("drop") || 5;
   const [drop, setDrop] = useState(queryParamDrop);
-
-  useDidMountEffect(() => {
-    const newParams = { ...qParams, page: null, drop: drop };
-    let qs = queryString.stringify(newParams, { skipNull: true });
-    qs = `?${qs}`;
-    const timer = setTimeout(() => {
-      navigate(qs);
-    }, 400);
-    return () => clearTimeout(timer);
-  });
 
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
     "aave/risk/wallets-at-risk/",
