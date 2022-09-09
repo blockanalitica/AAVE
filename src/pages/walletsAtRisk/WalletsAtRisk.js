@@ -17,6 +17,7 @@ import { parseUTCDateTime } from "../../utils/datetime.js";
 import AdditionalFilters from "../wallets/components/AdditionalFilters.js";
 import makeBlockie from "ethereum-blockies-base64";
 import styles from "../wallets/Wallets.module.scss";
+import InfoCard from "./components/InfoCard.js";
 
 function WalletsAtRisk(props) {
   usePageTitle("Wallets at risk");
@@ -82,6 +83,11 @@ function WalletsAtRisk(props) {
   return (
     <>
       <h3 className="mb-4">wallets at risk</h3>
+      <p className="gray">
+        simulation of markets price drop (all assets fall for x% at the same time,
+        excluding stable coins). When wallet reach health rate under 1, 50% or max 5M of
+        debt position is liquidated.
+      </p>
       <FormGroup row className="mb-4">
         <Label xl={2} for="drop">
           markets price drop:
@@ -100,6 +106,7 @@ function WalletsAtRisk(props) {
           %
         </Col>
       </FormGroup>
+      <InfoCard drop={drop} />
       <ToolkitProvider
         bootstrap4
         search
