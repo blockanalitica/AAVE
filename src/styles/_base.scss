@@ -79,3 +79,11 @@ button {
   font-size: $small-text;
   color: rgba(246, 247, 248, 0.6);
 }
+
+.ml-4 {
+  margin-left: ($spacer) !important;
+}
+
+.mr-4 {
+  margin-right: ($spacer) !important;
+}
