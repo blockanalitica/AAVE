@@ -1,15 +1,19 @@
+import _ from "lodash";
 import React from "react";
 import Graph from "../../../components/Graph/Graph.js";
 import Loader from "../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { compact } from "../../../utils/number.js";
+import { tooltipLabelNumber } from "../../../utils/graph.js";
+import { parseUTCDateTime } from "../../../utils/datetime.js";
+import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
 
 function TokenAtRiskChart(props) {
   const { slug, drop, isTokenCurrencyTotal, chartType } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/tokens/${slug}/at-risk/`
+    `aave/tokens/${slug}/at-risk/protection-score/`
   );
   if (isLoading) {
     return <Loader />;
@@ -21,32 +25,41 @@ function TokenAtRiskChart(props) {
     return <div>No data</div>;
   }
 
-  const amounts = [];
-  data.forEach((row) => {
-    if (drop >= row["drop"]) {
-      let y;
-      if (isTokenCurrencyTotal) {
-        if (chartType === "bar") {
-          y = row["amount"];
-        } else {
-          y = row["total_amount"];
-        }
-      } else {
-        if (chartType === "bar") {
-          y = row["amount_usd"];
-        } else {
-          y = row["total_amount_usd"];
-        }
-      }
-
-      amounts.push({ x: row["drop"], y: y });
+  let y;
+  if (isTokenCurrencyTotal) {
+    if (chartType === "bar") {
+      y = "amount";
+    } else {
+      y = "total_amount";
     }
+  } else {
+    if (chartType === "bar") {
+      y = "amount_usd";
+    } else {
+      y = "total_amount_usd";
+    }
+  }
+
+  const { results, last_updated } = data;
+
+  let grouped;
+  grouped = _.groupBy(results, "protection_score");
+  const series = [];
+  Object.entries(grouped).forEach(([key, rows]) => {
+    let item = {
+      label: key + " risk",
+      protection_score: key,
+      data: rows.map((row) =>
+        row.drop <= drop
+          ? {
+              x: row["drop"],
+              y: row[y],
+            }
+          : true
+      ),
+    };
+    series.push(item);
   });
-  const series = [
-    {
-      data: amounts,
-    },
-  ];
 
   const options = {
     fill: true,
@@ -55,6 +68,7 @@ function TokenAtRiskChart(props) {
     },
     scales: {
       x: {
+        stacked: true,
         type: "linear",
         ticks: {
           callback: (value) => `-${value}%`,
@@ -65,6 +79,7 @@ function TokenAtRiskChart(props) {
         },
       },
       y: {
+        stacked: true,
         ticks: {
           callback: (value) => {
             if (isTokenCurrencyTotal) {
@@ -82,33 +97,42 @@ function TokenAtRiskChart(props) {
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
       tooltip: {
         callbacks: {
           title: (tooltipItems) => {
-            return `At ${compact(tooltipItems[0].parsed.x, 2)}% market drop`;
+            return `At ${tooltipItems[0].parsed.x}% markets price drop`;
           },
           label: (tooltipItem) => {
-            let label = `Total ${slug} at risk: `;
-            let info;
-
-            if (tooltipItem.parsed.y !== null) {
-              if (isTokenCurrencyTotal) {
-                info = compact(tooltipItem.parsed.y, 2, true) + ` ${slug}`;
-              } else {
-                info = "$" + compact(tooltipItem.parsed.y, 2, true);
-              }
-              label += info;
+            if (isTokenCurrencyTotal) {
+              return tooltipLabelNumber(tooltipItem, null, ` ${slug}`);
+            } else {
+              return tooltipLabelNumber(tooltipItem, "$");
             }
-            return label;
+          },
+          footer: (tooltipItems) => {
+            const total = tooltipItems.reduce(
+              (total, tooltip) => total + tooltip.parsed.y,
+              0
+            );
+            return "Total: $" + compact(total, 2, true);
           },
         },
       },
     },
   };
 
-  return <Graph series={series} options={options} type={chartType} />;
+  return (
+    <>
+      <Graph series={series} options={options} type={chartType} />
+      <div className="d-flex flex-direction-row justify-content-end align-items-center">
+        <small className="mb-3 justify-content-end">
+          last updated: <DateTimeAgo dateTime={parseUTCDateTime(last_updated)} />
+        </small>
+      </div>
+    </>
+  );
 }
 
 export default withErrorBoundary(TokenAtRiskChart);

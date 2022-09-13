@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge, UncontrolledTooltip } from "reactstrap";
 import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../../hoc.js";
@@ -15,6 +16,12 @@ function WalletInfo(props) {
   } else {
     health_rate = "-";
   }
+
+  const badgeColorMap = {
+    low: "success",
+    medium: "warning",
+    high: "danger",
+  };
 
   const stats = [
     {
@@ -57,9 +64,39 @@ function WalletInfo(props) {
       title: "health rate",
       bigValue: health_rate,
     },
+    {
+      title: "risk",
+      normalValue: (
+        <>
+          {data.protection_score ? (
+            <Badge
+              id="riskBadge"
+              color={badgeColorMap[data.protection_score.protection_score]}
+            >
+              {data.protection_score.protection_score} risk
+            </Badge>
+          ) : (
+            "-"
+          )}
+        </>
+      ),
+    },
   ];
 
-  return <StatsBar className="mb-4" stats={stats} />;
+  return (
+    <>
+      <StatsBar className="mb-4" stats={stats} />
+      {data.protection_score ? (
+        <UncontrolledTooltip placement="bottom" target="riskBadge">
+          {Object.entries(data.protection_score).map(([key, value]) => (
+            <div>
+              {key}: {value}
+            </div>
+          ))}
+        </UncontrolledTooltip>
+      ) : null}
+    </>
+  );
 }
 
 export default withErrorBoundary(WalletInfo);

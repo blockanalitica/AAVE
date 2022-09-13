@@ -1,4 +1,3 @@
-import classnames from "classnames";
 import React, { useState } from "react";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,8 +9,12 @@ import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
 import SearchInput from "../../components/SearchInput/SearchInput.js";
 import Value from "../../components/Value/Value.js";
 import ValueChange from "../../components/Value/ValueChange.js";
+import CurrencySwitch from "../../components/CurrencySwitch/CurrencySwitch.js";
+import EventStatsChart from "./components/EventStatsChart.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
+import makeBlockie from "ethereum-blockies-base64";
+import classnames from "classnames";
 import styles from "./TokenWallets.module.scss";
 
 function TokenWallets(props) {
@@ -47,7 +50,13 @@ function TokenWallets(props) {
   };
 
   const priceFormatter = (cell, row) => (
-    <Value value={cell} decimals={2} prefix={isTokenCurrency ? "" : "$"} compact />
+    <Value
+      value={cell}
+      decimals={2}
+      prefix={isTokenCurrency ? "" : "$"}
+      compact
+      className={styles.bigText}
+    />
   );
 
   const priceChangeFormatter = (cell, row) => (
@@ -71,9 +80,21 @@ function TokenWallets(props) {
   const columns = [
     {
       dataField: "address",
-      text: "Wallet Address",
-      formatter: (cell, row) => <Address value={cell} short />,
+      text: "",
+      formatter: (cell, row) => {
+        const blockie = makeBlockie(cell);
+        return (
+          <>
+            <img
+              className={classnames(styles.roundedCircle, styles.walletLogo, "me-3")}
+              src={blockie}
+              alt={row.address}
+            />
+          </>
+        );
+      },
     },
+
     {
       dataField: `supply${fieldSuffix}`,
       text: "Supply",
@@ -112,88 +133,81 @@ function TokenWallets(props) {
       dataField: `net_with_cf${fieldSuffix}`,
       text: "token liquidity",
       sort: true,
-      formatter: priceFormatter,
+      formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
+    },
+    {
+      dataField: "address",
+      text: "Wallet Address",
+      formatter: (cell, row) => <Address value={cell} short />,
     },
   ];
 
   return (
     <>
-      <Row>
-        <Col>
-          <h1 className="h3 mb-4">{symbol} positions</h1>
-          <ToolkitProvider
-            bootstrap4
-            search
-            keyField="address"
-            data={data.results}
-            columns={columns}
-          >
-            {(props) => (
-              <div>
-                <Row>
-                  <Col
-                    lg={12}
-                    className="d-flex react-bootstrap-table-filter align-items-baseline justify-content-end mb-4"
-                  >
-                    <div className="text-content">Search:</div>
-                    <div className="ps-2">
-                      <SearchInput
-                        initialSearchText={searchText}
-                        placeholder="address"
-                        {...props.searchProps}
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    lg={6}
-                    className="d-flex react-bootstrap-table-filter align-items-center"
-                  >
-                    <div className={styles.currencySelector}>
-                      <label>Show amounts in: </label>
-                      <ul>
-                        <li
-                          className={classnames({
-                            [styles.currencySelectorActive]: !isTokenCurrency,
-                          })}
-                          onClick={() => setIsTokenCurrency(false)}
-                        >
-                          $
-                        </li>
-                        <li
-                          className={classnames({
-                            [styles.currencySelectorActive]: isTokenCurrency,
-                          })}
-                          onClick={() => setIsTokenCurrency(true)}
-                        >
-                          {symbol}
-                        </li>
-                      </ul>
-                    </div>
-                  </Col>
-                  <Col
-                    lg={6}
-                    className="d-flex react-bootstrap-table-filter align-items-center justify-content-end mb-4"
-                  >
-                    <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
-                  </Col>
-                </Row>
-                <RemoteTable
-                  {...props.baseProps}
-                  loading={isPreviousData}
-                  onRowClick={onRowClick}
-                  page={page}
-                  pageSize={pageSize}
-                  totalPageSize={data.count}
-                />
-              </div>
-            )}
-          </ToolkitProvider>
+      <h1 className="h3 mb-4">{symbol} positions</h1>
+      <Row className="mb-3">
+        <Col lg={6} className="d-flex react-bootstrap-table-filter align-items-center">
+          <CurrencySwitch
+            label="show amounts in:"
+            options={[
+              { key: "$", value: "$" },
+              { key: symbol, value: symbol },
+            ]}
+            onChange={(option) => setIsTokenCurrency(option === symbol)}
+          />
+        </Col>
+        <Col
+          lg={6}
+          className="d-flex react-bootstrap-table-filter align-items-center justify-content-end"
+        >
+          <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
         </Col>
       </Row>
+
+      <EventStatsChart
+        className="mb-4"
+        symbol={symbol}
+        timePeriod={timePeriod}
+        isTokenCurrency={isTokenCurrency}
+      />
+
+      <ToolkitProvider
+        bootstrap4
+        search
+        keyField="address"
+        data={data.results}
+        columns={columns}
+      >
+        {(props) => (
+          <div>
+            <Row>
+              <Col
+                lg={12}
+                className="d-flex react-bootstrap-table-filter align-items-baseline justify-content-end mb-3"
+              >
+                <div className="text-content">Search:</div>
+                <div className="ps-2">
+                  <SearchInput
+                    initialSearchText={searchText}
+                    placeholder="address"
+                    {...props.searchProps}
+                  />
+                </div>
+              </Col>
+            </Row>
+            <RemoteTable
+              {...props.baseProps}
+              loading={isPreviousData}
+              onRowClick={onRowClick}
+              page={page}
+              pageSize={pageSize}
+              totalPageSize={data.count}
+            />
+          </div>
+        )}
+      </ToolkitProvider>
     </>
   );
 }

@@ -3,22 +3,21 @@ import classnames from "classnames";
 import { Badge } from "reactstrap";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate } from "react-router-dom";
-import Address from "../../components/Address/Address.js";
-import SearchInput from "../../components/SearchInput/SearchInput.js";
-import Loader from "../../components/Loader/Loader.js";
-import RemoteTable from "../../components/Table/RemoteTable.js";
-import Value from "../../components/Value/Value.js";
-import ValueChange from "../../components/Value/ValueChange.js";
-import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
-import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
-import { parseUTCDateTime } from "../../utils/datetime.js";
-import AdditionalFilters from "./components/AdditionalFilters.js";
+import Address from "../../../components/Address/Address.js";
+import SearchInput from "../../../components/SearchInput/SearchInput.js";
+import Loader from "../../../components/Loader/Loader.js";
+import RemoteTable from "../../../components/Table/RemoteTable.js";
+import Value from "../../../components/Value/Value.js";
+import ValueChange from "../../../components/Value/ValueChange.js";
+import { useFetch, useQueryParams } from "../../../hooks";
+import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
+import { parseUTCDateTime } from "../../../utils/datetime.js";
+import AdditionalFilters from "../../wallets/components/AdditionalFilters.js";
 import makeBlockie from "ethereum-blockies-base64";
-import styles from "./Wallets.module.scss";
+import styles from "../../wallets/Wallets.module.scss";
 
-function Wallets(props) {
-  usePageTitle("Wallets");
-
+function WalletsTable(props) {
+  const { drop } = props;
   const navigate = useNavigate();
   const queryParams = useQueryParams();
   const pageSize = 25;
@@ -26,8 +25,8 @@ function Wallets(props) {
   const searchText = queryParams.get("search");
   const assets = queryParams.getAll("asset");
 
-  const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
-    "aave/wallets/",
+  const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
+    "aave/risk/wallets-at-risk/",
     {
       p: page,
       p_size: pageSize,
@@ -38,8 +37,8 @@ function Wallets(props) {
       supply_borrow: queryParams.get("supply_borrow"),
       no_dust: queryParams.get("no_dust"),
       risk: queryParams.get("risk"),
-    },
-    { keepPreviousData: true }
+      drop: drop,
+    }
   );
 
   if (isLoading) {
@@ -56,15 +55,6 @@ function Wallets(props) {
 
   return (
     <>
-      <h3 className="mb-4">wallets</h3>
-      <p className="gray">
-        List of open positions in the protocol. When liquidation buffer is lower than 0,
-        the position can be liquidated.
-      </p>
-      <p className="gray">
-        *drop: markets price drop for wallet to be liquidated. All assets fall for x% at
-        the same time (excluding stable coins)
-      </p>
       <ToolkitProvider
         bootstrap4
         search
@@ -249,7 +239,6 @@ function Wallets(props) {
             </div>
             <RemoteTable
               {...props.baseProps}
-              loading={isPreviousData}
               onRowClick={onRowClick}
               page={page}
               pageSize={pageSize}
@@ -268,4 +257,4 @@ function Wallets(props) {
   );
 }
 
-export default Wallets;
+export default WalletsTable;

@@ -59,6 +59,19 @@ function Graph(props) {
 
   const defaultOptions = {
     aspectRatio: 2,
+    onResize: (chart, size) => {
+      const ratio = chart.config.options.aspectRatio;
+      if (size.width < 576 && ratio !== 1) {
+        chart.config.options.oldAspectRatio = ratio;
+        chart.config.options.aspectRatio = 1;
+      } else if (
+        size.width >= 576 &&
+        chart.config.options.oldAspectRatio > 0 &&
+        ratio !== chart.config.options.oldAspectRatio
+      ) {
+        chart.config.options.aspectRatio = chart.config.options.oldAspectRatio;
+      }
+    },
     fill: false,
     interaction: {
       intersect: false,

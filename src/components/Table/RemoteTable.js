@@ -5,7 +5,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import LoadingOverlay from "react-loading-overlay";
 import { useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import { useQueryParams } from "../../hooks";
+import { useQueryParams } from "../../hooks.js";
 import { getAllQueryParams } from "../../utils/url.js";
 import LinkTable from "./LinkTable.js";
 
