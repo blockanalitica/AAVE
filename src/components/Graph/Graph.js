@@ -1,12 +1,12 @@
 import { Chart as ChartJS, registerables } from "chart.js";
 import "chartjs-adapter-luxon";
+import { MatrixController, MatrixElement } from "chartjs-chart-matrix";
 import annotationPlugin from "chartjs-plugin-annotation";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 import { Chart } from "react-chartjs-2";
-import { MatrixController, MatrixElement } from "chartjs-chart-matrix";
 import { SYMBOLS_PALETTE } from "../../utils/colors.js";
 
 ChartJS.register(...registerables, annotationPlugin, MatrixElement, MatrixController);
