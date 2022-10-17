@@ -34,6 +34,7 @@ function TokenBackedHistoricShare(props) {
     });
   });
   const options = {
+    fill: true,
     interaction: {
       axis: "x",
     },
@@ -66,7 +67,7 @@ function TokenBackedHistoricShare(props) {
     },
   };
 
-  return <Graph series={series} type="bar" options={options} />;
+  return <Graph series={series} type="line" options={options} />;
 }
 
 export default withErrorBoundary(TokenBackedHistoricShare);
