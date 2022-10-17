@@ -34,6 +34,7 @@ function TokenBackedHistoricStacked(props) {
     });
   });
   const options = {
+    fill: true,
     interaction: {
       axis: "x",
     },
@@ -73,7 +74,7 @@ function TokenBackedHistoricStacked(props) {
     },
   };
 
-  return <Graph series={series} type="bar" options={options} />;
+  return <Graph series={series} type="line" options={options} />;
 }
 
 export default withErrorBoundary(TokenBackedHistoricStacked);

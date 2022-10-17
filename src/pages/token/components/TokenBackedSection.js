@@ -1,4 +1,4 @@
-import { faChartBar, faChartLine, faPercent } from "@fortawesome/free-solid-svg-icons";
+import { faChartArea, faChartLine, faPercent } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
@@ -70,7 +70,7 @@ function TokenBackedSection(props) {
       ),
     },
     {
-      title: <FontAwesomeIcon icon={faChartBar} />,
+      title: <FontAwesomeIcon icon={faChartArea} />,
       content: (
         <TokenBackedHistoricStacked
           slug={slug}
