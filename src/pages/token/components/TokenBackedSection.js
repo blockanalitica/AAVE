@@ -1,15 +1,16 @@
+import { faChartArea, faChartLine, faPercent } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
-import { faChartBar, faChartLine } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconTabs from "../../../components/Tabs/IconTabs.js";
 import SideTabNav from "../../../components/SideTab/SideTabNav.js";
-import { withErrorBoundary } from "../../../hoc.js";
-import TokenBackedChart from "./TokenBackedChart.js";
-import TokenBackedHistoric from "./TokenBackedHistoric.js";
+import IconTabs from "../../../components/Tabs/IconTabs.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
-import SupplyBorrowChart from "./SupplyBorrowChart.js";
+import { withErrorBoundary } from "../../../hoc.js";
 import RateHistoryChart from "./RateHistoryChart.js";
+import SupplyBorrowChart from "./SupplyBorrowChart.js";
+import TokenBackedHistoric from "./TokenBackedHistoric.js";
+import TokenBackedHistoricShare from "./TokenBackedHistoricShare.js";
+import TokenBackedHistoricStacked from "./TokenBackedHistoricStacked.js";
 import UtilizationChart from "./UtilizationChart.js";
 
 function TokenBackedSection(props) {
@@ -56,6 +57,45 @@ function TokenBackedSection(props) {
 
   let content = null;
 
+  let icontabs = [
+    {
+      title: <FontAwesomeIcon icon={faChartLine} />,
+      content: (
+        <TokenBackedHistoric
+          slug={slug}
+          type={type}
+          timePeriod={timePeriod}
+          withLtv={withLtv}
+        />
+      ),
+    },
+    {
+      title: <FontAwesomeIcon icon={faChartArea} />,
+      content: (
+        <TokenBackedHistoricStacked
+          slug={slug}
+          type={type}
+          timePeriod={timePeriod}
+          withLtv={withLtv}
+        />
+      ),
+    },
+  ];
+
+  if (type === "backed") {
+    icontabs.push({
+      title: <FontAwesomeIcon icon={faPercent} />,
+      content: (
+        <TokenBackedHistoricShare
+          slug={slug}
+          type={type}
+          timePeriod={timePeriod}
+          withLtv={withLtv}
+        />
+      ),
+    });
+  }
+
   if (type === "supply_borrow") {
     title = `total supply/borrow for last ${timePeriod} days`;
     description = `total supply/borrow for ${slug}, real supply/borrow removes recursive positions.`;
@@ -75,28 +115,7 @@ function TokenBackedSection(props) {
     description = `supply/borrow APY changes`;
     content = <RateHistoryChart slug={slug} timePeriod={timePeriod} />;
   } else {
-    content = (
-      <IconTabs
-        tabs={[
-          {
-            title: <FontAwesomeIcon icon={faChartLine} />,
-            content: (
-              <TokenBackedHistoric
-                slug={slug}
-                type={type}
-                timePeriod={timePeriod}
-                withLtv={withLtv}
-              />
-            ),
-          },
-          {
-            title: <FontAwesomeIcon icon={faChartBar} />,
-            content: <TokenBackedChart slug={slug} type={type} withLtv={withLtv} />,
-          },
-        ]}
-        label="charts:"
-      />
-    );
+    content = <IconTabs tabs={icontabs} label="charts:" />;
   }
 
   return (
