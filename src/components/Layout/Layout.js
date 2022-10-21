@@ -28,6 +28,7 @@ import styles from "./Layout.module.scss";
 import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import Activity from "../../pages/activity/Activity";
 import Markets from "../../pages/markets/Markets";
+import Changelog from "../../pages/changelog/Changelog";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -101,16 +102,20 @@ function Layout(props) {
             <Route path="liquidations/liquidators/:address/" element={<Liquidator />} />
             <Route path="ecosystem/" element={<Ecosystem />} />
             <Route path="activity/" element={<Activity />} />
+            <Route path="changelog/" element={<Changelog />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
       </Container>
 
-      <footer className="d-flex justify-content-center align-items-baseline gray p-3 small mt-4">
-        <a href="https://blockanalitica.com">
+      <footer className="mt-4 text-center p-3">
+        <div className="d-flex justify-content-center align-items-baseline gray small mb-1">
           <img src={baLogo} alt="blockanalitica" className={styles.footerLogo} />
-        </a>
-        &copy;2022
+          &copy;2022
+        </div>
+        <Link to="changelog/" className="gray small">
+          changelog
+        </Link>
       </footer>
     </>
   );
