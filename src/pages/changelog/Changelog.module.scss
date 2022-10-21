@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.section {
+  margin-bottom: 1rem;
+  border-bottom: solid 1px $border-color;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.date {
+  font-size: 1.2rem;
+  border-bottom: solid 1px $border-color;
+  margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
+}
+
+.changeSection {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.changes {
+  color: $gray;
+}
