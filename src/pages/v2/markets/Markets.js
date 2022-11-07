@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Row } from "reactstrap";
-import CryptoIcon from "../../components/CryptoIcon/CryptoIcon.js";
-import Loader from "../../components/Loader/Loader.js";
+import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
+import Loader from "../../../components/Loader/Loader.js";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import LinkTable from "../../components/Table/LinkTable.js";
-import Value from "../../components/Value/Value.js";
-import ValueChange from "../../components/Value/ValueChange.js";
-import { withErrorBoundary } from "../../hoc.js";
-import { useFetch, usePageTitle } from "../../hooks";
-import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
+import LinkTable from "../../../components/Table/LinkTable.js";
+import Value from "../../../components/Value/Value.js";
+import ValueChange from "../../../components/Value/ValueChange.js";
+import { withErrorBoundary } from "../../../hoc.js";
+import { useFetch, usePageTitle } from "../../../hooks";
+import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 
-function MarketsV2(props) {
+function Markets(props) {
   usePageTitle("Markets");
   const navigate = useNavigate();
   const [timePeriod, setTimePeriod] = useState(1);
@@ -26,7 +26,7 @@ function MarketsV2(props) {
   }
 
   const onRowClick = (row) => {
-    navigate(`/markets/${row.slug}/`);
+    navigate(`/v2/mainnet/markets/${row.symbol}/`);
   };
 
   return (
@@ -230,4 +230,4 @@ function MarketsV2(props) {
   );
 }
 
-export default withErrorBoundary(MarketsV2);
+export default withErrorBoundary(Markets);

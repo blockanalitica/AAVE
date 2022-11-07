@@ -29,7 +29,8 @@ import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import Activity from "../../pages/activity/Activity";
 import Markets from "../../pages/markets/Markets";
 import Changelog from "../../pages/changelog/Changelog";
-import MarketsV2 from "../../pages/marketsv2/MarketsV2.js";
+import MarketsV2 from "../../pages/v2/markets/Markets.js";
+import MarketV2 from "../../pages/v2/markets/Market.js";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -105,6 +106,7 @@ function Layout(props) {
             <Route path="activity/" element={<Activity />} />
             <Route path="changelog/" element={<Changelog />} />
             <Route path="v2/mainnet/markets/" element={<MarketsV2 />} />
+            <Route path="v2/mainnet/markets/:symbol/" element={<MarketV2 />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
