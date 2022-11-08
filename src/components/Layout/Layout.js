@@ -31,6 +31,7 @@ import Markets from "../../pages/markets/Markets";
 import Changelog from "../../pages/changelog/Changelog";
 import MarketsV2 from "../../pages/v2/markets/Markets.js";
 import MarketV2 from "../../pages/v2/markets/Market.js";
+import MarketWalletsV2 from "../../pages/v2/markets/MarketWallets.js";
 import WalletsV2 from "../../pages/v2/wallets/Wallets.js";
 import WalletV2 from "../../pages/v2/wallets/Wallet.js";
 
@@ -103,9 +104,12 @@ function Layout(props) {
             <Route path="changelog/" element={<Changelog />} />
             <Route path="v2/mainnet/markets/" element={<MarketsV2 />} />
             <Route path="v2/mainnet/markets/:symbol/" element={<MarketV2 />} />
+            <Route
+              path="v2/mainnet/markets/:symbol/wallets/"
+              element={<MarketWalletsV2 />}
+            />
             <Route path="v2/mainnet/wallets/" element={<WalletsV2 />} />
             <Route path="v2/mainnet/wallets/:address/" element={<WalletV2 />} />
-
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
