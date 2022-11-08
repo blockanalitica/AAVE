@@ -2,10 +2,23 @@ import axios from "axios";
 import queryString from "query-string";
 import { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ErrorFallback from "./components/errorFallback/ErrorFallback.js";
 
 const SLASH_REGEX = /^\/?|\/?$/g;
+
+const _location_prefix = (location) => {
+  const pathname = location.pathname.replace(SLASH_REGEX, "");
+  const paths = pathname.split("/");
+  let prefix = "";
+  if (pathname.length >= 2) {
+    const version = paths[0];
+    if (["v2", "v3"].includes(version)) {
+      prefix = `/${version}/${paths[1]}/`;
+    }
+  }
+  return prefix;
+};
 
 export const useFetch = (path, query, options) => {
   let qs = queryString.stringify(query, { skipNull: true });
@@ -14,16 +27,10 @@ export const useFetch = (path, query, options) => {
   }
 
   let url = path;
-
   const location = useLocation();
-  const pathname = location.pathname.replace(SLASH_REGEX, "");
-  const paths = pathname.split("/");
-  if (pathname.length >= 2) {
-    const version = paths[0];
-    if (["v2", "v3"].includes(version)) {
-      const path_rest = paths.slice(2).join("/");
-      url = `/aave/${version}/${paths[1]}/${path_rest}/`;
-    }
+  const prefix = _location_prefix(location);
+  if (prefix.length > 0) {
+    url = `/aave${prefix}${path}`;
   }
 
   const settings = {
@@ -76,4 +83,16 @@ export const useDidMountEffect = (func, deps) => {
 
 export const useQueryParams = () => {
   return new URLSearchParams(useLocation().search);
+};
+
+export const useSmartNavigate = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const prefix = _location_prefix(location);
+  const smartNavigate = (path) => {
+    navigate(prefix + path);
+  };
+
+  return smartNavigate;
 };

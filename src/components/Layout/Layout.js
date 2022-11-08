@@ -31,6 +31,8 @@ import Markets from "../../pages/markets/Markets";
 import Changelog from "../../pages/changelog/Changelog";
 import MarketsV2 from "../../pages/v2/markets/Markets.js";
 import MarketV2 from "../../pages/v2/markets/Market.js";
+import WalletsV2 from "../../pages/v2/wallets/Wallets.js";
+import WalletV2 from "../../pages/v2/wallets/Wallet.js";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -77,12 +79,6 @@ function Layout(props) {
                     Activity
                   </NavLink>
                 </NavItem>
-
-                {/*<NavItem>
-                  <NavLink tag={Link} to="/">
-                    Assets
-                  </NavLink>
-                </NavItem>*/}
               </Nav>
             </Collapse>
           </Navbar>
@@ -107,6 +103,9 @@ function Layout(props) {
             <Route path="changelog/" element={<Changelog />} />
             <Route path="v2/mainnet/markets/" element={<MarketsV2 />} />
             <Route path="v2/mainnet/markets/:symbol/" element={<MarketV2 />} />
+            <Route path="v2/mainnet/wallets/" element={<WalletsV2 />} />
+            <Route path="v2/mainnet/wallets/:address/" element={<WalletV2 />} />
+
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>

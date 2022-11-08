@@ -3,16 +3,16 @@ import classnames from "classnames";
 import { Badge } from "reactstrap";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate } from "react-router-dom";
-import Address from "../../components/Address/Address.js";
-import SearchInput from "../../components/SearchInput/SearchInput.js";
-import Loader from "../../components/Loader/Loader.js";
-import RemoteTable from "../../components/Table/RemoteTable.js";
-import Value from "../../components/Value/Value.js";
-import ValueChange from "../../components/Value/ValueChange.js";
-import { useFetch, usePageTitle, useQueryParams } from "../../hooks";
-import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
-import { parseUTCDateTime } from "../../utils/datetime.js";
-import AdditionalFilters from "./components/AdditionalFilters.js";
+import Address from "../../../components/Address/Address.js";
+import SearchInput from "../../../components/SearchInput/SearchInput.js";
+import Loader from "../../../components/Loader/Loader.js";
+import RemoteTable from "../../../components/Table/RemoteTable.js";
+import Value from "../../../components/Value/Value.js";
+import ValueChange from "../../../components/Value/ValueChange.js";
+import { useFetch, usePageTitle, useQueryParams } from "../../../hooks";
+import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
+import { parseUTCDateTime } from "../../../utils/datetime.js";
+// import AdditionalFilters from "./components/AdditionalFilters.js";
 import makeBlockie from "ethereum-blockies-base64";
 import styles from "./Wallets.module.scss";
 
@@ -27,7 +27,7 @@ function Wallets(props) {
   const assets = queryParams.getAll("asset");
 
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
-    "aave/wallets/",
+    "wallets/",
     {
       p: page,
       p_size: pageSize,
@@ -47,11 +47,11 @@ function Wallets(props) {
   } else if (isError) {
     return <ErrorFallbackComponent />;
   }
-
-  const { assets: allAssets } = data;
+  // TODO:
+  // const { assets: allAssets } = data;
 
   const onRowClick = (row) => {
-    navigate(`/wallets/${row.address}/`);
+    navigate(`${row.address}/`);
   };
 
   return (
@@ -124,7 +124,7 @@ function Wallets(props) {
             align: "right",
           },
           {
-            dataField: "net_with_cf",
+            dataField: "account_liquidity",
             text: "Account liquidity",
             sort: true,
             formatter: (cell, row) => (
@@ -134,7 +134,7 @@ function Wallets(props) {
             align: "right",
           },
           {
-            dataField: "net_with_lt",
+            dataField: "liquidation_buffer",
             text: "Liquidation Buffer",
             sort: true,
             formatter: (cell, row) => (
@@ -234,7 +234,7 @@ function Wallets(props) {
           <div>
             <div className="d-flex flex-wrap">
               <div className="d-flex flex-grow-1 align-items-baseline mb-3">
-                <AdditionalFilters assets={allAssets} />
+                {/* <AdditionalFilters assets={allAssets} /> */}
               </div>
               <div className="react-bootstrap-table-search d-flex justify-content-end align-items-baseline mb-3">
                 Search:
