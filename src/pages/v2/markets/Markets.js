@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Row } from "reactstrap";
+import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
 import Loader from "../../../components/Loader/Loader.js";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -15,9 +16,15 @@ function Markets(props) {
   usePageTitle("Markets");
   const navigate = useNavigate();
   const [timePeriod, setTimePeriod] = useState(1);
+  const [isTokenCurrency, setIsTokenCurrency] = useState(false);
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch("markets/", {
     days_ago: timePeriod,
   });
+  let fieldSuffix = "_usd";
+  if (isTokenCurrency) {
+    fieldSuffix = "";
+  }
+  let symbol = "token";
 
   if (isLoading) {
     return <Loader />;
@@ -36,6 +43,16 @@ function Markets(props) {
         <div className="mb-2 flex-grow-1 d-flex align-items-center justify-content-end">
           <TimeSwitch activeOption={timePeriod} label={""} onChange={setTimePeriod} />
         </div>
+      </div>
+      <div className="mb-2 flex-grow-1 d-flex align-items-right justify-content-end">
+        <CurrencySwitch
+          label="show amounts in:"
+          options={[
+            { key: "$", value: "$" },
+            { key: symbol, value: symbol },
+          ]}
+          onChange={(option) => setIsTokenCurrency(option === symbol)}
+        />
       </div>
       <Row className="mb-4">
         <Col>
@@ -80,7 +97,7 @@ function Markets(props) {
                     <ValueChange
                       value={cell - row["change"]["price"]}
                       decimals={2}
-                      prefix="$"
+                      prefix={isTokenCurrency ? "" : "$"}
                       compact
                       icon
                       hideIfZero
@@ -92,17 +109,22 @@ function Markets(props) {
                 align: "right",
               },
               {
-                dataField: "tvl_usd",
+                dataField: `tvl${fieldSuffix}`,
                 text: "TVL",
                 sort: true,
                 formatter: (cell, row) => (
                   <>
-                    <Value value={cell} decimals={2} prefix="$" compact />
+                    <Value
+                      value={cell}
+                      decimals={2}
+                      prefix={isTokenCurrency ? "" : "$"}
+                      compact
+                    />
                     <br />
                     <ValueChange
-                      value={cell - row["change"]["tvl_usd"]}
+                      value={cell - row["change"][`tvl${fieldSuffix}`]}
                       decimals={2}
-                      prefix="$"
+                      prefix={isTokenCurrency ? "" : "$"}
                       compact
                       icon
                       hideIfZero
@@ -114,17 +136,22 @@ function Markets(props) {
                 align: "right",
               },
               {
-                dataField: "total_supply_usd",
+                dataField: `total_supply${fieldSuffix}`,
                 text: "Supply",
                 sort: true,
                 formatter: (cell, row) => (
                   <>
-                    <Value value={cell} decimals={2} prefix="$" compact />
+                    <Value
+                      value={cell}
+                      decimals={2}
+                      prefix={isTokenCurrency ? "" : "$"}
+                      compact
+                    />
                     <br />
                     <ValueChange
-                      value={cell - row["change"]["total_supply_usd"]}
+                      value={cell - row["change"][`total_supply${fieldSuffix}`]}
                       decimals={2}
-                      prefix="$"
+                      prefix={isTokenCurrency ? "" : "$"}
                       compact
                       icon
                       hideIfZero
@@ -136,17 +163,22 @@ function Markets(props) {
                 align: "right",
               },
               {
-                dataField: "total_borrow_usd",
+                dataField: `total_borrow${fieldSuffix}`,
                 text: "Borrow",
                 sort: true,
                 formatter: (cell, row) => (
                   <>
-                    <Value value={cell} decimals={2} prefix="$" compact />
+                    <Value
+                      value={cell}
+                      decimals={2}
+                      prefix={isTokenCurrency ? "" : "$"}
+                      compact
+                    />
                     <br />
                     <ValueChange
-                      value={cell - row["change"]["total_borrow_usd"]}
+                      value={cell - row["change"][`total_borrow${fieldSuffix}`]}
                       decimals={2}
-                      prefix="$"
+                      prefix={isTokenCurrency ? "" : "$"}
                       compact
                       icon
                       hideIfZero
