@@ -1,0 +1,11 @@
+@import "../../styles/variables";
+
+.dropdownToggle {
+  cursor: pointer;
+  font-weight: $font-weight-base;
+  color: $ba-nav-color;
+
+  &:hover {
+    color: $white;
+  }
+}
