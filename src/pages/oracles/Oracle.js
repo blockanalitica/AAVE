@@ -8,16 +8,14 @@ import Value from "../../components/Value/Value.js";
 import ValueChange from "../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle } from "../../hooks";
-
+import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
+import { parseUTCDateTimestamp } from "../../utils/datetime.js";
 
 function Homepage(props) {
   usePageTitle("Oracles");
   const navigate = useNavigate();
-  const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/oracles/",
-
-  );
-
+  const { data, isLoading, isError, ErrorFallbackComponent } =
+    useFetch("aave/oracles/");
 
   if (isLoading) {
     return <Loader />;
@@ -25,18 +23,15 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
-
-
   const onRowClick = (row) => {
-    navigate(`/oracles/${row.slug}/`);
+    navigate(`/oracles/${row.symbol}/`);
   };
 
   return (
     <>
       <div className="mb-4 d-flex align-items-center">
         <h3 className="mb-4">Oracle</h3>
-        <div className="mb-2 flex-grow-1 d-flex align-items-center justify-content-end">
-        </div>
+        <div className="mb-2 flex-grow-1 d-flex align-items-center justify-content-end"></div>
       </div>
       <Row className="mb-4">
         <Col>
@@ -61,23 +56,20 @@ function Homepage(props) {
                 text: "",
                 sort: false,
                 formatter: (cell, row) => (
-                  <CryptoIcon
-                    className="me-2"
-                    name={row.symbol}
-                    size="2rem"
-                  />
+                  <CryptoIcon className="me-2" name={row.symbol} size="2rem" />
                 ),
                 footer: "",
               },
               {
                 dataField: "symbol",
-                text: "Symbol",
+                text: "ASSET",
                 sort: true,
                 footer: "",
               },
               {
                 dataField: "price",
                 text: "Price",
+                sort: true,
                 formatter: (cell, row) => (
                   <>
                     <Value value={cell} decimals={2} prefix="$" />
@@ -94,7 +86,21 @@ function Homepage(props) {
                 ),
                 headerAlign: "right",
                 align: "right",
-              }
+              },
+              {
+                dataField: "timestamp",
+                text: "Date",
+                sort: true,
+                formatter: (cell, row) => (
+                  <>
+                    <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
+                    <br />
+                    <small>{row.block_number}</small>
+                  </>
+                ),
+                headerAlign: "right",
+                align: "right",
+              },
             ]}
           />
         </Col>
@@ -104,4 +110,3 @@ function Homepage(props) {
 }
 
 export default withErrorBoundary(Homepage);
-

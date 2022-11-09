@@ -28,6 +28,7 @@ import styles from "./Layout.module.scss";
 import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import Activity from "../../pages/activity/Activity";
 import Markets from "../../pages/markets/Markets";
+import OracleHistoricStats from "../../pages/oracles/OracleHistoricStats";
 import Oracle from "../../pages/oracles/Oracle";
 import Changelog from "../../pages/changelog/Changelog";
 
@@ -98,6 +99,7 @@ function Layout(props) {
             <Route index element={<Homepage />} />
             <Route path="markets/" element={<Markets />} />
             <Route path="oracles/" element={<Oracle />} />
+            <Route path="oracles/:symbol/" element={<OracleHistoricStats />} />
             <Route path="markets/:symbol/" element={<Token />} />
             <Route path="markets/:symbol/wallets/" element={<TokenWallets />} />
             <Route path="wallets/" element={<Wallets />} />
