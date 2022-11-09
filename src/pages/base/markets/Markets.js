@@ -26,7 +26,7 @@ function Markets(props) {
   }
 
   const onRowClick = (row) => {
-    navigate(`/v2/mainnet/markets/${row.symbol}/`);
+    navigate(`${row.symbol}/`);
   };
 
   return (
