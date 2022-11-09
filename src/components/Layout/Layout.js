@@ -29,15 +29,31 @@ import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import Activity from "../../pages/activity/Activity";
 import Markets from "../../pages/markets/Markets";
 import Changelog from "../../pages/changelog/Changelog";
-import MarketsV2 from "../../pages/v2/markets/Markets.js";
-import MarketV2 from "../../pages/v2/markets/Market.js";
-import MarketWalletsV2 from "../../pages/v2/markets/MarketWallets.js";
-import WalletsV2 from "../../pages/v2/wallets/Wallets.js";
-import WalletV2 from "../../pages/v2/wallets/Wallet.js";
+import MarketsBase from "../../pages/base/markets/Markets.js";
+import MarketBase from "../../pages/base/markets/Market.js";
+import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
+import WalletsBase from "../../pages/base/wallets/Wallets.js";
+import WalletBase from "../../pages/base/wallets/Wallet.js";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
+
+  const v2EthereumRoutes = [
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+  ];
+
+  const v3OptimismRoutes = [
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+  ];
 
   return (
     <>
@@ -102,14 +118,17 @@ function Layout(props) {
             <Route path="ecosystem/" element={<Ecosystem />} />
             <Route path="activity/" element={<Activity />} />
             <Route path="changelog/" element={<Changelog />} />
-            <Route path="v2/mainnet/markets/" element={<MarketsV2 />} />
-            <Route path="v2/mainnet/markets/:symbol/" element={<MarketV2 />} />
-            <Route
-              path="v2/mainnet/markets/:symbol/wallets/"
-              element={<MarketWalletsV2 />}
-            />
-            <Route path="v2/mainnet/wallets/" element={<WalletsV2 />} />
-            <Route path="v2/mainnet/wallets/:address/" element={<WalletV2 />} />
+            {/* V2 Ethereum */}
+            {v2EthereumRoutes.map((route) => {
+              const path = `v2/ethereum/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* V3 Optimism */}
+            {v3OptimismRoutes.map((route) => {
+              const path = `v3/optimism/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* Catch all */}
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
