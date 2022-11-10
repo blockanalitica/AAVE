@@ -7,7 +7,6 @@ import { compact } from "../../../../utils/number.js";
 
 function TokenDepegChart(props) {
   const { symbol, drop, isTokenCurrencyTotal, chartType, showPrice } = props;
-  console.log("REALLY");
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `markets/${symbol}/at-risk/depeg/`
   );
