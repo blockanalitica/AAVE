@@ -20,11 +20,11 @@ function Markets(props) {
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch("markets/", {
     days_ago: timePeriod,
   });
+
   let fieldSuffix = "_usd";
   if (isTokenCurrency) {
     fieldSuffix = "";
   }
-  let symbol = "token";
 
   if (isLoading) {
     return <Loader />;
@@ -49,9 +49,9 @@ function Markets(props) {
           label="show amounts in:"
           options={[
             { key: "$", value: "$" },
-            { key: symbol, value: symbol },
+            { key: "token", value: "token" },
           ]}
-          onChange={(option) => setIsTokenCurrency(option === symbol)}
+          onChange={(option) => setIsTokenCurrency(option === "token")}
         />
       </div>
       <Row className="mb-4">
@@ -90,6 +90,7 @@ function Markets(props) {
               {
                 dataField: "price",
                 text: "Price",
+                sort: true,
                 formatter: (cell, row) => (
                   <>
                     <Value value={cell} decimals={2} prefix="$" />
@@ -128,7 +129,7 @@ function Markets(props) {
                       compact
                       icon
                       hideIfZero
-                      tooltipValue={row["change"]["tvl_usd"]}
+                      tooltipValue={row["change"][`tvl${fieldSuffix}`]}
                     />
                   </>
                 ),
@@ -155,7 +156,7 @@ function Markets(props) {
                       compact
                       icon
                       hideIfZero
-                      tooltipValue={row["change"]["total_supply_usd"]}
+                      tooltipValue={row["change"][`total_supply${fieldSuffix}`]}
                     />
                   </>
                 ),
@@ -182,7 +183,7 @@ function Markets(props) {
                       compact
                       icon
                       hideIfZero
-                      tooltipValue={row["change"]["total_borrow_usd"]}
+                      tooltipValue={row["change"][`total_borrow${fieldSuffix}`]}
                     />
                   </>
                 ),
