@@ -4,21 +4,7 @@ import { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import ErrorFallback from "./components/errorFallback/ErrorFallback.js";
-
-const SLASH_REGEX = /^\/?|\/?$/g;
-
-const _location_prefix = (location) => {
-  const pathname = location.pathname.replace(SLASH_REGEX, "");
-  const paths = pathname.split("/");
-  let prefix = "";
-  if (pathname.length >= 2) {
-    const version = paths[0];
-    if (["v2", "v3"].includes(version)) {
-      prefix = `/${version}/${paths[1]}/`;
-    }
-  }
-  return prefix;
-};
+import { smartLocationPrefix } from "./utils/url.js";
 
 export const useFetch = (path, query, options) => {
   let qs = queryString.stringify(query, { skipNull: true });
@@ -28,7 +14,7 @@ export const useFetch = (path, query, options) => {
 
   let url = path;
   const location = useLocation();
-  const prefix = _location_prefix(location);
+  const prefix = smartLocationPrefix(location);
   if (prefix.length > 0) {
     url = `/aave${prefix}${path}`;
   }
@@ -89,7 +75,7 @@ export const useSmartNavigate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const prefix = _location_prefix(location);
+  const prefix = smartLocationPrefix(location);
   const smartNavigate = (path) => {
     navigate(prefix + path);
   };
