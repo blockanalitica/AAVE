@@ -9,7 +9,7 @@ import Value from "../../../components/Value/Value.js";
 // import TokenBackedSection from "./components/TokenBackedSection.js";
 import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
-// import RiskSection from "./components/RiskSection.js";
+import RiskSection from "./components/RiskSection.js";
 import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 
 function Market(props) {
@@ -83,11 +83,11 @@ function Market(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
       />
 
-      {/*           <RiskSection */}
-      {/*             slug={symbol} */}
-      {/*             className="mb-4" */}
-      {/*             isTokenCurrencyTotal={isTokenCurrencyTotal} */}
-      {/*           /> */}
+      <RiskSection
+        symbol={symbol}
+        className="mb-4"
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+      />
 
       <InfoCard data={statsData} />
 
