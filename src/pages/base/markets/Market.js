@@ -6,10 +6,10 @@ import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch, usePageTitle } from "../../../hooks";
 import Value from "../../../components/Value/Value.js";
-// import TokenBackedSection from "./components/TokenBackedSection.js";
+import TokenBackedSection from "./components/TokenBackedSection.js";
 import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
-// import RiskSection from "./components/RiskSection.js";
+import RiskSection from "./components/RiskSection.js";
 import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 
 function Market(props) {
@@ -36,9 +36,6 @@ function Market(props) {
   }
 
   const { symbol: underlyingSymbol, price, atoken_address, ...statsData } = data;
-
-  // const hasBorrow = data.total_borrow > 0;
-  // const hasSupply = data.liquidation_threshold > 0;
 
   return (
     <>
@@ -82,22 +79,19 @@ function Market(props) {
         symbol={underlyingSymbol}
         isTokenCurrencyTotal={isTokenCurrencyTotal}
       />
-
-      {/*           <RiskSection */}
-      {/*             slug={symbol} */}
-      {/*             className="mb-4" */}
-      {/*             isTokenCurrencyTotal={isTokenCurrencyTotal} */}
-      {/*           /> */}
-
-      <InfoCard data={statsData} />
-
-      {/*       <TokenBackedSection */}
-      {/*         slug={symbol} */}
-      {/*         hasBorrow={hasBorrow} */}
-      {/*         hasSupply={hasSupply} */}
-      {/*         isTokenCurrencyTotal={isTokenCurrencyTotal} */}
-      {/*         className="mb-4" */}
-      {/*       /> */}
+      <RiskSection
+        symbol={symbol}
+        className="mb-4"
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+      />
+      <InfoCard data={statsData} className="mb-4" />
+      <TokenBackedSection
+        symbol={symbol}
+        hasBorrow={data.total_borrow > 0}
+        hasSupply={data.liquidation_threshold > 0}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+        className="mb-4"
+      />
     </>
   );
 }
