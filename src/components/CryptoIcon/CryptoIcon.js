@@ -40,6 +40,9 @@ import zrxIcon from "../../images/crypto/color/zrx.svg";
 import cvxIcon from "../../images/crypto/color/cvx.svg";
 import lusdIcon from "../../images/crypto/color/lusd.svg";
 import oneinchIcon from "../../images/crypto/color/1inch.svg";
+import maticIcon from "../../images/crypto/color/matic.svg";
+import avaxIcon from "../../images/crypto/color/avax.svg";
+import optimismIcon from "../../images/crypto/color/optimism.svg";
 
 function CryptoIcon(props) {
   const { name, size, address, ...rest } = props;
@@ -87,6 +90,12 @@ function CryptoIcon(props) {
     CVX: cvxIcon,
     "1INCH": oneinchIcon,
     LUSD: lusdIcon,
+    MATIC: maticIcon,
+    polygon: maticIcon,
+    ethereum: ethIcon,
+    AVAX: avaxIcon,
+    avalanche: avaxIcon,
+    optimism: optimismIcon,
   };
   const icon = mapping[name];
   if (!icon) {

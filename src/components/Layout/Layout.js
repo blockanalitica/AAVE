@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -24,14 +24,42 @@ import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import Wallet from "../../pages/wallets/Wallet.js";
 import Wallets from "../../pages/wallets/Wallets.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
+import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
 import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import Activity from "../../pages/activity/Activity";
 import Markets from "../../pages/markets/Markets";
+import Changelog from "../../pages/changelog/Changelog";
+import MarketsBase from "../../pages/base/markets/Markets.js";
+import MarketBase from "../../pages/base/markets/Market.js";
+import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
+import WalletsBase from "../../pages/base/wallets/Wallets.js";
+import WalletBase from "../../pages/base/wallets/Wallet.js";
+
+import { smartLocationPrefix } from "../../utils/url.js";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
+
+  const location = useLocation();
+  const locationPrefix = smartLocationPrefix(location);
+
+  const v2EthereumRoutes = [
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+  ];
+
+  const v3OptimismRoutes = [
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+  ];
 
   return (
     <>
@@ -41,6 +69,7 @@ function Layout(props) {
             <NavbarBrand className={styles.navbarBrand} tag={Link} to="/">
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
+            {locationPrefix.length > 0 ? <NetworkSelector /> : null}
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={isNavbarOpen} navbar>
               <Nav className="flex-grow-1 justify-content-end" navbar>
@@ -74,12 +103,6 @@ function Layout(props) {
                     Activity
                   </NavLink>
                 </NavItem>
-
-                {/*<NavItem>
-                  <NavLink tag={Link} to="/">
-                    Assets
-                  </NavLink>
-                </NavItem>*/}
               </Nav>
             </Collapse>
           </Navbar>
@@ -101,16 +124,31 @@ function Layout(props) {
             <Route path="liquidations/liquidators/:address/" element={<Liquidator />} />
             <Route path="ecosystem/" element={<Ecosystem />} />
             <Route path="activity/" element={<Activity />} />
+            <Route path="changelog/" element={<Changelog />} />
+            {/* V2 Ethereum */}
+            {v2EthereumRoutes.map((route) => {
+              const path = `v2/ethereum/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* V3 Optimism */}
+            {v3OptimismRoutes.map((route) => {
+              const path = `v3/optimism/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* Catch all */}
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
       </Container>
 
-      <footer className="d-flex justify-content-center align-items-baseline gray p-3 small mt-4">
-        <a href="https://blockanalitica.com">
+      <footer className="mt-4 text-center p-3">
+        <div className="d-flex justify-content-center align-items-baseline gray small mb-1">
           <img src={baLogo} alt="blockanalitica" className={styles.footerLogo} />
-        </a>
-        &copy;2022
+          &copy;2022
+        </div>
+        <Link to="changelog/" className="gray small">
+          changelog
+        </Link>
       </footer>
     </>
   );
