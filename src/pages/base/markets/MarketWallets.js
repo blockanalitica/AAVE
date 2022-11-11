@@ -103,7 +103,7 @@ function MarketWallets(props) {
 
     {
       dataField: `supply${fieldSuffix}`,
-      text: "awfwwwwwwwwwwwwwwwwwwwwwwwwwwwy",
+      text: "Supply",
       sort: true,
       formatter: priceFormatter,
       headerAlign: "right",
@@ -139,6 +139,7 @@ function MarketWallets(props) {
       dataField: `account_liquidity${fieldSuffix}`,
       text: "token liquidity",
       sort: true,
+
       formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",

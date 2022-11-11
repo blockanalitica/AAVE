@@ -36,7 +36,7 @@ function Markets(props) {
   const onRowClick = (row) => {
     navigate(`${row.symbol}/`);
   };
-  console.log();
+
   return (
     <>
       <div className="mb-4 d-flex align-items-center">
