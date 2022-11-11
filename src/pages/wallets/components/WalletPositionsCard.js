@@ -17,7 +17,6 @@ function WalletPositionsCard(props) {
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `aave/wallets/${address}/positions/`
   );
-  console.log(data);
 
   if (isLoading) {
     return <Loader />;
@@ -66,7 +65,7 @@ function WalletPositionsCard(props) {
       },
       {
         dataField: "supply",
-        text: "",
+        text: "Supply",
         sort: true,
         formatExtraData: { isTokenCurrency },
         formatter: (cell, row) => <Value value={cell} decimals={2} compact prefix="" />,
