@@ -18,7 +18,11 @@ function Value(props) {
   } = props;
 
   if (
-    value === undefined || value === null || (hideIfZero && value === 0) || value === 0 || value === 0.0
+    value === undefined ||
+    value === null ||
+    (hideIfZero && value === 0) ||
+    value === 0 ||
+    value === 0.0
   ) {
     return "0";
   }
