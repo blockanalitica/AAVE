@@ -85,10 +85,10 @@ function MarketWallets(props) {
 
   const columns = [
     {
-      dataField: "address",
+      dataField: "",
       text: "",
-      formatter: (cell, row) => {
-        const blockie = makeBlockie(cell);
+      formatter: (_, row) => {
+        const blockie = makeBlockie(row.address);
         return (
           <>
             <img
