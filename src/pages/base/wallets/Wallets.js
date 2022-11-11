@@ -12,7 +12,7 @@ import ValueChange from "../../../components/Value/ValueChange.js";
 import { useFetch, usePageTitle, useQueryParams } from "../../../hooks";
 import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
 import { parseUTCDateTime } from "../../../utils/datetime.js";
-// import AdditionalFilters from "./components/AdditionalFilters.js";
+import AdditionalFilters from "./components/AdditionalFilters.js";
 import makeBlockie from "ethereum-blockies-base64";
 import styles from "./Wallets.module.scss";
 
@@ -47,8 +47,8 @@ function Wallets(props) {
   } else if (isError) {
     return <ErrorFallbackComponent />;
   }
-  // TODO:
-  // const { assets: allAssets } = data;
+
+  const { assets: allAssets } = data;
 
   const onRowClick = (row) => {
     navigate(`${row.address}/`);
@@ -72,10 +72,10 @@ function Wallets(props) {
         data={data.results}
         columns={[
           {
-            dataField: "address",
+            dataField: "",
             text: "",
-            formatter: (cell, row) => {
-              const blockie = makeBlockie(cell);
+            formatter: (_, row) => {
+              const blockie = makeBlockie(row.address);
               return (
                 <>
                   <img
@@ -234,7 +234,7 @@ function Wallets(props) {
           <div>
             <div className="d-flex flex-wrap">
               <div className="d-flex flex-grow-1 align-items-baseline mb-3">
-                {/* <AdditionalFilters assets={allAssets} /> */}
+                <AdditionalFilters assets={allAssets} />
               </div>
               <div className="react-bootstrap-table-search d-flex justify-content-end align-items-baseline mb-3">
                 Search:
