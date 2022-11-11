@@ -116,6 +116,7 @@ function TokenWallets(props) {
       dataField: `borrow${fieldSuffix}`,
       text: "Borrow",
       sort: true,
+      formatExtraData: { isTokenCurrency },
       formatter: priceFormatter,
       headerAlign: "right",
       align: "right",
@@ -124,7 +125,7 @@ function TokenWallets(props) {
       dataField: `borrow_change_${timePeriod}d${fieldSuffix}`,
       text: "Borrow Change",
       sort: true,
-      formatExtraData: { timePeriod },
+      formatExtraData: { timePeriod, isTokenCurrency },
       formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
@@ -148,7 +149,16 @@ function TokenWallets(props) {
     <>
       <h1 className="h3 mb-4">{symbol} positions</h1>
       <Row className="mb-3">
-        <Col lg={6} className="d-flex react-bootstrap-table-filter align-items-center">
+        <Col
+          lg={6}
+          className="d-flex react-bootstrap-table-filter align-items-center justify-content-end"
+        >
+          <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
+        </Col>
+        <Col
+          lg={6}
+          className="d-flex react-bootstrap-table-filter align-items-center justify-content-end"
+        >
           <CurrencySwitch
             label="show amounts in:"
             options={[
@@ -157,12 +167,6 @@ function TokenWallets(props) {
             ]}
             onChange={(option) => setIsTokenCurrency(option === symbol)}
           />
-        </Col>
-        <Col
-          lg={6}
-          className="d-flex react-bootstrap-table-filter align-items-center justify-content-end"
-        >
-          <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
         </Col>
       </Row>
 
