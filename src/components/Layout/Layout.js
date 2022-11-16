@@ -18,6 +18,7 @@ import Homepage from "../../pages/homepage/Homepage.js";
 import Liquidations from "../../pages/liquidations/Liquidations.js";
 import Liquidator from "../../pages/liquidations/Liquidator.js";
 import Liquidators from "../../pages/liquidations/Liquidators.js";
+import Oracles from "../oracles.js/oracles";
 import Token from "../../pages/token/Token.js";
 import TokenWallets from "../../pages/token/TokenWallets.js";
 import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
@@ -103,6 +104,11 @@ function Layout(props) {
                     Activity
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/oracles/">
+                    Oracles
+                  </NavLink>
+                </NavItem>
               </Nav>
             </Collapse>
           </Navbar>
@@ -125,6 +131,7 @@ function Layout(props) {
             <Route path="ecosystem/" element={<Ecosystem />} />
             <Route path="activity/" element={<Activity />} />
             <Route path="changelog/" element={<Changelog />} />
+            <Route path="oracles/" element={<Oracles />} />
             {/* V2 Ethereum */}
             {v2EthereumRoutes.map((route) => {
               const path = `v2/ethereum/${route.path}`;
