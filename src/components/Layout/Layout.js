@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -24,6 +24,7 @@ import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import Wallet from "../../pages/wallets/Wallet.js";
 import Wallets from "../../pages/wallets/Wallets.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
+import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
 import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import Activity from "../../pages/activity/Activity";
@@ -35,9 +36,16 @@ import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import WalletBase from "../../pages/base/wallets/Wallet.js";
 
+import { smartLocationPrefix } from "../../utils/url.js";
+
+
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
+
+  const location = useLocation();
+  const locationPrefix = smartLocationPrefix(location);
+
 
   const v2EthereumRoutes = [
     { path: "markets/", element: <MarketsBase /> },
@@ -63,6 +71,7 @@ function Layout(props) {
             <NavbarBrand className={styles.navbarBrand} tag={Link} to="/">
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
+            {locationPrefix.length > 0 ? <NetworkSelector /> : null}
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={isNavbarOpen} navbar>
               <Nav className="flex-grow-1 justify-content-end" navbar>

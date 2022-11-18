@@ -7,7 +7,8 @@ import StatsBar from "../../../../components/Stats/StatsBar.js";
 import ValueChange from "../../../../components/Value/ValueChange.js";
 
 function InfoCard(props) {
-  const { data } = props;
+  const { data, className } = props;
+
   if (!data) {
     return null;
   }
@@ -150,7 +151,7 @@ function InfoCard(props) {
     },
   ];
   return (
-    <Card>
+    <Card className={className}>
       <StatsBar stats={totalStats} cardTag="div" />
     </Card>
   );

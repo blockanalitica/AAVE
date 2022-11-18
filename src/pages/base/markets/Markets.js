@@ -22,6 +22,7 @@ function Markets(props) {
   });
 
   let fieldSuffix = "_usd";
+
   if (isTokenCurrency) {
     fieldSuffix = "";
   }
@@ -113,6 +114,7 @@ function Markets(props) {
                 dataField: `tvl${fieldSuffix}`,
                 text: "TVL",
                 sort: true,
+                formatExtraData: { isTokenCurrency },
                 formatter: (cell, row) => (
                   <>
                     <Value
@@ -140,6 +142,7 @@ function Markets(props) {
                 dataField: `total_supply${fieldSuffix}`,
                 text: "Supply",
                 sort: true,
+                formatExtraData: { isTokenCurrency },
                 formatter: (cell, row) => (
                   <>
                     <Value
@@ -167,6 +170,7 @@ function Markets(props) {
                 dataField: `total_borrow${fieldSuffix}`,
                 text: "Borrow",
                 sort: true,
+                formatExtraData: { isTokenCurrency },
                 formatter: (cell, row) => (
                   <>
                     <Value
