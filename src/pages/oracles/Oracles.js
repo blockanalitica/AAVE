@@ -1,7 +1,6 @@
 import paginationFactory from "react-bootstrap-table2-paginator";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Col, Row } from "reactstrap";
 import CryptoIcon from "../../components/CryptoIcon/CryptoIcon.js";
 import DateTimeAgo from "../../components/DateTime/DateTimeAgo.js";
 import Loader from "../../components/Loader/Loader.js";
@@ -30,113 +29,110 @@ function Oracles(props) {
 
   return (
     <>
-    <div className="mb-4 d-flex align-items-center">
+      <div className="mb-4 d-flex align-items-center">
         <h4 className="mb-4">assets</h4>
       </div>
-        <LinkTable
-          keyField="symbol"
-          data={data}
-          onRowClick={onRowClick}
-          pagination={paginationFactory({
-            sizePerPageList: [],
-            sizePerPage: 15,
-            showTotal: true,
-          })}
-          defaultSorted={[
-            {
-              dataField: "symbol",
-              order: "asc",
-            },
-          ]}
-          columns={[
-            {
-              dataField: "symbol",
-              text: "Asset",
-              sort: false,
-              formatter: (cell, row) => (
-                <>
-                  <CryptoIcon className="me-2" name={row.symbol} size="1.5rem" />
-                  {cell}
-                </>
-              ),
-            },
-            {
-              dataField: "price_market",
-              text: "Market price",
-              formatter: (cell, row) => <Value value={cell} decimals={2} prefix="$" />,
-              sort: true,
-              headerAlign: "right",
-              align: "right",
-            },
-            {
-              dataField: "timestamp_market",
-              text: "Last updated",
-              sort: true,
-              formatter: (cell, row) => (
-                <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
-              ),
-              headerAlign: "right",
-              align: "right",
-            },
+      <LinkTable
+        keyField="symbol"
+        data={data}
+        onRowClick={onRowClick}
+        pagination={paginationFactory({
+          sizePerPageList: [],
+          sizePerPage: 15,
+          showTotal: true,
+        })}
+        defaultSorted={[
+          {
+            dataField: "symbol",
+            order: "asc",
+          },
+        ]}
+        columns={[
+          {
+            dataField: "symbol",
+            text: "Asset",
+            sort: false,
+            formatter: (cell, row) => (
+              <>
+                <CryptoIcon className="me-2" name={row.symbol} size="1.5rem" />
+                {cell}
+              </>
+            ),
+          },
+          {
+            dataField: "price_market",
+            text: "Market price",
+            formatter: (cell, row) => <Value value={cell} decimals={2} prefix="$" />,
+            sort: true,
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "timestamp_market",
+            text: "Last updated",
+            sort: true,
+            formatter: (cell, row) => (
+              <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
+            ),
+            headerAlign: "right",
+            align: "right",
+          },
 
-            {
-              dataField: "price_ethereum",
-              text: "Ethereum price",
-              formatter: (cell, row) => (
-                <>
-                  <div className="text-nowrap">
-                    <Value value={cell} decimals={2} prefix="$" />
-                    <br />
-                    <ValueChange
-                      className="pl-2"
-                      value={row.diff}
-                      suffix="%"
-                      hideIfZero
-                      decimals={2}
-                      icon
-                    />
-                  </div>
-                </>
-              ),
-              sort: true,
-              headerAlign: "right",
-              align: "right",
-            },
-            {
-              dataField: "timestamp_ethereum",
-              text: "Last updated",
-              sort: true,
-              formatter: (cell, row) => (
-                <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
-              ),
-              headerAlign: "right",
-              align: "right",
-            },
-            {
-              dataField: "price_optimism",
-              text: "Optimism price",
-              formatter: (cell, row) => <Value value={cell} decimals={2} prefix="$" />,
-              sort: true,
-              headerAlign: "right",
-              align: "right",
-            },
-            {
-              dataField: "timestamp_optimism",
-              text: "Last updated",
-              sort: true,
-              formatter: (cell, row) => (
-                <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
-              ),
-              headerAlign: "right",
-              align: "right",
-            },
-          ]}
+          {
+            dataField: "price_ethereum",
+            text: "Ethereum price",
+            formatter: (cell, row) => (
+              <>
+                <div className="text-nowrap">
+                  <Value value={cell} decimals={2} prefix="$" />
+                  <br />
+                  <ValueChange
+                    className="pl-2"
+                    value={row.diff}
+                    suffix="%"
+                    hideIfZero
+                    decimals={2}
+                    icon
+                  />
+                </div>
+              </>
+            ),
+            sort: true,
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "timestamp_ethereum",
+            text: "Last updated",
+            sort: true,
+            formatter: (cell, row) => (
+              <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
+            ),
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "price_optimism",
+            text: "Optimism price",
+            formatter: (cell, row) => <Value value={cell} decimals={2} prefix="$" />,
+            sort: true,
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "timestamp_optimism",
+            text: "Last updated",
+            sort: true,
+            formatter: (cell, row) => (
+              <DateTimeAgo dateTime={parseUTCDateTimestamp(cell)} />
+            ),
+            headerAlign: "right",
+            align: "right",
+          },
+        ]}
       />
     </>
-    
   );
-
- 
 }
 
 export default withErrorBoundary(Oracles);
