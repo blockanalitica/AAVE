@@ -12,7 +12,7 @@ import { withErrorBoundary } from "../../hoc.js";
 import { useFetch, usePageTitle } from "../../hooks";
 import { parseUTCDateTimestamp } from "../../utils/datetime.js";
 
-function Ilks(props) {
+function Oracles(props) {
   usePageTitle("Oracles");
   let navigate = useNavigate();
   const { data, isLoading, isError, ErrorFallbackComponent } =
@@ -28,10 +28,11 @@ function Ilks(props) {
     navigate(`/oracles/${row.symbol}/`);
   };
 
-  const assetsTable = (
-    <Row>
-      <h4>assets</h4>
-      <Col className="mb-4">
+  return (
+    <>
+    <div className="mb-4 d-flex align-items-center">
+        <h4 className="mb-4">assets</h4>
+      </div>
         <LinkTable
           keyField="symbol"
           data={data}
@@ -130,12 +131,12 @@ function Ilks(props) {
               align: "right",
             },
           ]}
-        />
-      </Col>
-    </Row>
+      />
+    </>
+    
   );
 
-  return <>{assetsTable}</>;
+ 
 }
 
-export default withErrorBoundary(Ilks);
+export default withErrorBoundary(Oracles);
