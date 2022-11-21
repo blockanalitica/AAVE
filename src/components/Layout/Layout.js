@@ -38,14 +38,12 @@ import WalletBase from "../../pages/base/wallets/Wallet.js";
 
 import { smartLocationPrefix } from "../../utils/url.js";
 
-
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
 
   const location = useLocation();
   const locationPrefix = smartLocationPrefix(location);
-
 
   const v2EthereumRoutes = [
     { path: "markets/", element: <MarketsBase /> },
