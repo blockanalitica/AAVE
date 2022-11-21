@@ -18,7 +18,7 @@ function Value(props) {
   } = props;
 
   if (value === undefined || value === null || (hideIfZero && value === 0)) {
-    return "0";
+    return "";
   }
   let tooltip = null;
 
