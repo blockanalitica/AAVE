@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: © 2022 Dai Foundation <www.daifoundation.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 import { React, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Col, Row } from "reactstrap";
