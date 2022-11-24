@@ -94,12 +94,14 @@ function Market(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
-      <div className="d-flex flex-direction-row justify-content-between mt-4">
-        <div className="d-flex align-items-center">
-          <Top5Supply symbol={symbol} />
-        </div>
-        <div className="d-flex align-items-center">
-          <Top5Borrow symbol={symbol} />
+      <div>
+        <div className="row">
+          <div className="col-xs-6">
+            <Top5Supply symbol={symbol} />
+          </div>
+          <div className="col-xs-6">
+            <Top5Borrow symbol={symbol} />
+          </div>
         </div>
       </div>
     </>
