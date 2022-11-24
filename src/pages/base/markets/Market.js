@@ -11,6 +11,8 @@ import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
 import RiskSection from "./components/RiskSection.js";
 import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
+import Top5Supply from "./components/Top5Supply.js";
+import Top5Borrow from "./components/Top5Borrow.js";
 
 function Market(props) {
   const { symbol } = useParams();
@@ -92,6 +94,14 @@ function Market(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
+      <div className="d-flex flex-direction-row justify-content-between mt-4">
+        <div className="d-flex align-items-center">
+          <Top5Supply symbol={symbol} />
+        </div>
+        <div className="d-flex align-items-center">
+          <Top5Borrow symbol={symbol} />
+        </div>
+      </div>
     </>
   );
 }

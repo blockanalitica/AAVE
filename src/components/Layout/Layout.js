@@ -35,6 +35,7 @@ import Changelog from "../../pages/changelog/Changelog";
 import MarketsBase from "../../pages/base/markets/Markets.js";
 import MarketBase from "../../pages/base/markets/Market.js";
 import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
+import Top5Wallets from "../../pages/base/markets/components/Top5Supply";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import WalletBase from "../../pages/base/wallets/Wallet.js";
 
@@ -51,6 +52,7 @@ function Layout(props) {
     { path: "markets/", element: <MarketsBase /> },
     { path: "markets/:symbol/", element: <MarketBase /> },
     { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "markets/:symbol/wallets/top5/", element: <Top5Wallets /> },
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
   ];
