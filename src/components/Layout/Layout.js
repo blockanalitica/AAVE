@@ -38,17 +38,7 @@ import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
-import Ecosystem from "../../pages/ecosystem/Ecosystem";
-import Activity from "../../pages/activity/Activity";
-import Markets from "../../pages/markets/Markets";
-import Changelog from "../../pages/changelog/Changelog";
-import MarketsBase from "../../pages/base/markets/Markets.js";
-import MarketBase from "../../pages/base/markets/Market.js";
-import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
 import Top5Wallets from "../../pages/base/markets/components/Top5Supply";
-import WalletsBase from "../../pages/base/wallets/Wallets.js";
-import WalletBase from "../../pages/base/wallets/Wallet.js";
-
 
 import { smartLocationPrefix } from "../../utils/url.js";
 
