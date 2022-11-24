@@ -54,6 +54,7 @@ function WalletPositionsCard(props) {
         dataField: "price",
         text: "price",
         sort: false,
+        formatExtraData: { isTokenCurrency },
         formatter: (cell, row) => <Value value={row.price} decimals={2} prefix="$" />,
         footer: () => {
           <></>;
@@ -66,9 +67,8 @@ function WalletPositionsCard(props) {
         dataField: "supply",
         text: "Supply",
         sort: true,
-        formatter: (cell, row) => (
-          <Value value={cell} decimals={2} compact hideIfZero />
-        ),
+        formatExtraData: { isTokenCurrency },
+        formatter: (cell, row) => <Value value={cell} decimals={2} compact prefix="" />,
         headerAlign: "right",
         align: "right",
       },
@@ -76,9 +76,8 @@ function WalletPositionsCard(props) {
         dataField: "borrow",
         text: "Borrow",
         sort: true,
-        formatter: (cell, row) => (
-          <Value value={cell} decimals={2} compact hideIfZero />
-        ),
+        formatExtraData: { isTokenCurrency },
+        formatter: (cell, row) => <Value value={cell} decimals={2} compact prefix="" />,
         headerAlign: "right",
         align: "right",
       },

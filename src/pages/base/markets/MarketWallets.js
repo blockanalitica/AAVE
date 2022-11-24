@@ -85,10 +85,10 @@ function MarketWallets(props) {
 
   const columns = [
     {
-      dataField: "address",
+      dataField: "",
       text: "",
-      formatter: (cell, row) => {
-        const blockie = makeBlockie(cell);
+      formatter: (_, row) => {
+        const blockie = makeBlockie(row.address);
         return (
           <>
             <img
@@ -139,6 +139,7 @@ function MarketWallets(props) {
       dataField: `account_liquidity${fieldSuffix}`,
       text: "token liquidity",
       sort: true,
+
       formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
