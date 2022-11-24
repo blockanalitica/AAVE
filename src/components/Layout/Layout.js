@@ -11,20 +11,30 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import baLogo from "../../images/logo-light.svg";
 import logoAave from "../../images/aave-logo.svg";
+import baLogo from "../../images/logo-light.svg";
+import Activity from "../../pages/activity/Activity";
+import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
+import MarketBase from "../../pages/base/markets/Market.js";
+import MarketsBase from "../../pages/base/markets/Markets.js";
+import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
+import WalletBase from "../../pages/base/wallets/Wallet.js";
+import WalletsBase from "../../pages/base/wallets/Wallets.js";
+import Changelog from "../../pages/changelog/Changelog";
+import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import ErrorPage from "../../pages/error/ErrorPage.js";
 import Homepage from "../../pages/homepage/Homepage.js";
 import Liquidations from "../../pages/liquidations/Liquidations.js";
 import Liquidator from "../../pages/liquidations/Liquidator.js";
 import Liquidators from "../../pages/liquidations/Liquidators.js";
-import Oracles from "../../pages/oracles/Oracles.js";
+import Markets from "../../pages/markets/Markets";
 import OracleHistoricStats from "../../pages/oracles/OracleHistoricStats.js";
+import Oracles from "../../pages/oracles/Oracles.js";
 import Token from "../../pages/token/Token.js";
 import TokenWallets from "../../pages/token/TokenWallets.js";
-import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import Wallet from "../../pages/wallets/Wallet.js";
 import Wallets from "../../pages/wallets/Wallets.js";
+import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
@@ -38,6 +48,7 @@ import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
 import Top5Wallets from "../../pages/base/markets/components/Top5Supply";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import WalletBase from "../../pages/base/wallets/Wallet.js";
+
 
 import { smartLocationPrefix } from "../../utils/url.js";
 
@@ -55,6 +66,7 @@ function Layout(props) {
     { path: "markets/:symbol/wallets/top5/", element: <Top5Wallets /> },
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
+    { path: "liquidations/", element: <LiquidationsBase /> },
   ];
 
   const v3OptimismRoutes = [
@@ -63,6 +75,7 @@ function Layout(props) {
     { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
+    { path: "liquidations/", element: <LiquidationsBase /> },
   ];
 
   return (
