@@ -93,7 +93,6 @@ function Market(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
-
       <Top5Wallets symbol={symbol} />
     </>
   );
