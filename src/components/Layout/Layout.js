@@ -38,6 +38,7 @@ import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
+import Top5 from "../../pages/base/markets/Top5.js";
 
 import { smartLocationPrefix } from "../../utils/url.js";
 
@@ -52,6 +53,7 @@ function Layout(props) {
     { path: "markets/", element: <MarketsBase /> },
     { path: "markets/:symbol/", element: <MarketBase /> },
     { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "markets/:symbol/wallets/top5/", element: <Top5 /> },
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },

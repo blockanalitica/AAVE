@@ -11,6 +11,7 @@ import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
 import RiskSection from "./components/RiskSection.js";
 import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
+import Top5 from "./Top5.js";
 
 function Market(props) {
   const { symbol } = useParams();
@@ -92,6 +93,7 @@ function Market(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
+      <Top5 symbol={symbol} />
     </>
   );
 }
