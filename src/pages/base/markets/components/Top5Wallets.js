@@ -15,11 +15,11 @@ function Top5(props) {
     e.stopPropagation();
   };
 
-  const title = keyField === "supply" ? "Supply" : "Borrow";
+  const title = keyField === "supply" ? "suppliers" : "borrowers";
 
   return (
     <Row>
-      <h4>Top five wallets by {title}</h4>
+      <h4>top five {title}</h4>
       <Col className="mb-4">
         <LinkTable
           keyField={keyField}
