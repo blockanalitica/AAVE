@@ -38,7 +38,7 @@ import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
-import Top5Wallets from "../../pages/base/markets/components/Top5Supply";
+import Top5Wallets from "../../pages/base/markets/components/Top5Wallets.js";
 
 import { smartLocationPrefix } from "../../utils/url.js";
 

@@ -27,9 +27,79 @@ function Top5(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const { supply } = data[0];
+  const { borrow, supply } = data[0];
 
-  return (
+  const Top5Borrow = (
+    <Row>
+      <h4>Top five wallets by borrow</h4>
+      <Col className="mb-4">
+        <LinkTable
+          keyField="total_borrow"
+          data={borrow}
+          defaultSorted={[
+            {
+              dataField: "total_borrow",
+              order: "desc",
+            },
+          ]}
+          columns={[
+            {
+              dataField: "wallet_address",
+              text: "owner address",
+
+              formatter: (cell, row) => (
+                <>
+                  {cell ? (
+                    <span
+                      role="button"
+                      className="link"
+                      onClick={(e) => onOwnerClick(e, `/wallets/${cell}/`)}
+                    >
+                      {row.owner_name ||
+                        (row.owner_ens && row.owner_ens.length < 25
+                          ? row.owner_ens
+                          : null) ||
+                        shorten(cell)}
+                    </span>
+                  ) : (
+                    "-"
+                  )}
+                </>
+              ),
+              headerAlign: "center",
+              align: "center",
+            },
+            {
+              dataField: "supply",
+              text: "Supply",
+              formatter: (cell, row) => <Value value={cell} decimals={2} />,
+              sort: true,
+              headerAlign: "right",
+              align: "right",
+            },
+            {
+              dataField: "total_borrow",
+              text: "borrow",
+              formatter: (cell, row) => <Value value={cell} decimals={2} />,
+              sort: true,
+              headerAlign: "right",
+              align: "right",
+            },
+            {
+              dataField: "account_liquidity",
+              text: "Account Liquidity",
+              formatter: (cell, row) => <Value value={cell} decimals={2} />,
+              sort: true,
+              headerAlign: "right",
+              align: "right",
+            },
+          ]}
+        />
+      </Col>
+    </Row>
+  );
+
+  const Top5Supply = (
     <Row>
       <h4>Top five wallets by supply</h4>
       <Col className="mb-4">
@@ -97,6 +167,15 @@ function Top5(props) {
         />
       </Col>
     </Row>
+  );
+
+  return (
+    <div>
+      <div className="row">
+        <div className="col-xs-6">{Top5Borrow}</div>
+        <div className="col-xs-6">{Top5Supply}</div>
+      </div>
+    </div>
   );
 }
 
