@@ -29,7 +29,7 @@ function Top5(props) {
 
   const { supply } = data[0];
 
-  const top5Supply = (
+  return (
     <Row>
       <h4>Top five wallets by supply</h4>
       <Col className="mb-4">
@@ -99,7 +99,7 @@ function Top5(props) {
     </Row>
   );
 
-  return top5Supply;
+
 }
 
 export default withErrorBoundary(Top5);
