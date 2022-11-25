@@ -98,8 +98,6 @@ function Top5(props) {
       </Col>
     </Row>
   );
-
-
 }
 
 export default withErrorBoundary(Top5);

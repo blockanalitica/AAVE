@@ -42,20 +42,20 @@ function Markets(props) {
       <div className="mb-4 d-flex align-items-center">
         <h3 className="mb-4">markets</h3>
       </div>
-         <div className="d-flex flex-direction-row justify-content-between mt-4">
-          <TimeSwitch activeOption={timePeriod} label={""} onChange={setTimePeriod} />
-        
-      <div className="mb-2 flex-grow-1 d-flex align-items-right justify-content-end">
-        <CurrencySwitch
-          label="show amounts in:"
-          options={[
-            { key: "$", value: "$" },
-            { key: "token", value: "token" },
-          ]}
-          onChange={(option) => setIsTokenCurrency(option === "token")}
-        />
+      <div className="d-flex flex-direction-row justify-content-between mt-4">
+        <TimeSwitch activeOption={timePeriod} label={""} onChange={setTimePeriod} />
+
+        <div className="mb-2 flex-grow-1 d-flex align-items-right justify-content-end">
+          <CurrencySwitch
+            label="show amounts in:"
+            options={[
+              { key: "$", value: "$" },
+              { key: "token", value: "token" },
+            ]}
+            onChange={(option) => setIsTokenCurrency(option === "token")}
+          />
         </div>
-        </div>
+      </div>
       <Row className="mb-4">
         <Col>
           <LinkTable
