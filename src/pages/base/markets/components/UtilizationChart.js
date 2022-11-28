@@ -9,7 +9,7 @@ import { compact } from "../../../../utils/number.js";
 function UtilizationChart(props) {
   const { symbol, timePeriod } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `markets/${symbol}/historic-details/`,
+    `market/${symbol}/historic-details/`,
     { days_ago: timePeriod }
   );
 
