@@ -16,6 +16,8 @@ function Top5(props) {
   };
 
   const title = keyField === "supply" ? "suppliers" : "borrowers";
+  const field = keyField === "supply" ? "supply" : "total_borrow";
+  const fieldText = keyField === "supply" ? "Supply" : "Borrow";
 
   return (
     <Row>
@@ -26,7 +28,7 @@ function Top5(props) {
           data={data}
           defaultSorted={[
             {
-              dataField: "total_borrow",
+              dataField: field,
               order: "desc",
             },
           ]}
@@ -58,24 +60,8 @@ function Top5(props) {
               align: "center",
             },
             {
-              dataField: "supply",
-              text: "Supply",
-              formatter: (cell, row) => <Value value={cell} decimals={2} />,
-              sort: true,
-              headerAlign: "right",
-              align: "right",
-            },
-            {
-              dataField: "total_borrow",
-              text: "borrow",
-              formatter: (cell, row) => <Value value={cell} decimals={2} />,
-              sort: true,
-              headerAlign: "right",
-              align: "right",
-            },
-            {
-              dataField: "account_liquidity",
-              text: "Account Liquidity",
+              dataField: field,
+              text: fieldText,
               formatter: (cell, row) => <Value value={cell} decimals={2} />,
               sort: true,
               headerAlign: "right",
