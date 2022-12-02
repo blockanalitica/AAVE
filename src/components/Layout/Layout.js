@@ -15,6 +15,8 @@ import logoAave from "../../images/aave-logo.svg";
 import baLogo from "../../images/logo-light.svg";
 import Activity from "../../pages/activity/Activity";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
+import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
+import LiquidatorsBase from "../../pages/base/liquidations/Liquidators.js";
 import MarketBase from "../../pages/base/markets/Market.js";
 import MarketsBase from "../../pages/base/markets/Markets.js";
 import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
@@ -57,6 +59,9 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
   ];
 
   const v3OptimismRoutes = [
@@ -66,6 +71,9 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
   ];
 
   return (
