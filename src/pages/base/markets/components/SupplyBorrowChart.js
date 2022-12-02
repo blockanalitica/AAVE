@@ -9,7 +9,7 @@ import { compact } from "../../../../utils/number.js";
 function SupplyBorrowChart(props) {
   const { symbol, timePeriod, isTokenCurrencyTotal } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `market/${symbol}/historic-details/`,
+    `markets/${symbol}/historic-details/`,
     { days_ago: timePeriod }
   );
 
