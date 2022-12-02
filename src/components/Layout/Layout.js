@@ -18,6 +18,7 @@ import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import MarketBase from "../../pages/base/markets/Market.js";
 import MarketsBase from "../../pages/base/markets/Markets.js";
 import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
+import Top5 from "../../pages/base/markets/Top5.js";
 import WalletBase from "../../pages/base/wallets/Wallet.js";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import Changelog from "../../pages/changelog/Changelog";
@@ -38,8 +39,8 @@ import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
-import Top5 from "../../pages/base/markets/Top5.js";
 
+import AtRisk from "../../pages/base/atRisk/AtRisk";
 import { smartLocationPrefix } from "../../utils/url.js";
 
 function Layout(props) {
@@ -57,6 +58,7 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "at-risk/", element: <AtRisk /> },
   ];
 
   const v3OptimismRoutes = [
@@ -66,6 +68,7 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "at-risk/", element: <AtRisk /> },
   ];
 
   return (
