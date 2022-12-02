@@ -9,7 +9,7 @@ import WalletOrZapper from "../../../../components/Other/WalletOrZapper.js";
 function LiquidatorStats(props) {
   const { address, daysAgo } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `liquidations/liquidator/${address}/stats/`,
+    `liquidations/liquidators/${address}/stats/`,
     { days_ago: daysAgo }
   );
 
