@@ -25,6 +25,7 @@ import Changelog from "../../pages/changelog/Changelog";
 import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import ErrorPage from "../../pages/error/ErrorPage.js";
 import Homepage from "../../pages/homepage/Homepage.js";
+import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import Liquidations from "../../pages/liquidations/Liquidations.js";
 import Liquidator from "../../pages/liquidations/Liquidator.js";
 import Liquidators from "../../pages/liquidations/Liquidators.js";
@@ -51,6 +52,8 @@ function Layout(props) {
   const locationPrefix = smartLocationPrefix(location);
 
   const v2EthereumRoutes = [
+
+    { path: "/", element: <HomepageBase /> },
     { path: "markets/", element: <MarketsBase /> },
     { path: "markets/:symbol/", element: <MarketBase /> },
     { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
@@ -62,6 +65,7 @@ function Layout(props) {
   ];
 
   const v3OptimismRoutes = [
+    { path: "/", element: <HomepageBase /> },
     { path: "markets/", element: <MarketsBase /> },
     { path: "markets/:symbol/", element: <MarketBase /> },
     { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
