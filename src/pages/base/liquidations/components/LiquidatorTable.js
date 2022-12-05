@@ -7,10 +7,9 @@ import Loader from "../../../../components/Loader/Loader.js";
 import RemoteTable from "../../../../components/Table/RemoteTable.js";
 import Value from "../../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../../hoc.js";
-import { useFetch } from "../../../../hooks";
+import { useFetch, useSmartNavigate } from "../../../../hooks";
 import { parseUTCDateTime } from "../../../../utils/datetime.js";
 import DateTimeAgo from "../../../../components/DateTime/DateTimeAgo.js";
-import { useNavigate } from "react-router-dom";
 import { UncontrolledTooltip } from "reactstrap";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +21,7 @@ function LiquidatorTable(props) {
   const pageSize = 25;
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useSmartNavigate();
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
     `liquidations/liquidator/${address}`,
     {
@@ -39,15 +38,13 @@ function LiquidatorTable(props) {
   } else if (isError) {
     return <ErrorFallbackComponent />;
   }
-
+  //use smart
   const uniqueId = () => {
     return _.uniqueId("amount-");
   };
-  const pathParts = window.location.pathname.split("/");
-  const path = pathParts[1] + "/" + pathParts[2];
 
   const onRowClick = (row) => {
-    navigate(`/${path}/wallets/${row.wallet_address}/`);
+    navigate(`wallets/${row.wallet_address}/`);
   };
 
   return (
