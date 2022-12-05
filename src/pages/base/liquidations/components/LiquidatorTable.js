@@ -23,7 +23,7 @@ function LiquidatorTable(props) {
   const [order, setOrder] = useState(null);
   const navigate = useSmartNavigate();
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
-    `liquidations/liquidator/${address}`,
+    `liquidations/liquidators/${address}`,
     {
       address,
       p: page,
