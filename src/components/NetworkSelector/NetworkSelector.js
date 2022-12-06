@@ -42,11 +42,6 @@ function NetworkSelector(props) {
       url = url + path + "/";
     }
 
-    // Add query params
-    if (location.search) {
-      url = url + location.search;
-    }
-
     navigate(url);
   };
 

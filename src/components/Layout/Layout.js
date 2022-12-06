@@ -71,6 +71,8 @@ function Layout(props) {
     { path: "at-risk/", element: <AtRisk /> },
   ];
 
+  const prefix = locationPrefix.length > 0 ? locationPrefix : "/";
+
   return (
     <>
       <Container>
@@ -84,37 +86,37 @@ function Layout(props) {
             <Collapse isOpen={isNavbarOpen} navbar>
               <Nav className="flex-grow-1 justify-content-end" navbar>
                 <NavItem>
-                  <NavLink tag={Link} to="/markets/">
+                  <NavLink tag={Link} to={`${prefix}markets/`}>
                     Markets
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/liquidations/">
+                  <NavLink tag={Link} to={`${prefix}liquidations/`}>
                     Liquidations
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/wallets/">
+                  <NavLink tag={Link} to={`${prefix}wallets/`}>
                     Wallets
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/wallets-at-risk/">
+                  <NavLink tag={Link} to={`${prefix}wallets-at-risk/`}>
                     Wallets at Risk
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/ecosystem/">
+                  <NavLink tag={Link} to={`${prefix}ecosystem/`}>
                     Ecosystem
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/activity/">
+                  <NavLink tag={Link} to={`${prefix}activity/`}>
                     Activity
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/oracles/">
+                  <NavLink tag={Link} to={`${prefix}oracles/`}>
                     Oracles
                   </NavLink>
                 </NavItem>
