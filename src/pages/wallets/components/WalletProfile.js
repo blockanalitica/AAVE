@@ -1,20 +1,23 @@
+import React from "react";
 import classnames from "classnames";
 import makeBlockie from "ethereum-blockies-base64";
-import React from "react";
+import { useLocation } from "react-router-dom";
 import { withErrorBoundary } from "../../../hoc.js";
 import logoDefiSaver from "../../../images/defisaver.svg";
 import Address from "../../../components/Address/Address.js";
+import { smartEtherscanUrl } from "../../../utils/url.js";
 import styles from "./WalletProfile.module.scss";
 
 function WalletProfile(props) {
+  const location = useLocation();
   const { data } = props;
   if (!data) {
     return null;
   }
 
   const blockie = makeBlockie(data.info.address);
-
-  const link = `https://etherscan.io/address/${data.info.address}`;
+  const etherscanUrl = smartEtherscanUrl(location);
+  const link = `${etherscanUrl}address/${data.info.address}`;
 
   return (
     <div className="d-flex flex-direction-row align-items-center mb-4">

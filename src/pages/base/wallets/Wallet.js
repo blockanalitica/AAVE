@@ -1,13 +1,14 @@
 import React from "react";
 import classnames from "classnames";
 import makeBlockie from "ethereum-blockies-base64";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Loader from "../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import logoDefiSaver from "../../../images/defisaver.svg";
 import { useFetch, usePageTitle } from "../../../hooks";
 import { shorten } from "../../../utils/address.js";
 import Address from "../../../components/Address/Address.js";
+import { smartEtherscanUrl } from "../../../utils/url.js";
 import WalletPositionsCard from "./components/WalletPositionsCard.js";
 import WalletInfo from "./components/WalletInfo.js";
 import WalletActivityTable from "./components/WalletActivityTable.js";
@@ -15,7 +16,7 @@ import styles from "./Wallet.module.scss";
 
 function Wallet(props) {
   const { address } = useParams();
-
+  const location = useLocation();
   usePageTitle(shorten(address));
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
@@ -29,8 +30,8 @@ function Wallet(props) {
   }
 
   const blockie = makeBlockie(data.address);
-
-  const link = `https://etherscan.io/address/${data.address}`;
+  const etherscanUrl = smartEtherscanUrl(location);
+  const link = `${etherscanUrl}address/${data.address}`;
 
   return (
     <>

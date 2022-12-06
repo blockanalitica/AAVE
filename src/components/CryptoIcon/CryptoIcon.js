@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { useLocation } from "react-router-dom";
 import aaveIcon from "../../images/crypto/color/aave.svg";
 import amplIcon from "../../images/crypto/color/ampl.svg";
 import balIcon from "../../images/crypto/color/bal.svg";
@@ -43,8 +44,10 @@ import oneinchIcon from "../../images/crypto/color/1inch.svg";
 import maticIcon from "../../images/crypto/color/matic.svg";
 import avaxIcon from "../../images/crypto/color/avax.svg";
 import optimismIcon from "../../images/crypto/color/optimism.svg";
+import { smartEtherscanUrl } from "../../utils/url.js";
 
 function CryptoIcon(props) {
+  const location = useLocation();
   const { name, size, address, ...rest } = props;
   const mapping = {
     AAVE: aaveIcon,
@@ -103,7 +106,8 @@ function CryptoIcon(props) {
   }
   let component;
   if (address) {
-    let link = `https://etherscan.io/address/${address}`;
+    const etherscanUrl = smartEtherscanUrl(location);
+    const link = `${etherscanUrl}address/${address}`;
     component = (
       <a href={link}>
         <img {...rest} src={icon} alt={name} style={{ width: size, height: size }} />

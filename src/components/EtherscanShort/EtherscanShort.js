@@ -1,14 +1,17 @@
 import React from "react";
-
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
+import { smartEtherscanUrl } from "../../utils/url.js";
 
 function EtherscanShort(props) {
+  const location = useLocation();
   const { address, type } = props;
+  const etherscanUrl = smartEtherscanUrl(location);
   let href;
   if (type === "txhash") {
-    href = `https://etherscan.io/tx/${address}`;
+    href = `${etherscanUrl}tx/${address}`;
   } else {
-    href = `https://etherscan.io/address/${address}`;
+    href = `${etherscanUrl}address/${address}`;
   }
   const formated = address.slice(0, 5) + "..." + address.slice(-5);
   return (
