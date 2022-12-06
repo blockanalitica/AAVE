@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu } from "reactstrap";
-import styles from "./NetworkSelector.module.scss";
 import CryptoIcon from "../CryptoIcon/CryptoIcon.js";
 import { SLASH_REGEX } from "../../utils/url.js";
+import styles from "./NetworkSelector.module.scss";
 
 function NetworkSelector(props) {
   const location = useLocation();
@@ -40,11 +40,6 @@ function NetworkSelector(props) {
     const path = paths.slice(2).join("/");
     if (path.length > 0) {
       url = url + path + "/";
-    }
-
-    // Add query params
-    if (location.search) {
-      url = url + location.search;
     }
 
     navigate(url);
