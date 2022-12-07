@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader/Loader.js";
-import Value from "../../components/Value/Value.js";
-import ValueChange from "../../components/Value/ValueChange.js";
-import { withErrorBoundary } from "../../hoc.js";
-import { useFetch, usePageTitle } from "../../hooks";
-import StatsBar from "../../components/Stats/StatsBar.js";
-import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
+import Loader from "../../../components/Loader/Loader.js";
+import Value from "../../../components/Value/Value.js";
+import ValueChange from "../../../components/Value/ValueChange.js";
+import { withErrorBoundary } from "../../../hoc.js";
+import { useFetch, usePageTitle } from "../../../hooks";
+import StatsBar from "../../../components/Stats/StatsBar.js";
+import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 import MarketsSection from "./components/MarketsSection.js";
 import MarketsTable from "./components/MarketsTable.js";
 
@@ -17,7 +17,7 @@ function Homepage(props) {
   const navigate = useNavigate();
   const [timePeriod, setTimePeriod] = useState(1);
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/tokens/stats/",
+    "markets/stats/",
     { days_ago: timePeriod }
   );
 

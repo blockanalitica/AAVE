@@ -52,7 +52,6 @@ function Layout(props) {
   const locationPrefix = smartLocationPrefix(location);
 
   const v2EthereumRoutes = [
-
     { path: "/", element: <HomepageBase /> },
     { path: "markets/", element: <MarketsBase /> },
     { path: "markets/:symbol/", element: <MarketBase /> },
