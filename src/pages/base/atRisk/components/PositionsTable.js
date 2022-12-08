@@ -5,8 +5,7 @@ import makeBlockie from "ethereum-blockies-base64";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UncontrolledTooltip } from "reactstrap";
-import Address from "../../../../components/Address/Address.js";
+import { Badge, UncontrolledTooltip } from "reactstrap";
 import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import Loader from "../../../../components/Loader/Loader.js";
 import RemoteTable from "../../../../components/Table/RemoteTable.js";
@@ -59,34 +58,26 @@ function PositionsTable(props) {
           data={data.results}
           columns={[
             {
-              dataField: "",
+              dataField: "address",
               text: "",
-              formatter: (_, row) => {
+              formatter: (cell, row) => {
                 const blockie = makeBlockie(row.address);
                 return (
                   <>
-                    <img
-                      className={classnames(
-                        styles.roundedCircle,
-                        styles.walletLogo,
-                        "me-3"
-                      )}
-                      src={blockie}
-                      alt={row.address}
-                    />
+                    <Link to={`/wallets/${cell}/`} key={cell}>
+                      <img
+                        className={classnames(
+                          styles.roundedCircle,
+                          styles.walletLogo,
+                          "me-3"
+                        )}
+                        src={blockie}
+                        alt={row.address}
+                      />
+                    </Link>
                   </>
                 );
               },
-            },
-            {
-              dataField: "address",
-              text: "Address",
-              sort: false,
-              formatter: (cell) => (
-                <Link to={`/wallets/${cell}/`} key={cell}>
-                  <Address value={cell} />
-                </Link>
-              ),
             },
             {
               dataField: "drop",
@@ -95,6 +86,54 @@ function PositionsTable(props) {
               formatter: (cell) => (
                 <Value value={cell * -100} decimals={0} suffix="%" />
               ),
+              headerAlign: "right",
+              align: "right",
+            },
+            {
+              dataField: null,
+              text: "Collateral prediction",
+              formatter: (_, row) => {
+                let collId = uniqueId();
+                return (
+                  <span className={styles.liquidationIcons}>
+                    <CryptoIcon name={row.collateral_symbol} size="2em" id={collId} />
+                    <UncontrolledTooltip placement="bottom" target={collId}>
+                      {"Collateral: " + row.collateral_symbol}
+                    </UncontrolledTooltip>
+                  </span>
+                );
+              },
+              headerAlign: "center",
+              align: "center",
+            },
+            {
+              dataField: "protection_score",
+              text: "risk",
+              sort: true,
+              headerAlign: "center",
+              align: "center",
+              formatter: (cell, row) => {
+                if (cell === "low") {
+                  return (
+                    <Badge color="success" className="mr-1">
+                      {cell} risk
+                    </Badge>
+                  );
+                } else if (cell === "medium") {
+                  return (
+                    <Badge color="warning" className="mr-1">
+                      {cell} risk
+                    </Badge>
+                  );
+                } else if (cell === "high") {
+                  return (
+                    <Badge color="danger" className="mr-1">
+                      {cell} risk
+                    </Badge>
+                  );
+                }
+                return "-";
+              },
             },
             {
               dataField: "collateral_price",
@@ -103,6 +142,8 @@ function PositionsTable(props) {
               formatter: (cell, row) => (
                 <Value value={cell} decimals={2} prefix="$" compact100k />
               ),
+              headerAlign: "right",
+              align: "right",
             },
             {
               dataField: "collateral_amount_usd",
@@ -111,6 +152,8 @@ function PositionsTable(props) {
               formatter: (cell, row) => (
                 <Value value={cell} decimals={2} prefix="$" compact100k />
               ),
+              headerAlign: "right",
+              align: "right",
             },
             {
               dataField: null,
@@ -132,6 +175,8 @@ function PositionsTable(props) {
                   </span>
                 );
               },
+              headerAlign: "center",
+              align: "center",
             },
           ]}
           page={page}
