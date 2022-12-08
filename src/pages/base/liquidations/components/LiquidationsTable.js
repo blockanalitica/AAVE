@@ -150,7 +150,7 @@ function LiquidationsTable(props) {
             headerAlign: "center",
             align: "center",
             formatter: (cell) => (
-              <Link to={`/liquidations/liquidator/${cell}/`} key={cell}>
+              <Link to={`liquidations/liquidator/${cell}/`} key={cell}>
                 <Address value={cell} short />
               </Link>
             ),
