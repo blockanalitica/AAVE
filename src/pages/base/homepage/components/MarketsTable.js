@@ -14,7 +14,7 @@ function Homepage(props) {
   const { daysAgo } = props;
   const navigate = useNavigate();
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/tokens/short/",
+    "markets/short/",
     { days_ago: daysAgo }
   );
 
@@ -24,10 +24,8 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const { results } = data;
-
   const onRowClick = (row) => {
-    navigate(`markets/${row.slug}/`);
+    navigate(`markets/${row.symbol}/`);
   };
 
   return (
@@ -36,7 +34,7 @@ function Homepage(props) {
         <Col>
           <LinkTable
             keyField="address"
-            data={results}
+            data={data}
             onRowClick={onRowClick}
             defaultSorted={[
               {
@@ -50,35 +48,31 @@ function Homepage(props) {
                 text: "",
                 sort: false,
                 formatter: (cell, row) => (
-                  <CryptoIcon
-                    className="me-2"
-                    name={row.underlying_symbol}
-                    size="2rem"
-                  />
+                  <CryptoIcon className="me-2" name={row.symbol} size="2rem" />
                 ),
                 footer: "",
               },
               {
-                dataField: "underlying_symbol",
+                dataField: "symbol",
                 text: "Market",
                 sort: true,
                 footer: "",
               },
               {
-                dataField: "underlying_price",
+                dataField: "price",
                 text: "Price",
                 formatter: (cell, row) => (
                   <>
                     <Value value={cell} decimals={2} prefix="$" />
                     <br />
                     <ValueChange
-                      value={cell - row["change"]["underlying_price"]}
+                      value={cell - row["change"]["price"]}
                       decimals={2}
                       prefix="$"
                       compact
                       icon
                       hideIfZero
-                      tooltipValue={row["change"]["underlying_price"]}
+                      tooltipValue={row["change"]["price"]}
                     />
                   </>
                 ),

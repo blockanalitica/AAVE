@@ -19,8 +19,6 @@ function MarketsChartLine(props) {
     return <ErrorFallbackComponent />;
   }
 
-  console.log(data);
-
   const results = [];
   const real_results = [];
   data.results.forEach((row) => {
