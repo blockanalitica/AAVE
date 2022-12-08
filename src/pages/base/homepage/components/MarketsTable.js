@@ -217,7 +217,7 @@ function Homepage(props) {
       <Row className="mb-4">
         <Col>
           <div className="text-center mb-4">
-            <Link to={`/markets/`} key="markets">
+            <Link to={`markets/`} key="markets">
               <Button color="primary">see all markets</Button>
             </Link>
           </div>
