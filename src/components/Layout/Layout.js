@@ -60,7 +60,7 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
-    { path: "at-risk/", element: <AtRisk /> },
+    { path: "wallets-at-risk/", element: <AtRisk /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
@@ -76,7 +76,7 @@ function Layout(props) {
     { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
-    { path: "at-risk/", element: <AtRisk /> },
+    { path: "wallets-at-risk/", element: <AtRisk /> },
   ];
 
   const prefix = locationPrefix.length > 0 ? locationPrefix : "/";

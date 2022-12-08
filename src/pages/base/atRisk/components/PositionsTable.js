@@ -4,15 +4,15 @@ import classnames from "classnames";
 import makeBlockie from "ethereum-blockies-base64";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Badge, UncontrolledTooltip } from "reactstrap";
 import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import Loader from "../../../../components/Loader/Loader.js";
 import RemoteTable from "../../../../components/Table/RemoteTable.js";
 import Value from "../../../../components/Value/Value.js";
-import { useFetch } from "../../../../hooks";
+import { useFetch, useSmartNavigate } from "../../../../hooks";
 import styles from "./PositionsTable.module.scss";
 function PositionsTable(props) {
+  const navigate = useSmartNavigate();
   const { address, drop } = props;
   const [page, setPage] = useState(1);
 
@@ -48,6 +48,10 @@ function PositionsTable(props) {
     return _.uniqueId("prediction-");
   };
 
+  const onRowClick = (row) => {
+    navigate(`wallets/${row.address}/`);
+  };
+
   return (
     <>
       {data.results.length > 0 ? (
@@ -56,6 +60,7 @@ function PositionsTable(props) {
           keyField="id"
           hover={false}
           data={data.results}
+          onRowClick={onRowClick}
           columns={[
             {
               dataField: "address",
@@ -64,17 +69,15 @@ function PositionsTable(props) {
                 const blockie = makeBlockie(row.address);
                 return (
                   <>
-                    <Link to={`/wallets/${cell}/`} key={cell}>
-                      <img
-                        className={classnames(
-                          styles.roundedCircle,
-                          styles.walletLogo,
-                          "me-3"
-                        )}
-                        src={blockie}
-                        alt={row.address}
-                      />
-                    </Link>
+                    <img
+                      className={classnames(
+                        styles.roundedCircle,
+                        styles.walletLogo,
+                        "me-3"
+                      )}
+                      src={blockie}
+                      alt={row.address}
+                    />
                   </>
                 );
               },
