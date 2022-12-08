@@ -11,6 +11,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { smartLocationPrefix } from "../../utils/url.js";
 import logoAave from "../../images/aave-logo.svg";
 import baLogo from "../../images/logo-light.svg";
 import Activity from "../../pages/activity/Activity";
@@ -20,7 +21,7 @@ import LiquidatorsBase from "../../pages/base/liquidations/Liquidators.js";
 import MarketBase from "../../pages/base/markets/Market.js";
 import MarketsBase from "../../pages/base/markets/Markets.js";
 import MarketWalletsBase from "../../pages/base/markets/MarketWallets.js";
-import Top5 from "../../pages/base/markets/Top5.js";
+import Top5Base from "../../pages/base/markets/Top5.js";
 import WalletBase from "../../pages/base/wallets/Wallet.js";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import Changelog from "../../pages/changelog/Changelog";
@@ -40,10 +41,9 @@ import Wallets from "../../pages/wallets/Wallets.js";
 import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
+import ActivityBase from "../../pages/base/activity/Activity.js";
+import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
 import styles from "./Layout.module.scss";
-
-import AtRisk from "../../pages/base/atRisk/AtRisk";
-import { smartLocationPrefix } from "../../utils/url.js";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -56,14 +56,15 @@ function Layout(props) {
     { path: "markets/", element: <MarketsBase /> },
     { path: "markets/:symbol/", element: <MarketBase /> },
     { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
-    { path: "markets/:symbol/wallets/top5/", element: <Top5 /> },
+    { path: "markets/:symbol/wallets/top5/", element: <Top5Base /> },
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
-    { path: "at-risk/", element: <AtRisk /> },
+    { path: "at-risk/", element: <AtRiskBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
+    { path: "activity/", element: <ActivityBase /> },
   ];
 
   const v3OptimismRoutes = [
@@ -76,7 +77,8 @@ function Layout(props) {
     { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
-    { path: "at-risk/", element: <AtRisk /> },
+    { path: "at-risk/", element: <AtRiskBase /> },
+    { path: "activity/", element: <ActivityBase /> },
   ];
 
   const prefix = locationPrefix.length > 0 ? locationPrefix : "/";
