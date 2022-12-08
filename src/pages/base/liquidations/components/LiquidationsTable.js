@@ -2,7 +2,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UncontrolledTooltip } from "reactstrap";
 import Address from "../../../../components/Address/Address.js";
 import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
@@ -14,12 +14,12 @@ import WalletOrZapper from "../../../../components/Other/WalletOrZapper.js";
 import RemoteTable from "../../../../components/Table/RemoteTable.js";
 import Value from "../../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../../hoc.js";
-import { useFetch } from "../../../../hooks";
+import { useFetch, useSmartNavigate } from "../../../../hooks";
 import { parseUTCDateTime } from "../../../../utils/datetime.js";
 import styles from "./LiquidationsTable.module.scss";
 
 function LiquidationsTable(props) {
-  const navigate = useNavigate();
+  const navigate = useSmartNavigate();
   const pageSize = 10;
   const { daysAgo } = props;
   const [page, setPage] = useState(1);
@@ -48,7 +48,7 @@ function LiquidationsTable(props) {
   };
 
   const onRowClick = (row) => {
-    navigate(`/wallets/${row.debt_wallet}/`);
+    navigate(`wallets/${row.wallet_address}/`);
   };
 
   return (
