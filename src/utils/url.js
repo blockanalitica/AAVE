@@ -16,15 +16,53 @@ export const getAllQueryParams = (queryParams) => {
   return qParams;
 };
 
-export const smartLocationPrefix = (location) => {
+export const smartLocationParts = (location) => {
   const pathname = location.pathname.replace(SLASH_REGEX, "");
   const paths = pathname.split("/");
-  let prefix = "";
+  let version = null;
+  let network = null;
   if (pathname.length >= 2) {
-    const version = paths[0];
-    if (["v2", "v3"].includes(version)) {
-      prefix = `/${version}/${paths[1]}/`;
+    if (["v2", "v3"].includes(paths[0])) {
+      version = paths[0];
+      network = paths[1];
     }
   }
-  return prefix;
+  return { version, network };
+};
+
+export const smartLocationPrefix = (location) => {
+  const { version, network } = smartLocationParts(location);
+  if (version || network) {
+    return `/${version}/${network}/`;
+  }
+  return "";
+};
+
+export const smartEtherscanUrl = (location) => {
+  const { network } = smartLocationParts(location);
+
+  let url = "";
+  switch (network) {
+    case "optimism": {
+      url = "https://optimistic.etherscan.io/";
+      break;
+    }
+    case "arbitrum": {
+      url = "https://arbiscan.io/";
+      break;
+    }
+    case "avalanche": {
+      url = "https://snowtrace.io/";
+      break;
+    }
+    case "polygon": {
+      url = "https://polygonscan.com/";
+      break;
+    }
+    default: {
+      url = "https://etherscan.io/";
+      break;
+    }
+  }
+  return url;
 };

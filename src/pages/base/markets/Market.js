@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
+import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 import Loader from "../../../components/Loader/Loader.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
-import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
+import Value from "../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch, usePageTitle } from "../../../hooks";
-import Value from "../../../components/Value/Value.js";
-import TokenBackedSection from "./components/TokenBackedSection.js";
-import TokenInfo from "./components/TokenInfo.js";
 import InfoCard from "./components/InfoCard.js";
 import RiskSection from "./components/RiskSection.js";
-import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
+import TokenBackedSection from "./components/TokenBackedSection.js";
+import TokenInfo from "./components/TokenInfo.js";
 import Top5 from "./Top5.js";
 
 function Market(props) {

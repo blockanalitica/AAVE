@@ -81,7 +81,7 @@ function LiquidatorsTop10Chart(props) {
       <p className="gray">{description}</p>
       <Graph series={newSeries} options={options} type="bar" />
       <Col className="text-center mt-4">
-        <Link to={`/liquidations/liquidators/?daysAgo=${daysAgo}`}>
+        <Link to={`liquidators/?daysAgo=${daysAgo}`}>
           <Button color="primary">View More</Button>
         </Link>
       </Col>

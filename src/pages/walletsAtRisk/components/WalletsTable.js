@@ -1,19 +1,19 @@
-import React from "react";
 import classnames from "classnames";
-import { Badge } from "reactstrap";
+import makeBlockie from "ethereum-blockies-base64";
+import React from "react";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "reactstrap";
 import Address from "../../../components/Address/Address.js";
-import SearchInput from "../../../components/SearchInput/SearchInput.js";
+import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
 import Loader from "../../../components/Loader/Loader.js";
+import SearchInput from "../../../components/SearchInput/SearchInput.js";
 import RemoteTable from "../../../components/Table/RemoteTable.js";
 import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
 import { useFetch, useQueryParams } from "../../../hooks";
-import DateTimeAgo from "../../../components/DateTime/DateTimeAgo.js";
 import { parseUTCDateTime } from "../../../utils/datetime.js";
 import AdditionalFilters from "../../wallets/components/AdditionalFilters.js";
-import makeBlockie from "ethereum-blockies-base64";
 import styles from "../../wallets/Wallets.module.scss";
 
 function WalletsTable(props) {
@@ -155,7 +155,7 @@ function WalletsTable(props) {
               if (row.borrow === 0) {
                 return "-";
               } else if (cell === null) {
-                return ">80%";
+                return "-";
               } else {
                 return <Value value={cell} decimals={2} suffix="%" />;
               }
