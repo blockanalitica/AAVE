@@ -115,7 +115,6 @@ function Layout(props) {
                     Wallets at Risk
                   </NavLink>
                 </NavItem>
-
                 {prefix.includes("optimism") ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}ecosystem/`}>
@@ -128,11 +127,13 @@ function Layout(props) {
                     Activity
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} to={`${prefix}oracles/`}>
-                    Oracles
-                  </NavLink>
-                </NavItem>
+                {locationPrefix.length > 0 ? null : (
+                  <NavItem>
+                    <NavLink tag={Link} to={`${prefix}oracles/`}>
+                      Oracles
+                    </NavLink>
+                  </NavItem>
+                )}
               </Nav>
             </Collapse>
           </Navbar>
