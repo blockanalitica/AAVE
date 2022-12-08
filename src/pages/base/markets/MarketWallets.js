@@ -1,18 +1,17 @@
+import classnames from "classnames";
+import makeBlockie from "ethereum-blockies-base64";
 import React, { useState } from "react";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { useParams } from "react-router-dom";
 import { Col, Row } from "reactstrap";
-import makeBlockie from "ethereum-blockies-base64";
-import classnames from "classnames";
 import Address from "../../../components/Address/Address.js";
+import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 import Loader from "../../../components/Loader/Loader.js";
+import SearchInput from "../../../components/SearchInput/SearchInput.js";
 import RemoteTable from "../../../components/Table/RemoteTable.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
-import SearchInput from "../../../components/SearchInput/SearchInput.js";
 import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
-import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
-import EventStatsChart from "./components/EventStatsChart.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import {
   useFetch,
@@ -20,6 +19,7 @@ import {
   useQueryParams,
   useSmartNavigate,
 } from "../../../hooks";
+import EventStatsChart from "./components/EventStatsChart.js";
 import styles from "./MarketWallets.module.scss";
 
 function MarketWallets(props) {
@@ -28,6 +28,11 @@ function MarketWallets(props) {
   const queryParams = useQueryParams();
   usePageTitle(`${symbol} Wallet Positions`);
   const pageSize = 25;
+
+  const options = [
+    { key: 1, value: "1 day" },
+    { key: 7, value: "7 days" },
+  ];
 
   const page = parseInt(queryParams.get("page")) || 1;
   const searchText = queryParams.get("search");
@@ -169,7 +174,11 @@ function MarketWallets(props) {
           lg={6}
           className="d-flex react-bootstrap-table-filter align-items-center justify-content-end"
         >
-          <TimeSwitch activeOption={timePeriod} onChange={setTimePeriod} />
+          <TimeSwitch
+            activeOption={timePeriod}
+            onChange={setTimePeriod}
+            options={options}
+          />
         </Col>
       </Row>
 
