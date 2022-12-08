@@ -82,7 +82,7 @@ function Layout(props) {
   ];
 
   const prefix = locationPrefix.length > 0 ? locationPrefix : "/";
-
+  console.log(prefix.includes("optimism"));
   return (
     <>
       <Container>
@@ -115,11 +115,14 @@ function Layout(props) {
                     Wallets at Risk
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} to={`${prefix}ecosystem/`}>
-                    Ecosystem
-                  </NavLink>
-                </NavItem>
+
+                {prefix.includes("optimism") ? null : (
+                  <NavItem>
+                    <NavLink tag={Link} to={`${prefix}ecosystem/`}>
+                      Ecosystem
+                    </NavLink>
+                  </NavItem>
+                )}
                 <NavItem>
                   <NavLink tag={Link} to={`${prefix}activity/`}>
                     Activity
