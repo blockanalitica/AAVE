@@ -2,9 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Address from "../Address/Address.js";
+import { smartLocationPrefix } from "../../utils/url.js";
+import { useLocation } from "react-router-dom";
 
 function WalletOrZapper(props) {
+  const location = useLocation();
+  const prefix = smartLocationPrefix(location);
   const { address, isZapper } = props;
+
   if (isZapper) {
     return (
       <a
@@ -17,7 +22,9 @@ function WalletOrZapper(props) {
     );
   } else {
     return (
-      <Link to={`/wallets/${address}/`}>
+      <Link
+        to={prefix.length > 0 ? `${prefix}wallets/${address}/` : `/wallets/${address}/`}
+      >
         <Address value={address} short />
       </Link>
     );
