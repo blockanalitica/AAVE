@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -14,7 +14,7 @@ import {
 import { smartLocationPrefix } from "../../utils/url.js";
 import logoAave from "../../images/aave-logo.svg";
 import baLogo from "../../images/logo-light.svg";
-import Activity from "../../pages/activity/Activity";
+import SimpleRedirect from "../../components/SimpleRedirect/SimpleRedirect.js";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
 import LiquidatorsBase from "../../pages/base/liquidations/Liquidators.js";
@@ -25,21 +25,8 @@ import Top5Base from "../../pages/base/markets/Top5.js";
 import WalletBase from "../../pages/base/wallets/Wallet.js";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import Changelog from "../../pages/changelog/Changelog";
-import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import ErrorPage from "../../pages/error/ErrorPage.js";
-import Homepage from "../../pages/homepage/Homepage.js";
 import HomepageBase from "../../pages/base/homepage/Homepage.js";
-import Liquidations from "../../pages/liquidations/Liquidations.js";
-import Liquidator from "../../pages/liquidations/Liquidator.js";
-import Liquidators from "../../pages/liquidations/Liquidators.js";
-import Markets from "../../pages/markets/Markets";
-import OracleHistoricStats from "../../pages/oracles/OracleHistoricStats.js";
-import Oracles from "../../pages/oracles/Oracles.js";
-import Token from "../../pages/token/Token.js";
-import TokenWallets from "../../pages/token/TokenWallets.js";
-import Wallet from "../../pages/wallets/Wallet.js";
-import Wallets from "../../pages/wallets/Wallets.js";
-import WalletsAtRisk from "../../pages/walletsAtRisk/WalletsAtRisk";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import ActivityBase from "../../pages/base/activity/Activity.js";
@@ -82,6 +69,23 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "activity/", element: <ActivityBase /> },
+  ];
+
+  const oldRedirects = [
+    "markets/",
+    "markets/:symbol/",
+    "markets/:symbol/wallets/",
+    "wallets/",
+    "wallets/:address/",
+    "wallets-at-risk/",
+    "liquidations/",
+    "liquidations/liquidators/",
+    "liquidations/liquidator/:address/",
+    "liquidations/liquidators/:address/",
+    "ecosystem/",
+    "activity/",
+    "oracles/",
+    "oracles/:symbol/",
   ];
 
   const prefix = locationPrefix.length > 0 ? locationPrefix : "/";
@@ -144,22 +148,19 @@ function Layout(props) {
         <main>
           <BreadcrumbHistory />
           <Routes>
-            <Route index element={<Homepage />} />
-            <Route path="markets/" element={<Markets />} />
-            <Route path="markets/:symbol/" element={<Token />} />
-            <Route path="markets/:symbol/wallets/" element={<TokenWallets />} />
-            <Route path="wallets/" element={<Wallets />} />
-            <Route path="wallets/:address/" element={<Wallet />} />
-            <Route path="wallets-at-risk/" element={<WalletsAtRisk />} />
-            <Route path="liquidations/" element={<Liquidations />} />
-            <Route path="liquidations/liquidators/" element={<Liquidators />} />
-            <Route path="liquidations/liquidator/:address/" element={<Liquidator />} />
-            <Route path="liquidations/liquidators/:address/" element={<Liquidator />} />
-            <Route path="ecosystem/" element={<Ecosystem />} />
-            <Route path="activity/" element={<Activity />} />
-            <Route path="changelog/" element={<Changelog />} />
-            <Route path="oracles/" element={<Oracles />} />
-            <Route path="oracles/:symbol/" element={<OracleHistoricStats />} />
+            <Route index element={<Navigate replace to="/v2/ethereum/" />} />
+
+            {/* old redirects */}
+            {oldRedirects.map((path) => {
+              return (
+                <Route
+                  key={path}
+                  path={path}
+                  element={<SimpleRedirect replace to={`/v2/ethereum/${path}`} />}
+                />
+              );
+            })}
+
             {/* V2 Ethereum */}
             {v2EthereumRoutes.map((route) => {
               const path = `v2/ethereum/${route.path}`;
@@ -170,6 +171,8 @@ function Layout(props) {
               const path = `v3/optimism/${route.path}`;
               return <Route key={path} path={path} element={route.element} />;
             })}
+
+            <Route path="changelog/" element={<Changelog />} />
             {/* Catch all */}
             <Route path="*" element={<ErrorPage />} />
           </Routes>
