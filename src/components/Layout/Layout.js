@@ -85,7 +85,6 @@ function Layout(props) {
   ];
 
   const prefix = locationPrefix.length > 0 ? locationPrefix : "/";
-  console.log(prefix.includes("optimism"));
   return (
     <>
       <Container>
