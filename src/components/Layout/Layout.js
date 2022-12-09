@@ -11,10 +11,11 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { smartLocationPrefix } from "../../utils/url.js";
 import logoAave from "../../images/aave-logo.svg";
 import baLogo from "../../images/logo-light.svg";
 import SimpleRedirect from "../../components/SimpleRedirect/SimpleRedirect.js";
+import ActivityBase from "../../pages/base/activity/Activity.js";
+import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
 import LiquidatorsBase from "../../pages/base/liquidations/Liquidators.js";
@@ -27,10 +28,9 @@ import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import Changelog from "../../pages/changelog/Changelog";
 import ErrorPage from "../../pages/error/ErrorPage.js";
 import HomepageBase from "../../pages/base/homepage/Homepage.js";
+import { smartLocationPrefix } from "../../utils/url.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
-import ActivityBase from "../../pages/base/activity/Activity.js";
-import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
 import styles from "./Layout.module.scss";
 
 function Layout(props) {
@@ -94,7 +94,7 @@ function Layout(props) {
       <Container>
         <header className="mb-4">
           <Navbar expand="md" className="fw-bolder" dark container={false}>
-            <NavbarBrand className={styles.navbarBrand} tag={Link} to="/">
+            <NavbarBrand className={styles.navbarBrand} tag={Link} to={`${prefix}`}>
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
             {locationPrefix.length > 0 ? <NetworkSelector /> : null}
