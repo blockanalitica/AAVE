@@ -64,7 +64,6 @@ function Layout(props) {
     { path: "liquidations/", element: <LiquidationsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
-    { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "activity/", element: <ActivityBase /> },
   ];
@@ -77,7 +76,6 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
-    { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
@@ -154,7 +152,6 @@ function Layout(props) {
             <Route path="wallets-at-risk/" element={<WalletsAtRisk />} />
             <Route path="liquidations/" element={<Liquidations />} />
             <Route path="liquidations/liquidators/" element={<Liquidators />} />
-            <Route path="liquidations/liquidator/:address/" element={<Liquidator />} />
             <Route path="liquidations/liquidators/:address/" element={<Liquidator />} />
             <Route path="ecosystem/" element={<Ecosystem />} />
             <Route path="activity/" element={<Activity />} />
