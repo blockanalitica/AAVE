@@ -250,10 +250,10 @@ function WalletPositionsCard(props) {
   let content;
   if (data.length === 0) {
     content = (
-      <>
+      <div className="mb-4">
         <h4>positions</h4>
         <div>no current positions</div>
-      </>
+      </div>
     );
   } else {
     content = (
