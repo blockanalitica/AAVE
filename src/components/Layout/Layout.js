@@ -16,6 +16,8 @@ import baLogo from "../../images/logo-light.svg";
 import SimpleRedirect from "../../components/SimpleRedirect/SimpleRedirect.js";
 import ActivityBase from "../../pages/base/activity/Activity.js";
 import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
+import EcosystemBase from "../../pages/base/ecosystem/Ecosystem";
+import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
 import LiquidatorsBase from "../../pages/base/liquidations/Liquidators.js";
@@ -27,7 +29,6 @@ import WalletBase from "../../pages/base/wallets/Wallet.js";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import Changelog from "../../pages/changelog/Changelog";
 import ErrorPage from "../../pages/error/ErrorPage.js";
-import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import { smartLocationPrefix } from "../../utils/url.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
@@ -51,9 +52,9 @@ function Layout(props) {
     { path: "liquidations/", element: <LiquidationsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
-    { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "activity/", element: <ActivityBase /> },
+    { path: "ecosystem/", element: <EcosystemBase /> },
   ];
 
   const v3OptimismRoutes = [
@@ -64,7 +65,6 @@ function Layout(props) {
     { path: "wallets/", element: <WalletsBase /> },
     { path: "wallets/:address/", element: <WalletBase /> },
     { path: "liquidations/", element: <LiquidationsBase /> },
-    { path: "liquidations/liquidator/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },

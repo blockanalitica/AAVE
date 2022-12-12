@@ -1,17 +1,17 @@
-import React from "react";
 import classnames from "classnames";
 import makeBlockie from "ethereum-blockies-base64";
-import { useParams, useLocation } from "react-router-dom";
+import React from "react";
+import { useLocation, useParams } from "react-router-dom";
+import Address from "../../../components/Address/Address.js";
 import Loader from "../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../hoc.js";
-import logoDefiSaver from "../../../images/defisaver.svg";
 import { useFetch, usePageTitle } from "../../../hooks";
+import logoDefiSaver from "../../../images/defisaver.svg";
 import { shorten } from "../../../utils/address.js";
-import Address from "../../../components/Address/Address.js";
 import { smartEtherscanUrl } from "../../../utils/url.js";
-import WalletPositionsCard from "./components/WalletPositionsCard.js";
-import WalletInfo from "./components/WalletInfo.js";
 import WalletActivityTable from "./components/WalletActivityTable.js";
+import WalletInfo from "./components/WalletInfo.js";
+import WalletPositionsCard from "./components/WalletPositionsCard.js";
 import styles from "./Wallet.module.scss";
 
 function Wallet(props) {
