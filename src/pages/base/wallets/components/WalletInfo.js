@@ -6,9 +6,9 @@ import { withErrorBoundary } from "../../../../hoc.js";
 import StatsBar from "../../../../components/Stats/StatsBar.js";
 
 function WalletInfo(props) {
-  const { data } = props;
+  let { data } = props;
   if (!data) {
-    return null;
+    data = {};
   }
   let health_rate;
   if (data.health_rate) {
