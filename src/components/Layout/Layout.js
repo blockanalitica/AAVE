@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link, useLocation, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -11,9 +11,9 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import SimpleRedirect from "../../components/SimpleRedirect/SimpleRedirect.js";
 import logoAave from "../../images/aave-logo.svg";
 import baLogo from "../../images/logo-light.svg";
-import SimpleRedirect from "../../components/SimpleRedirect/SimpleRedirect.js";
 import ActivityBase from "../../pages/base/activity/Activity.js";
 import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
 import EcosystemBase from "../../pages/base/ecosystem/Ecosystem";
