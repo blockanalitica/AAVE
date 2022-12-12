@@ -16,6 +16,8 @@ import baLogo from "../../images/logo-light.svg";
 import Activity from "../../pages/activity/Activity";
 import ActivityBase from "../../pages/base/activity/Activity.js";
 import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
+import EcosystemBase from "../../pages/base/ecosystem/Ecosystem";
+import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
 import LiquidatorsBase from "../../pages/base/liquidations/Liquidators.js";
@@ -29,7 +31,6 @@ import Changelog from "../../pages/changelog/Changelog";
 import Ecosystem from "../../pages/ecosystem/Ecosystem";
 import ErrorPage from "../../pages/error/ErrorPage.js";
 import Homepage from "../../pages/homepage/Homepage.js";
-import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import Liquidations from "../../pages/liquidations/Liquidations.js";
 import Liquidator from "../../pages/liquidations/Liquidator.js";
 import Liquidators from "../../pages/liquidations/Liquidators.js";
@@ -66,6 +67,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "activity/", element: <ActivityBase /> },
+    { path: "ecosystem/", element: <EcosystemBase /> },
   ];
 
   const v3OptimismRoutes = [
