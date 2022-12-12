@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu } from "reactstrap";
-import CryptoIcon from "../CryptoIcon/CryptoIcon.js";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 import { SLASH_REGEX } from "../../utils/url.js";
+import CryptoIcon from "../CryptoIcon/CryptoIcon.js";
 import styles from "./NetworkSelector.module.scss";
 
 function NetworkSelector(props) {
@@ -49,6 +49,7 @@ function NetworkSelector(props) {
     <div>
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
         <DropdownToggle caret tag="span" className={styles.dropdownToggle}>
+          <CryptoIcon size="1.5rem" className="me-2" name={currentNetwork.text} />
           {currentVersion} {currentNetwork.text}
         </DropdownToggle>
         <DropdownMenu>
