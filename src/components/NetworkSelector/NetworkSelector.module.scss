@@ -4,6 +4,8 @@
   cursor: pointer;
   font-weight: $font-weight-base;
   color: $ba-nav-color;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: $white;
