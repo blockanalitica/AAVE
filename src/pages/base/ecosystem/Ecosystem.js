@@ -6,6 +6,7 @@ import EtherscanShort from "../../../components/EtherscanShort/EtherscanShort.js
 import Graph from "../../../components/Graph/Graph.js";
 import Loader from "../../../components/Loader/Loader.js";
 import SideTabNav from "../../../components/SideTab/SideTabNav.js";
+import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch, usePageTitle } from "../../../hooks";
 import { tooltipLabelNumber } from "../../../utils/graph.js";
@@ -16,9 +17,19 @@ function Ecosystem(props) {
   usePageTitle("Ecosystem reserves");
   const [type, setType] = useState("safety-module");
   const [isTokenCurrency, setIsTokenCurrency] = useState(false);
+  const [timePeriod, setTimePeriod] = useState(30);
+
+  const timeOptions = [
+    { key: 7, value: "7 days" },
+    { key: 30, value: "30 days" },
+    { key: 180, value: "180 days" },
+    { key: 365, value: "1 year" },
+    { key: "all", value: "all" },
+  ];
+
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     "ecosystem/reserves/",
-    { type }
+    { type, days_ago: timePeriod }
   );
 
   if (isLoading) {
@@ -31,7 +42,7 @@ function Ecosystem(props) {
   if (type === "safety-module") {
     contractAddress = (
       <>
-        <Col>
+        <div>
           <div>
             <small className={styles.contractAddress}>{"stkAave:  "}</small>
             <EtherscanShort address="0x4da27a545c0c5b758a6ba100e3a049001de870f5" />
@@ -40,7 +51,7 @@ function Ecosystem(props) {
             <small className={styles.contractAddress}>{"stkABPT:  "}</small>
             <EtherscanShort address="0xa1116930326d21fb917d5a27f1e9943a9595fb47" />
           </div>
-        </Col>
+        </div>
       </>
     );
   } else if (type === "collector-reserve") {
@@ -157,9 +168,9 @@ function Ecosystem(props) {
           />
         </Col>
         <Col md={9}>
-          {type !== "collector-reserve" ? (
-            <div className="mb-3 d-flex flex-direction-row align-items-center justify-content-between">
-              {contractAddress}
+          <div className="mb-3 d-flex flex-direction-row align-items-center justify-content-between">
+            {contractAddress}
+            {type !== "collector-reserve" ? (
               <small>
                 <CurrencySwitch
                   label="show amounts in:"
@@ -170,12 +181,15 @@ function Ecosystem(props) {
                   onChange={(option) => setIsTokenCurrency(option === "token")}
                 />
               </small>
-            </div>
-          ) : (
-            <div className="mb-3 d-flex flex-direction-row align-items-center justify-content-between">
-              {contractAddress}
-            </div>
-          )}
+            ) : null}
+            <TimeSwitch
+              activeOption={timePeriod}
+              label={""}
+              onChange={setTimePeriod}
+              options={timeOptions}
+            />
+          </div>
+
           <Graph series={series} options={options} />
         </Col>
       </Row>
