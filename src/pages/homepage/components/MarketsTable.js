@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
 import Loader from "../../../components/Loader/Loader.js";
 import LinkTable from "../../../components/Table/LinkTable.js";
@@ -8,7 +8,6 @@ import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
-import { Link } from "react-router-dom";
 
 function Homepage(props) {
   const { daysAgo } = props;
@@ -24,13 +23,9 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
-  console.log(data)
-
   const onRowClick = (row) => {
-   
     navigate(`/${row.version}/${row.network}/`);
   };
-
 
   return (
     <>
@@ -69,6 +64,15 @@ function Homepage(props) {
                   <>
                     <Value value={cell} decimals={2} prefix="$" compact />
                     <br />
+                    <ValueChange
+                      value={cell - row["tvl_change"]}
+                      decimals={2}
+                      prefix="$"
+                      compact
+                      icon
+                      hideIfZero
+                      tooltipValue={row["tvl_change"]}
+                    />
                   </>
                 ),
                 headerAlign: "right",
@@ -82,6 +86,15 @@ function Homepage(props) {
                   <>
                     <Value value={cell} decimals={2} prefix="$" compact />
                     <br />
+                    <ValueChange
+                      value={cell - row["supply_change"]}
+                      decimals={2}
+                      prefix="$"
+                      compact
+                      icon
+                      hideIfZero
+                      tooltipValue={row["supply_change"]}
+                    />
                   </>
                 ),
                 headerAlign: "right",
@@ -95,6 +108,15 @@ function Homepage(props) {
                   <>
                     <Value value={cell} decimals={2} prefix="$" compact />
                     <br />
+                    <ValueChange
+                      value={cell - row["borrow_change"]}
+                      decimals={2}
+                      prefix="$"
+                      compact
+                      icon
+                      hideIfZero
+                      tooltipValue={row["borrow_change"]}
+                    />
                   </>
                 ),
                 headerAlign: "right",

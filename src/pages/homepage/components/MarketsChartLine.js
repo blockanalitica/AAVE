@@ -9,7 +9,7 @@ import { compact } from "../../../utils/number.js";
 function MarketsChartLine(props) {
   const { timePeriod, dataType } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/protocols/total-stats/`,
+    `aave/protocols/stats/`,
     { days_ago: timePeriod }
   );
 
@@ -19,47 +19,57 @@ function MarketsChartLine(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const results = [];
-  const real_results = [];
-  data.results.forEach((row) => {
+  const results_eth_v2 = [];
+  const results_opt_v3 = [];
+  data.historic.forEach((row) => {
     if (dataType === "supply") {
-      results.push({
-        x: row.dt,
-        y: row.supply,
+      results_eth_v2.push({
+        x: row.dt_eth_v2,
+        y: row.supply_eth_v2,
       });
-     
+
+      results_opt_v3.push({
+        x: row.dt_opt_v3,
+        y: row.supply_opt_v3,
+      });
     }
+
     if (dataType === "borrow") {
-      results.push({
-        x: row.dt,
-        y: row.borrow,
+      results_eth_v2.push({
+        x: row.dt_eth_v2,
+        y: row.borrow_eth_v2,
       });
-      
+
+      results_opt_v3.push({
+        x: row.dt_opt_v3,
+        y: row.borrow_opt_v3,
+      });
     }
     if (dataType === "tvl") {
-      results.push({
-        x: row.dt,
-        y: row.supply - row.borrow,
+      results_eth_v2.push({
+        x: row.dt_eth_v2,
+        y: row.tvl_eth_v2,
+      });
+
+      results_opt_v3.push({
+        x: row.dt_opt_v3,
+        y: row.tvl_opt_v3,
       });
     }
   });
   let series = [];
-  if (dataType === "tvl") {
-    series = [
-      {
-        label: dataType,
-        data: results,
-      },
-    ];
-  } else {
-    series = [
-      {
-        label: dataType,
-        data: results,
-      },
-    
-    ];
-  }
+
+  series = [
+    {
+      label: "Ethereum V2 " + dataType,
+      data: results_eth_v2,
+    },
+    {
+      label: "Optimism V3 " + dataType,
+      data: results_opt_v3,
+    },
+  ];
+
   const options = {
     interaction: {
       axis: "x",
