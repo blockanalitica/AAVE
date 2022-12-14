@@ -5,6 +5,7 @@ import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../utils/graph.js";
 import { compact } from "../../../utils/number.js";
+import _ from "lodash";
 
 function MarketsChartLine(props) {
   const { timePeriod, dataType } = props;
@@ -21,44 +22,44 @@ function MarketsChartLine(props) {
 
   const results_eth_v2 = [];
   const results_opt_v3 = [];
-  data.historic.forEach((row) => {
+  const grouped = _.groupBy(data.historic, "key");
+    Object.entries(grouped).forEach(([key, rows]) => 
+      rows.map((row) => {
     if (dataType === "supply") {
       results_eth_v2.push({
-        x: row.dt_eth_v2,
-        y: row.supply_eth_v2,
+        x: row["dt"],
+        y: row["supply"],
       });
-
       results_opt_v3.push({
-        x: row.dt_opt_v3,
-        y: row.supply_opt_v3,
+        x: row["dt"],
+        y: row["supply"],
       });
     }
-
     if (dataType === "borrow") {
       results_eth_v2.push({
-        x: row.dt_eth_v2,
-        y: row.borrow_eth_v2,
+        x: row["dt"],
+        y: row["borrow"],
       });
-
       results_opt_v3.push({
-        x: row.dt_opt_v3,
-        y: row.borrow_opt_v3,
+        x: row["dt"],
+        y: row["borrow"],
       });
     }
     if (dataType === "tvl") {
       results_eth_v2.push({
-        x: row.dt_eth_v2,
-        y: row.tvl_eth_v2,
+        x: row["dt"],
+        y: row["tvl"],
       });
-
       results_opt_v3.push({
-        x: row.dt_opt_v3,
-        y: row.tvl_opt_v3,
+        x: row["dt"],
+        y: row["tvl"],
       });
     }
-  });
-  let series = [];
+  })
+  );
 
+  
+  let series = []
   series = [
     {
       label: "Ethereum V2 " + dataType,
@@ -69,6 +70,7 @@ function MarketsChartLine(props) {
       data: results_opt_v3,
     },
   ];
+
 
   const options = {
     interaction: {
