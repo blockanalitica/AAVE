@@ -23,43 +23,42 @@ function MarketsChartLine(props) {
   const results_eth_v2 = [];
   const results_opt_v3 = [];
   const grouped = _.groupBy(data.historic, "key");
-    Object.entries(grouped).forEach(([key, rows]) => 
-      rows.map((row) => {
-    if (dataType === "supply") {
-      results_eth_v2.push({
-        x: row["dt"],
-        y: row["supply"],
-      });
-      results_opt_v3.push({
-        x: row["dt"],
-        y: row["supply"],
-      });
-    }
-    if (dataType === "borrow") {
-      results_eth_v2.push({
-        x: row["dt"],
-        y: row["borrow"],
-      });
-      results_opt_v3.push({
-        x: row["dt"],
-        y: row["borrow"],
-      });
-    }
-    if (dataType === "tvl") {
-      results_eth_v2.push({
-        x: row["dt"],
-        y: row["tvl"],
-      });
-      results_opt_v3.push({
-        x: row["dt"],
-        y: row["tvl"],
-      });
-    }
-  })
+  Object.entries(grouped).forEach(([key, rows]) =>
+    rows.map((row) => {
+      if (dataType === "supply") {
+        results_eth_v2.push({
+          x: row["dt"],
+          y: row["supply"],
+        });
+        results_opt_v3.push({
+          x: row["dt"],
+          y: row["supply"],
+        });
+      }
+      if (dataType === "borrow") {
+        results_eth_v2.push({
+          x: row["dt"],
+          y: row["borrow"],
+        });
+        results_opt_v3.push({
+          x: row["dt"],
+          y: row["borrow"],
+        });
+      }
+      if (dataType === "tvl") {
+        results_eth_v2.push({
+          x: row["dt"],
+          y: row["tvl"],
+        });
+        results_opt_v3.push({
+          x: row["dt"],
+          y: row["tvl"],
+        });
+      }
+    })
   );
 
-  
-  let series = []
+  let series = [];
   series = [
     {
       label: "Ethereum V2 " + dataType,
@@ -70,7 +69,6 @@ function MarketsChartLine(props) {
       data: results_opt_v3,
     },
   ];
-
 
   const options = {
     interaction: {
