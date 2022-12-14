@@ -54,7 +54,13 @@ function Homepage(props) {
               {
                 dataField: "network",
                 text: "Protocol",
-                sort: true,
+                sort: false,
+                footer: "",
+              },
+              {
+                dataField: "version",
+                text: "Version",
+                sort: false,
                 footer: "",
               },
               {

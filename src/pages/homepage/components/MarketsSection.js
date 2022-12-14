@@ -20,9 +20,9 @@ function MarketsSection(props) {
   ];
 
   const tabs = [
-    { id: "tvl", text: "total TVL" },
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
+    { id: "tvl", text: "total TVL" },
   ];
 
   const timeSwitch = (
@@ -65,7 +65,6 @@ function MarketsSection(props) {
       <IconTabs
         activeTab={currentTab}
         onTabChange={setCurrentTab}
-        label="charts:"
         tabs={[
           {
             id: "line",

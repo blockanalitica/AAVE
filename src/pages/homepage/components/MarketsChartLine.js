@@ -82,7 +82,7 @@ function MarketsChartLine(props) {
         },
       },
       y: {
-        stacked: false,
+        stacked: true,
         ticks: {
           callback: (value) => "$" + compact(value, 2, true),
         },
