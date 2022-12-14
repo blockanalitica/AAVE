@@ -27,6 +27,7 @@ function Homepage(props) {
   console.log(data)
 
   const onRowClick = (row) => {
+   
     navigate(`/${row.version}/${row.network}/`);
   };
 

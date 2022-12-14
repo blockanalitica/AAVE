@@ -30,25 +30,25 @@ function Homepage(props) {
 
 
   const { stats } = data;
-  console.log(data)
+ 
 
   const statsCard = [
     {
       title: "TVL",
       bigValue: (
         <>
-          <Value value={stats.tvl} decimals={2} prefix="$" compact />
+          <Value value={stats[0].tvl + stats[1].tvl} decimals={2} prefix="$" compact />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={stats.tvl - stats.tvl_change}
+          value={stats[0].tvl+stats[1].tvl - stats[0].tvl_change - stats[1].tvl_change}
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats.tvl_change}
+          tooltipValue={stats[0].tvl_change+stats[1].tvl_change}
         />
       ),
     },
@@ -56,18 +56,18 @@ function Homepage(props) {
       title: "total supply",
       bigValue: (
         <>
-          <Value value={stats.supply} decimals={2} prefix="$" compact />
+          <Value value={stats[0].supply+stats[1].supply} decimals={2} prefix="$" compact />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={stats.supply - stats.supply_change}
+          value={stats[0].supply+stats[1].supply - stats[0].supply_change - stats[1].supply_change}
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats.supply_change}
+          tooltipValue={stats[0].supply_change+stats[1].supply_change}
         />
       ),
     },
@@ -75,18 +75,18 @@ function Homepage(props) {
       title: "total borrow",
       bigValue: (
         <>
-          <Value value={stats.borrow} decimals={2} prefix="$" compact />
+          <Value value={stats[0].borrow + stats[1].borrow } decimals={2} prefix="$" compact />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={stats.borrow - stats.borrow_change}
+          value={stats[0].borrow + stats[1].borrow - stats[0].borrow_change - stats[1].borrow_change}
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats.borrow_change}
+          tooltipValue={stats[0].borrow_change + stats[1].borrow_change}
         />
       ),
     },
