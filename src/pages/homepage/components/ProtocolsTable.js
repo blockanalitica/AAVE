@@ -14,7 +14,7 @@ function Homepage(props) {
   const { daysAgo } = props;
   const navigate = useNavigate();
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/protocols/compare/",
+    "aave/protocols/stats/",
     { days_ago: daysAgo }
   );
 
@@ -24,12 +24,12 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
-  
+  console.log(data)
+
   const onRowClick = (row) => {
-    navigate(`/markets/${row.slug}/`);
+    navigate(`/${row.version}/${row.network}/`);
   };
 
-  console.log(data.results);
 
   return (
     <>
@@ -37,7 +37,7 @@ function Homepage(props) {
         <Col>
           <LinkTable
             keyField="tvl"
-            data={data.results}
+            data={data.stats}
             onRowClick={onRowClick}
             defaultSorted={[
               {
@@ -74,7 +74,7 @@ function Homepage(props) {
                 align: "right",
               },
               {
-                dataField: "total_supply",
+                dataField: "supply",
                 text: "Total Supply",
                 sort: true,
                 formatter: (cell, row) => (
@@ -87,7 +87,7 @@ function Homepage(props) {
                 align: "right",
               },
               {
-                dataField: "total_borrow",
+                dataField: "borrow",
                 text: "Total Borrow",
                 sort: true,
                 formatter: (cell, row) => (
@@ -101,15 +101,6 @@ function Homepage(props) {
               },
             ]}
           />
-        </Col>
-      </Row>
-      <Row className="mb-4">
-        <Col>
-          <div className="text-center mb-4">
-            <Link to={`/markets/`} key="markets">
-              <Button color="primary">see all markets</Button>
-            </Link>
-          </div>
         </Col>
       </Row>
     </>

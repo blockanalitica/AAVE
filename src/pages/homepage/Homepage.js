@@ -14,8 +14,8 @@ import ProtocolsTable from "./components/ProtocolsTable.js";
 function Homepage(props) {
   usePageTitle("Aave");
 
-  const navigate = useNavigate();
-  const [timePeriod, setTimePeriod] = useState(1);
+ 
+  const [timePeriod, setTimePeriod] = useState(7);
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     "aave/protocols/stats/",
     { days_ago: timePeriod }
@@ -27,12 +27,10 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const onValueClick = (e, url) => {
-    navigate(url);
-    e.stopPropagation();
-  };
+
 
   const { stats } = data;
+  console.log(data)
 
   const statsCard = [
     {
@@ -105,8 +103,7 @@ function Homepage(props) {
         <Col>
           <StatsBar
             stats={statsCard}
-            role="button"
-            onClick={(e) => onValueClick(e, `/markets/`)}
+           
           />
         </Col>
       </Row>

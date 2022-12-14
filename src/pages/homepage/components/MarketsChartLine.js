@@ -27,20 +27,14 @@ function MarketsChartLine(props) {
         x: row.dt,
         y: row.supply,
       });
-      real_results.push({
-        x: row.dt,
-        y: row.real_supply,
-      });
+     
     }
     if (dataType === "borrow") {
       results.push({
         x: row.dt,
         y: row.borrow,
       });
-      real_results.push({
-        x: row.dt,
-        y: row.real_borrow,
-      });
+      
     }
     if (dataType === "tvl") {
       results.push({
@@ -63,10 +57,7 @@ function MarketsChartLine(props) {
         label: dataType,
         data: results,
       },
-      {
-        label: "real " + dataType,
-        data: real_results,
-      },
+    
     ];
   }
   const options = {
