@@ -26,34 +26,47 @@ function MarketsChartLine(props) {
   Object.entries(grouped).forEach(([key, rows]) =>
     rows.map((row) => {
       if (dataType === "supply") {
-        results_eth_v2.push({
+        if (key === "ethereum") {
+          results_eth_v2.push({
+            x: row["dt"],
+            y: row["supply"],
+          });
+        }
+        if (key === "optimism") {
+          results_opt_v3.push({
+            x: row["dt"],
+            y: row["supply"],
+          });
+        }
+      }
+        
+      if (dataType === "borrow") {
+        if (key === "ethereum") {
+          results_eth_v2.push({
           x: row["dt"],
-          y: row["supply"],
+          y: row["borrow"],
         });
+        }
+        if (key === "optimism") {
         results_opt_v3.push({
           x: row["dt"],
-          y: row["supply"],
+          y: row["borrow"],
         });
       }
-      if (dataType === "borrow") {
-        results_eth_v2.push({
-          x: row["dt"],
-          y: row["borrow"],
-        });
-        results_opt_v3.push({
-          x: row["dt"],
-          y: row["borrow"],
-        });
       }
       if (dataType === "tvl") {
+      if(key === "ethereum"){
         results_eth_v2.push({
           x: row["dt"],
           y: row["tvl"],
         });
+      }
+      if(key === "optimism"){
         results_opt_v3.push({
           x: row["dt"],
           y: row["tvl"],
         });
+      }
       }
     })
   );
