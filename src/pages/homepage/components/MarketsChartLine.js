@@ -9,7 +9,7 @@ import { compact } from "../../../utils/number.js";
 function MarketsChartLine(props) {
   const { timePeriod, dataType } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/tokens/total-stats/`,
+    `aave/protocols/total-stats/`,
     { days_ago: timePeriod }
   );
 

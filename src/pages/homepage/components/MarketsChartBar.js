@@ -14,7 +14,7 @@ function MarketsChartBar(props) {
   const { dataType } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/tokens/market-share/`,
+    `aave/protocols/share/`,
     { type: dataType }
   );
 

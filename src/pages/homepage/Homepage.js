@@ -9,7 +9,7 @@ import { useFetch, usePageTitle } from "../../hooks";
 import StatsBar from "../../components/Stats/StatsBar.js";
 import TimeSwitch from "../../components/TimeSwitch/TimeSwitch.js";
 import MarketsSection from "./components/MarketsSection.js";
-import MarketsTable from "./components/MarketsTable.js";
+import ProtocolsTable from "./components/ProtocolsTable.js";
 
 function Homepage(props) {
   usePageTitle("Aave");
@@ -17,7 +17,7 @@ function Homepage(props) {
   const navigate = useNavigate();
   const [timePeriod, setTimePeriod] = useState(1);
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/tokens/stats/",
+    "aave/protocols/stats/",
     { days_ago: timePeriod }
   );
 
@@ -74,25 +74,6 @@ function Homepage(props) {
       ),
     },
     {
-      title: "total real supply",
-      bigValue: (
-        <>
-          <Value value={stats.real_supply} decimals={2} prefix="$" compact />
-        </>
-      ),
-      smallValue: (
-        <ValueChange
-          value={stats.real_supply - stats.real_supply_change}
-          decimals={2}
-          prefix="$"
-          compact
-          icon
-          hideIfZero
-          tooltipValue={stats.real_supply_change}
-        />
-      ),
-    },
-    {
       title: "total borrow",
       bigValue: (
         <>
@@ -108,25 +89,6 @@ function Homepage(props) {
           icon
           hideIfZero
           tooltipValue={stats.borrow_change}
-        />
-      ),
-    },
-    {
-      title: "total real borrow",
-      bigValue: (
-        <>
-          <Value value={stats.real_borrow} decimals={2} prefix="$" compact />
-        </>
-      ),
-      smallValue: (
-        <ValueChange
-          value={stats.real_borrow - stats.real_borrow_change}
-          decimals={2}
-          prefix="$"
-          compact
-          icon
-          hideIfZero
-          tooltipValue={stats.real_borrow_change}
         />
       ),
     },
@@ -154,9 +116,9 @@ function Homepage(props) {
         </Col>
       </Row>
       <Row className="mb-4">
-        <h3>top markets</h3>
+        <h3>protocols</h3>
         <Col>
-          <MarketsTable daysAgo={timePeriod} />
+          <ProtocolsTable daysAgo={timePeriod} />
         </Col>
       </Row>
       {/* <Row className="mb-4">

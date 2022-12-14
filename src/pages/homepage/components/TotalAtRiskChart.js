@@ -13,7 +13,7 @@ function TotalAtRiskChart(props) {
   const { drop, chartType } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/risk/total-at-risk/protection-score/`
+    `aave/protocols/at-risk/protection-score/`
   );
   if (isLoading) {
     return <Loader />;
