@@ -31,8 +31,7 @@ function MarketsChartLine(props) {
             x: row["dt"],
             y: row["supply"],
           });
-        }
-        if (key === "optimism") {
+        } else {
           results_opt_v3.push({
             x: row["dt"],
             y: row["supply"],
@@ -46,8 +45,7 @@ function MarketsChartLine(props) {
             x: row["dt"],
             y: row["borrow"],
           });
-        }
-        if (key === "optimism") {
+        } else {
           results_opt_v3.push({
             x: row["dt"],
             y: row["borrow"],
@@ -60,8 +58,7 @@ function MarketsChartLine(props) {
             x: row["dt"],
             y: row["tvl"],
           });
-        }
-        if (key === "optimism") {
+        } else {
           results_opt_v3.push({
             x: row["dt"],
             y: row["tvl"],
