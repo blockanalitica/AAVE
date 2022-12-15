@@ -24,7 +24,7 @@ function MarketsChartLine(props) {
   const results_opt_v3 = [];
   const grouped = _.groupBy(data.historic, "key");
   Object.entries(grouped).forEach(([key, rows]) =>
-    rows.map((row) => {
+    rows.forEach((row) => {
       if (dataType === "supply") {
         if (key === "ethereum") {
           results_eth_v2.push({
@@ -39,34 +39,34 @@ function MarketsChartLine(props) {
           });
         }
       }
-        
+
       if (dataType === "borrow") {
         if (key === "ethereum") {
           results_eth_v2.push({
-          x: row["dt"],
-          y: row["borrow"],
-        });
+            x: row["dt"],
+            y: row["borrow"],
+          });
         }
         if (key === "optimism") {
-        results_opt_v3.push({
-          x: row["dt"],
-          y: row["borrow"],
-        });
-      }
+          results_opt_v3.push({
+            x: row["dt"],
+            y: row["borrow"],
+          });
+        }
       }
       if (dataType === "tvl") {
-      if(key === "ethereum"){
-        results_eth_v2.push({
-          x: row["dt"],
-          y: row["tvl"],
-        });
-      }
-      if(key === "optimism"){
-        results_opt_v3.push({
-          x: row["dt"],
-          y: row["tvl"],
-        });
-      }
+        if (key === "ethereum") {
+          results_eth_v2.push({
+            x: row["dt"],
+            y: row["tvl"],
+          });
+        }
+        if (key === "optimism") {
+          results_opt_v3.push({
+            x: row["dt"],
+            y: row["tvl"],
+          });
+        }
       }
     })
   );
