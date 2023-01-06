@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
-import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.js";
 import Value from "../../components/Value/Value.js";
 import ValueChange from "../../components/Value/ValueChange.js";
@@ -14,10 +13,9 @@ import MarketsTable from "./components/MarketsTable.js";
 function Homepage(props) {
   usePageTitle("Aave");
 
-  const navigate = useNavigate();
-  const [timePeriod, setTimePeriod] = useState(1);
+  const [timePeriod, setTimePeriod] = useState(7);
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/tokens/stats/",
+    "aave/protocols/stats/",
     { days_ago: timePeriod }
   );
 
@@ -27,11 +25,6 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const onValueClick = (e, url) => {
-    navigate(url);
-    e.stopPropagation();
-  };
-
   const { stats } = data;
 
   const statsCard = [
@@ -39,18 +32,20 @@ function Homepage(props) {
       title: "TVL",
       bigValue: (
         <>
-          <Value value={stats.tvl} decimals={2} prefix="$" compact />
+          <Value value={stats[0].tvl + stats[1].tvl} decimals={2} prefix="$" compact />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={stats.tvl - stats.tvl_change}
+          value={
+            stats[0].tvl + stats[1].tvl - stats[0].tvl_change - stats[1].tvl_change
+          }
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats.tvl_change}
+          tooltipValue={stats[0].tvl_change + stats[1].tvl_change}
         />
       ),
     },
@@ -58,37 +53,28 @@ function Homepage(props) {
       title: "total supply",
       bigValue: (
         <>
-          <Value value={stats.supply} decimals={2} prefix="$" compact />
+          <Value
+            value={stats[0].supply + stats[1].supply}
+            decimals={2}
+            prefix="$"
+            compact
+          />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={stats.supply - stats.supply_change}
+          value={
+            stats[0].supply +
+            stats[1].supply -
+            stats[0].supply_change -
+            stats[1].supply_change
+          }
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats.supply_change}
-        />
-      ),
-    },
-    {
-      title: "total real supply",
-      bigValue: (
-        <>
-          <Value value={stats.real_supply} decimals={2} prefix="$" compact />
-        </>
-      ),
-      smallValue: (
-        <ValueChange
-          value={stats.real_supply - stats.real_supply_change}
-          decimals={2}
-          prefix="$"
-          compact
-          icon
-          hideIfZero
-          tooltipValue={stats.real_supply_change}
+          tooltipValue={stats[0].supply_change + stats[1].supply_change}
         />
       ),
     },
@@ -96,37 +82,28 @@ function Homepage(props) {
       title: "total borrow",
       bigValue: (
         <>
-          <Value value={stats.borrow} decimals={2} prefix="$" compact />
+          <Value
+            value={stats[0].borrow + stats[1].borrow}
+            decimals={2}
+            prefix="$"
+            compact
+          />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={stats.borrow - stats.borrow_change}
+          value={
+            stats[0].borrow +
+            stats[1].borrow -
+            stats[0].borrow_change -
+            stats[1].borrow_change
+          }
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats.borrow_change}
-        />
-      ),
-    },
-    {
-      title: "total real borrow",
-      bigValue: (
-        <>
-          <Value value={stats.real_borrow} decimals={2} prefix="$" compact />
-        </>
-      ),
-      smallValue: (
-        <ValueChange
-          value={stats.real_borrow - stats.real_borrow_change}
-          decimals={2}
-          prefix="$"
-          compact
-          icon
-          hideIfZero
-          tooltipValue={stats.real_borrow_change}
+          tooltipValue={stats[0].borrow_change + stats[1].borrow_change}
         />
       ),
     },
@@ -141,11 +118,7 @@ function Homepage(props) {
       </div>
       <Row className="mb-4">
         <Col>
-          <StatsBar
-            stats={statsCard}
-            role="button"
-            onClick={(e) => onValueClick(e, `/markets/`)}
-          />
+          <StatsBar stats={statsCard} />
         </Col>
       </Row>
       <Row className="mb-4">
@@ -154,7 +127,7 @@ function Homepage(props) {
         </Col>
       </Row>
       <Row className="mb-4">
-        <h3>top markets</h3>
+        <h3>protocols</h3>
         <Col>
           <MarketsTable daysAgo={timePeriod} />
         </Col>

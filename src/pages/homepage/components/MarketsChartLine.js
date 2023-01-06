@@ -5,11 +5,12 @@ import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../utils/graph.js";
 import { compact } from "../../../utils/number.js";
+import _ from "lodash";
 
 function MarketsChartLine(props) {
   const { timePeriod, dataType } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `aave/tokens/total-stats/`,
+    `aave/protocols/stats/`,
     { days_ago: timePeriod }
   );
 
@@ -19,56 +20,66 @@ function MarketsChartLine(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const results = [];
-  const real_results = [];
-  data.results.forEach((row) => {
-    if (dataType === "supply") {
-      results.push({
-        x: row.dt,
-        y: row.supply,
-      });
-      real_results.push({
-        x: row.dt,
-        y: row.real_supply,
-      });
-    }
-    if (dataType === "borrow") {
-      results.push({
-        x: row.dt,
-        y: row.borrow,
-      });
-      real_results.push({
-        x: row.dt,
-        y: row.real_borrow,
-      });
-    }
-    if (dataType === "tvl") {
-      results.push({
-        x: row.dt,
-        y: row.supply - row.borrow,
-      });
-    }
-  });
+  const results_eth_v2 = [];
+  const results_opt_v3 = [];
+  const grouped = _.groupBy(data.historic, "key");
+  Object.entries(grouped).forEach(([key, rows]) =>
+    rows.forEach((row) => {
+      if (dataType === "supply") {
+        if (key === "ethereum") {
+          results_eth_v2.push({
+            x: row["dt"],
+            y: row["supply"],
+          });
+        } else {
+          results_opt_v3.push({
+            x: row["dt"],
+            y: row["supply"],
+          });
+        }
+      }
+
+      if (dataType === "borrow") {
+        if (key === "ethereum") {
+          results_eth_v2.push({
+            x: row["dt"],
+            y: row["borrow"],
+          });
+        } else {
+          results_opt_v3.push({
+            x: row["dt"],
+            y: row["borrow"],
+          });
+        }
+      }
+      if (dataType === "tvl") {
+        if (key === "ethereum") {
+          results_eth_v2.push({
+            x: row["dt"],
+            y: row["tvl"],
+          });
+        } else {
+          results_opt_v3.push({
+            x: row["dt"],
+            y: row["tvl"],
+          });
+        }
+      }
+    })
+  );
+
   let series = [];
-  if (dataType === "tvl") {
-    series = [
-      {
-        label: dataType,
-        data: results,
-      },
-    ];
-  } else {
-    series = [
-      {
-        label: dataType,
-        data: results,
-      },
-      {
-        label: "real " + dataType,
-        data: real_results,
-      },
-    ];
-  }
+  series = [
+    {
+      label: "Ethereum V2 " + dataType,
+      data: results_eth_v2,
+    },
+    {
+      label: "Optimism V3 " + dataType,
+      data: results_opt_v3,
+    },
+  ];
+
   const options = {
     interaction: {
       axis: "x",
@@ -81,7 +92,7 @@ function MarketsChartLine(props) {
         },
       },
       y: {
-        stacked: false,
+        stacked: true,
         ticks: {
           callback: (value) => "$" + compact(value, 2, true),
         },

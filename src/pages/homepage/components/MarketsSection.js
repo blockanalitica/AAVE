@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
-import { faChartBar, faChartLine } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import SideTabNav from "../../../components/SideTab/SideTabNav.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import IconTabs from "../../../components/Tabs/IconTabs.js";
 import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 import MarketsChartLine from "./MarketsChartLine.js";
-import MarketsChartBar from "./MarketsChartBar.js";
-import TotalAtRiskSection from "./TotalAtRiskSection.js";
 
 function MarketsSection(props) {
-  const [type, setType] = useState("at-risk");
-  const [timePeriod, setTimePeriod] = useState(30);
+  const [type, setType] = useState("tvl");
+  const [timePeriod, setTimePeriod] = useState(7);
   const [currentTab, setCurrentTab] = useState("line");
 
   const options = [
@@ -23,7 +20,6 @@ function MarketsSection(props) {
   ];
 
   const tabs = [
-    { id: "at-risk", text: "collateral at risk" },
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
     { id: "tvl", text: "total TVL" },
@@ -47,49 +43,37 @@ function MarketsSection(props) {
 
   if (type === "supply") {
     title = `total supply for last ${timePeriod} days`;
-    description =
-      "total supply for all markets, real supply removes recursive positions.";
+    description = "total supply for each market";
   } else if (type === "borrow") {
     title = `total borrow for last ${timePeriod} days`;
-    description =
-      "total borrow for all markets, real borrow removes recursive positions.";
+    description = "total borrow for each market";
   } else if (type === "tvl") {
     title = `total TVL for last ${timePeriod} days`;
+    description = "total value locked for each market";
   }
 
-  if (type === "at-risk") {
-    content = <TotalAtRiskSection />;
+  if (currentTab === "line") {
+    timeswitchContent = timeSwitch;
   } else {
-    if (currentTab === "line") {
-      timeswitchContent = timeSwitch;
-    } else {
-      timeswitchContent = null;
-    }
-    content = (
-      <>
-        <h4>{title}</h4>
-        <p className="gray">{description}</p>
-        {timeswitchContent}
-        <IconTabs
-          activeTab={currentTab}
-          onTabChange={setCurrentTab}
-          label="charts:"
-          tabs={[
-            {
-              id: "line",
-              title: <FontAwesomeIcon icon={faChartLine} />,
-              content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
-            },
-            {
-              id: "bar",
-              title: <FontAwesomeIcon icon={faChartBar} />,
-              content: <MarketsChartBar dataType={`${type}-share`} />,
-            },
-          ]}
-        />
-      </>
-    );
+    timeswitchContent = null;
   }
+  content = (
+    <>
+      <h4>{title}</h4>
+      <p className="gray">{description}</p>
+      {timeswitchContent}
+      <IconTabs
+        activeTab={currentTab}
+        onTabChange={setCurrentTab}
+        tabs={[
+          {
+            id: "line",
+            content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
+          },
+        ]}
+      />
+    </>
+  );
 
   return (
     <div>

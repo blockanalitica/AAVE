@@ -94,7 +94,7 @@ function Layout(props) {
       <Container>
         <header className="mb-4">
           <Navbar expand="md" className="fw-bolder" dark container={false}>
-            <NavbarBrand className={styles.navbarBrand} tag={Link} to={`${prefix}`}>
+            <NavbarBrand className={styles.navbarBrand} tag={Link} to={"/"}>
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
             {locationPrefix.length > 0 ? <NetworkSelector /> : null}
@@ -102,26 +102,35 @@ function Layout(props) {
             <Collapse isOpen={isNavbarOpen} navbar>
               <Nav className="flex-grow-1 justify-content-end" navbar>
                 <NavItem>
-                  <NavLink tag={Link} to={`${prefix}markets/`}>
-                    Markets
-                  </NavLink>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`${prefix}markets/`}>
+                      Markets
+                    </NavLink>
+                  ) : null}
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to={`${prefix}liquidations/`}>
-                    Liquidations
-                  </NavLink>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`${prefix}liquidations/`}>
+                      Liquidations
+                    </NavLink>
+                  ) : null}
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to={`${prefix}wallets/`}>
-                    Wallets
-                  </NavLink>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`${prefix}wallets/`}>
+                      Wallets
+                    </NavLink>
+                  ) : null}
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to={`${prefix}wallets-at-risk/`}>
-                    Wallets at Risk
-                  </NavLink>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`${prefix}wallets-at-risk/`}>
+                      Wallets at Risk
+                    </NavLink>
+                  ) : null}
                 </NavItem>
-                {prefix.includes("optimism") ? null : (
+
+                {prefix.includes("optimism") || locationPrefix.length === 0 ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}ecosystem/`}>
                       Ecosystem
@@ -129,11 +138,13 @@ function Layout(props) {
                   </NavItem>
                 )}
                 <NavItem>
-                  <NavLink tag={Link} to={`${prefix}activity/`}>
-                    Activity
-                  </NavLink>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`${prefix}activity/`}>
+                      Activity
+                    </NavLink>
+                  ) : null}
                 </NavItem>
-                {locationPrefix.length > 0 ? null : (
+                {locationPrefix.length === 0 || locationPrefix.length > 0 ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}oracles/`}>
                       Oracles
