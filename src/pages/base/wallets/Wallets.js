@@ -226,7 +226,8 @@ function Wallets(props) {
           {
             dataField: "address",
             text: "Address",
-            formatter: (cell, row) => row.name || row.ens || <Address value={cell} short />,
+            formatter: (cell, row) =>
+              row.name || row.ens || <Address value={cell} short />,
           },
         ]}
       >
