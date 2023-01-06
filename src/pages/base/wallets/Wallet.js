@@ -35,10 +35,16 @@ function Wallet(props) {
   const blockie = makeBlockie(address);
   const etherscanUrl = smartEtherscanUrl(location);
   const link = `${etherscanUrl}address/${address}`;
+  const name = data.name || data.ens;
 
   return (
     <>
       <div className="d-flex flex-direction-row align-items-center mb-4">
+        <img
+          className={classnames(styles.roundedCircle, styles.walletLogo, "me-3")}
+          src={blockie}
+          alt={address}
+        />
         <div className="flex-grow-1">
           <a
             href={link}
@@ -46,12 +52,8 @@ function Wallet(props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
-              className={classnames(styles.roundedCircle, styles.walletLogo, "me-3")}
-              src={blockie}
-              alt={address}
-            />
             <h1 className="h3 m-0">
+              {name ? <span>{name} | </span> : null}
               <Address value={address} />
             </h1>
           </a>

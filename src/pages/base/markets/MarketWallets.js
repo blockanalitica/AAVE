@@ -152,7 +152,7 @@ function MarketWallets(props) {
     {
       dataField: "address",
       text: "Wallet Address",
-      formatter: (cell, row) => <Address value={cell} short />,
+      formatter: (cell, row) => row.name || row.ens || <Address value={cell} short />,
     },
   ];
 
