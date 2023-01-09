@@ -72,8 +72,28 @@ function WalletPositionsCard(props) {
         align: "right",
       },
       {
+        dataField: "variable_borrow",
+        text: "Variable Borrow",
+        sort: true,
+        formatter: (cell, row) => (
+          <Value value={cell} decimals={2} compact hideIfZero />
+        ),
+        headerAlign: "right",
+        align: "right",
+      },
+      {
+        dataField: "stable_borrow",
+        text: "Stable Borrow",
+        sort: true,
+        formatter: (cell, row) => (
+          <Value value={cell} decimals={2} compact hideIfZero />
+        ),
+        headerAlign: "right",
+        align: "right",
+      },
+      {
         dataField: "borrow",
-        text: "Borrow",
+        text: "Total Borrow",
         sort: true,
         formatter: (cell, row) => (
           <Value value={cell} decimals={2} compact hideIfZero />
@@ -133,7 +153,7 @@ function WalletPositionsCard(props) {
         text: "",
         sort: false,
         formatter: (cell, row) => (
-          <>
+          <div className="text-nowrap">
             <CryptoIcon
               className="me-4"
               name={row.underlying_symbol}
@@ -141,7 +161,7 @@ function WalletPositionsCard(props) {
               id={cell}
             />
             {cell}
-          </>
+          </div>
         ),
         footer: () => {
           <></>;
@@ -176,8 +196,38 @@ function WalletPositionsCard(props) {
         footerAlign: "right",
       },
       {
+        dataField: "variable_borrow_usd",
+        text: "Variable Borrow",
+        sort: true,
+        formatter: (cell, row) => (
+          <Value value={cell} decimals={2} prefix="$" compact />
+        ),
+        footer: (columnData) => {
+          let sum = columnData.reduce((acc, item) => acc + item, 0);
+          return <Value value={sum} decimals={2} prefix="$" compact />;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
+      },
+      {
+        dataField: "stable_borrow_usd",
+        text: "Stable Borrow",
+        sort: true,
+        formatter: (cell, row) => (
+          <Value value={cell} decimals={2} prefix="$" compact />
+        ),
+        footer: (columnData) => {
+          let sum = columnData.reduce((acc, item) => acc + item, 0);
+          return <Value value={sum} decimals={2} prefix="$" compact />;
+        },
+        headerAlign: "right",
+        align: "right",
+        footerAlign: "right",
+      },
+      {
         dataField: "borrow_usd",
-        text: "Borrow",
+        text: "Total Borrow",
         sort: true,
         formatter: (cell, row) => (
           <Value value={cell} decimals={2} prefix="$" compact />
