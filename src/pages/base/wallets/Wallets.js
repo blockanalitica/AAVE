@@ -79,11 +79,7 @@ function Wallets(props) {
               return (
                 <>
                   <img
-                    className={classnames(
-                      styles.roundedCircle,
-                      styles.walletLogo,
-                      "me-3"
-                    )}
+                    className={classnames(styles.roundedCircle, styles.walletLogo)}
                     src={blockie}
                     alt={row.address}
                   />
@@ -96,29 +92,38 @@ function Wallets(props) {
             text: "Supply",
             sort: true,
             formatter: (cell, row) => (
-              <Value
-                value={cell}
-                decimals={2}
-                prefix="$"
-                compact
-                className={styles.bigText}
-              />
+              <Value value={cell} decimals={2} prefix="$" compact />
             ),
             headerAlign: "right",
             align: "right",
           },
           {
-            dataField: "borrow",
-            text: "Borrow",
+            dataField: "variable_borrow",
+            text: "Variable Borrow",
             sort: true,
             formatter: (cell, row) => (
-              <Value
-                value={cell}
-                decimals={2}
-                prefix="$"
-                compact
-                className={styles.bigText}
-              />
+              <Value value={cell} decimals={2} prefix="$" compact />
+            ),
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "stable_borrow",
+            text: "Stable Borrow",
+            sort: true,
+            formatter: (cell, row) => (
+              <Value value={cell} decimals={2} prefix="$" compact />
+            ),
+            headerAlign: "right",
+            align: "right",
+          },
+
+          {
+            dataField: "borrow",
+            text: "Total Borrow",
+            sort: true,
+            formatter: (cell, row) => (
+              <Value value={cell} decimals={2} prefix="$" compact />
             ),
             headerAlign: "right",
             align: "right",
@@ -181,23 +186,11 @@ function Wallets(props) {
             align: "center",
             formatter: (cell, row) => {
               if (cell === "low") {
-                return (
-                  <Badge color="success" className="mr-1">
-                    {cell} risk
-                  </Badge>
-                );
+                return <Badge color="success">{cell} risk</Badge>;
               } else if (cell === "medium") {
-                return (
-                  <Badge color="warning" className="mr-1">
-                    {cell} risk
-                  </Badge>
-                );
+                return <Badge color="warning">{cell} risk</Badge>;
               } else if (cell === "high") {
-                return (
-                  <Badge color="danger" className="mr-1">
-                    {cell} risk
-                  </Badge>
-                );
+                return <Badge color="danger">{cell} risk</Badge>;
               }
               return "-";
             },
