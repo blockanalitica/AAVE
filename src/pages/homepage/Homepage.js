@@ -132,12 +132,6 @@ function Homepage(props) {
           <MarketsTable daysAgo={timePeriod} />
         </Col>
       </Row>
-      {/* <Row className="mb-4">
-        <h3>risk</h3>
-        <Col>
-          <TotalAtRiskSection />
-        </Col>
-      </Row> */}
     </>
   );
 }
