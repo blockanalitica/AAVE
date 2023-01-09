@@ -85,8 +85,8 @@ function WalletInfo(props) {
       {data.protection_score ? (
         <UncontrolledTooltip placement="bottom" target="riskBadge">
           {Object.entries(data.protection_score).map(([key, value]) => (
-            <div>
-              {key}: {value}
+            <div key={key} className="text-start">
+              <span className="gray">{key}</span>: {value}
             </div>
           ))}
         </UncontrolledTooltip>
