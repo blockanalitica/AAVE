@@ -89,7 +89,7 @@ function WalletActivityTable(props) {
           },
 
           {
-            dataField: "event_type",
+            dataField: "event_raw",
             text: "Event",
             headerAlign: "left",
             align: "left",

@@ -1,15 +1,18 @@
 import classnames from "classnames";
 import makeBlockie from "ethereum-blockies-base64";
-import React from "react";
+import React, { useState } from "react";
+import { Col, Row } from "reactstrap";
 import { useLocation, useParams } from "react-router-dom";
 import Address from "../../../components/Address/Address.js";
 import Loader from "../../../components/Loader/Loader.js";
+import SideTabNav from "../../../components/SideTab/SideTabNav.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch, usePageTitle } from "../../../hooks.js";
 import logoDefiSaver from "../../../images/defisaver.svg";
 import { shorten } from "../../../utils/address.js";
 import { smartEtherscanUrl } from "../../../utils/url.js";
 import WalletActivityTable from "./components/WalletActivityTable.js";
+import WalletRawActivityTable from "./components/WalletRawActivityTable.js";
 import WalletInfo from "./components/WalletInfo.js";
 import WalletPositionsCard from "./components/WalletPositionsCard.js";
 import styles from "./Wallet.module.scss";
@@ -18,6 +21,7 @@ function Wallet(props) {
   const { address } = useParams();
   const location = useLocation();
   usePageTitle(shorten(address));
+  const [type, setType] = useState("pool");
 
   const { data, isLoading, isError, ErrorFallbackComponent, error } = useFetch(
     `wallets/${address}/`
@@ -64,7 +68,28 @@ function Wallet(props) {
       </div>
       <WalletInfo data={data} />
       <WalletPositionsCard address={address} />
-      <WalletActivityTable address={address} />
+
+      <Row className="mb-3">
+        <Col className="d-flex align-items-center">
+          <h3 className="mb-0">activity</h3>
+        </Col>
+        <Col className="d-flex justify-content-end">
+          <SideTabNav
+            activeTab={type}
+            toggleTab={setType}
+            tabs={[
+              { id: "pool", text: "pool-events" },
+              { id: "raw", text: "raw-events" },
+            ]}
+          />
+        </Col>
+      </Row>
+
+      {type === "pool" ? (
+        <WalletActivityTable address={address} />
+      ) : (
+        <WalletRawActivityTable address={address} />
+      )}
     </>
   );
 }
