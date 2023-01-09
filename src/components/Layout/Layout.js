@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -17,6 +17,7 @@ import baLogo from "../../images/logo-light.svg";
 import ActivityBase from "../../pages/base/activity/Activity.js";
 import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
 import EcosystemBase from "../../pages/base/ecosystem/Ecosystem";
+import Homepage from "../../pages/homepage/Homepage.js";
 import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
@@ -159,7 +160,7 @@ function Layout(props) {
         <main>
           <BreadcrumbHistory />
           <Routes>
-            <Route index element={<Navigate replace to="/v2/ethereum/" />} />
+            <Route index element={<Homepage />} />
 
             {/* old redirects */}
             {oldRedirects.map((path) => {
