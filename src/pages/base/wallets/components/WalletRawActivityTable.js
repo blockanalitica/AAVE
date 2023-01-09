@@ -20,7 +20,7 @@ function WalletActivityTable(props) {
   const [order, setOrder] = useState("-timestamp");
 
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
-    `wallets/${address}/raw/events/`,
+    `wallets/${address}/events/raw/`,
     {
       p: page,
       p_size: pageSize,
