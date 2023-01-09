@@ -20,7 +20,7 @@ function WalletActivityTable(props) {
   const [order, setOrder] = useState("-timestamp");
 
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
-    `wallets/${address}/events/`,
+    `wallets/${address}/raw/events/`,
     {
       p: page,
       p_size: pageSize,
@@ -87,10 +87,24 @@ function WalletActivityTable(props) {
             headerAlign: "left",
             align: "left",
           },
-
           {
-            dataField: "event_raw",
+            dataField: "event",
             text: "Event",
+            headerAlign: "left",
+            align: "left",
+          },
+          {
+            dataField: "rate_mode",
+            text: "Rate Mode",
+            formatter: (cell, row) => {
+              if (row.rate_mode === 0) {
+                return <span>Supply</span>;
+              } else if (row.rate_mode === 1) {
+                return <span>Stable Debt</span>;
+              } else if (row.rate_mode === 2) {
+                return <span>Variable Debt</span>;
+              }
+            },
             headerAlign: "left",
             align: "left",
           },
@@ -128,6 +142,21 @@ function WalletActivityTable(props) {
             headerAlign: "center",
             align: "center",
           },
+          {
+            dataField: "block_number",
+            text: "Block",
+            sort: false,
+            headerAlign: "right",
+            align: "right",
+          },
+          {
+            dataField: "on_behalf_of",
+            text: "User Address",
+            formatter: (cell) => <EtherscanShort address={cell} type="address" />,
+            headerAlign: "center",
+            align: "center",
+          },
+
           {
             dataField: "timestamp",
             text: "Date",

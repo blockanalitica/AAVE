@@ -5,7 +5,7 @@ import { Col, Row } from "reactstrap";
 import { useLocation, useParams } from "react-router-dom";
 import Address from "../../../components/Address/Address.js";
 import Loader from "../../../components/Loader/Loader.js";
-import SideTabNav from "../../../components/SideTab/SideTabNav.js";
+
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch, usePageTitle } from "../../../hooks.js";
 import logoDefiSaver from "../../../images/defisaver.svg";
@@ -16,12 +16,14 @@ import WalletRawActivityTable from "./components/WalletRawActivityTable.js";
 import WalletInfo from "./components/WalletInfo.js";
 import WalletPositionsCard from "./components/WalletPositionsCard.js";
 import styles from "./Wallet.module.scss";
+import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 
 function Wallet(props) {
   const { address } = useParams();
   const location = useLocation();
   usePageTitle(shorten(address));
-  const [type, setType] = useState("pool");
+
+  const [isTokenCurrency, setIsTokenCurrency] = useState(false);
 
   const { data, isLoading, isError, ErrorFallbackComponent, error } = useFetch(
     `wallets/${address}/`
@@ -74,21 +76,21 @@ function Wallet(props) {
           <h3 className="mb-0">activity</h3>
         </Col>
         <Col className="d-flex justify-content-end">
-          <SideTabNav
-            activeTab={type}
-            toggleTab={setType}
-            tabs={[
-              { id: "pool", text: "pool-events" },
-              { id: "raw", text: "raw-events" },
+          <CurrencySwitch
+            label="view events"
+            options={[
+              { key: "pool", value: "Pool" },
+              { key: "raw", value: "Raw" },
             ]}
+            onChange={(option) => setIsTokenCurrency(option === "raw")}
           />
         </Col>
       </Row>
 
-      {type === "pool" ? (
-        <WalletActivityTable address={address} />
-      ) : (
+      {isTokenCurrency ? (
         <WalletRawActivityTable address={address} />
+      ) : (
+        <WalletActivityTable address={address} />
       )}
     </>
   );
