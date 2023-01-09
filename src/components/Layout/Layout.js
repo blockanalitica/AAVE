@@ -42,8 +42,6 @@ function Layout(props) {
   const location = useLocation();
   const locationPrefix = smartLocationPrefix(location);
 
-  const HomepageRoute = [{ path: "/homepage", element: <Homepage /> }];
-
   const v2EthereumRoutes = [
     { path: "/", element: <HomepageBase /> },
     { path: "markets/", element: <MarketsBase /> },
@@ -97,7 +95,7 @@ function Layout(props) {
       <Container>
         <header className="mb-4">
           <Navbar expand="md" className="fw-bolder" dark container={false}>
-            <NavbarBrand className={styles.navbarBrand} tag={Link} to={"/homepage"}>
+            <NavbarBrand className={styles.navbarBrand} tag={Link} to={"/"}>
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
             {locationPrefix.length > 0 ? <NetworkSelector /> : null}
@@ -173,12 +171,6 @@ function Layout(props) {
                   element={<SimpleRedirect replace to={`/v2/ethereum/${path}`} />}
                 />
               );
-            })}
-
-            {/* Homepage */}
-            {HomepageRoute.map((route) => {
-              const path = `/${route.path}`;
-              return <Route key={path} path={path} element={route.element} />;
             })}
 
             {/* V2 Ethereum */}
