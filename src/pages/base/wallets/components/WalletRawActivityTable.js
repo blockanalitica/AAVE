@@ -134,7 +134,6 @@ function WalletActivityTable(props) {
             headerAlign: "right",
             align: "right",
           },
-
           {
             dataField: "tx_hash",
             text: "Tx Hash",
@@ -142,21 +141,6 @@ function WalletActivityTable(props) {
             headerAlign: "center",
             align: "center",
           },
-          {
-            dataField: "block_number",
-            text: "Block",
-            sort: false,
-            headerAlign: "right",
-            align: "right",
-          },
-          {
-            dataField: "on_behalf_of",
-            text: "User Address",
-            formatter: (cell) => <EtherscanShort address={cell} type="address" />,
-            headerAlign: "center",
-            align: "center",
-          },
-
           {
             dataField: "timestamp",
             text: "Date",
