@@ -13,7 +13,7 @@ import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import { parseUTCDateTimestamp } from "../../../../utils/datetime.js";
 import DateTimeAgo from "../../../../components/DateTime/DateTimeAgo.js";
 
-function WalletActivityTable(props) {
+function WalletRawActivityTable(props) {
   const { address } = props;
   const pageSize = 10;
   const [page, setPage] = useState(1);
@@ -166,4 +166,4 @@ function WalletActivityTable(props) {
   );
 }
 
-export default withErrorBoundary(WalletActivityTable);
+export default withErrorBoundary(WalletRawActivityTable);

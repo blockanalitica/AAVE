@@ -23,7 +23,7 @@ function Wallet(props) {
   const location = useLocation();
   usePageTitle(shorten(address));
 
-  const [isTokenCurrency, setIsTokenCurrency] = useState(false);
+  const [isEventRaw, setEventView] = useState(false);
 
   const { data, isLoading, isError, ErrorFallbackComponent, error } = useFetch(
     `wallets/${address}/`
@@ -82,12 +82,12 @@ function Wallet(props) {
               { key: "pool", value: "Pool" },
               { key: "raw", value: "Raw" },
             ]}
-            onChange={(option) => setIsTokenCurrency(option === "raw")}
+            onChange={(option) => setEventView(option === "raw")}
           />
         </Col>
       </Row>
 
-      {isTokenCurrency ? (
+      {isEventRaw ? (
         <WalletRawActivityTable address={address} />
       ) : (
         <WalletActivityTable address={address} />
