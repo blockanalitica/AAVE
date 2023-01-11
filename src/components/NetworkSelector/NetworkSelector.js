@@ -25,6 +25,10 @@ function NetworkSelector(props) {
         value: "optimism",
         text: "optimism",
       },
+      {
+        value: "arbitrum",
+        text: "arbitrum",
+      },
     ],
   };
 

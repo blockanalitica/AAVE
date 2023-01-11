@@ -72,6 +72,20 @@ function Layout(props) {
     { path: "activity/", element: <ActivityBase /> },
   ];
 
+  const v3ArbitrumRoutes = [
+    { path: "/", element: <HomepageBase /> },
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+    { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
+    { path: "wallets-at-risk/", element: <AtRiskBase /> },
+    { path: "activity/", element: <ActivityBase /> },
+  ];
+
   const oldRedirects = [
     "markets/",
     "markets/:symbol/",
@@ -181,6 +195,11 @@ function Layout(props) {
             {/* V3 Optimism */}
             {v3OptimismRoutes.map((route) => {
               const path = `v3/optimism/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* V3 Arbitrum */}
+            {v3ArbitrumRoutes.map((route) => {
+              const path = `v3/arbitrum/${route.path}`;
               return <Route key={path} path={path} element={route.element} />;
             })}
 
