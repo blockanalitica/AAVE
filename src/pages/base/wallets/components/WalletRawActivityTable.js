@@ -13,14 +13,14 @@ import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import { parseUTCDateTimestamp } from "../../../../utils/datetime.js";
 import DateTimeAgo from "../../../../components/DateTime/DateTimeAgo.js";
 
-function WalletActivityTable(props) {
+function WalletRawActivityTable(props) {
   const { address } = props;
   const pageSize = 10;
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState("-timestamp");
 
   const { data, isLoading, isPreviousData, isError, ErrorFallbackComponent } = useFetch(
-    `wallets/${address}/events/`,
+    `wallets/${address}/events/raw/`,
     {
       p: page,
       p_size: pageSize,
@@ -87,10 +87,24 @@ function WalletActivityTable(props) {
             headerAlign: "left",
             align: "left",
           },
-
           {
-            dataField: "event_type",
+            dataField: "event",
             text: "Event",
+            headerAlign: "left",
+            align: "left",
+          },
+          {
+            dataField: "rate_mode",
+            text: "Rate Mode",
+            formatter: (cell, row) => {
+              if (row.rate_mode === 0) {
+                return <span>Supply</span>;
+              } else if (row.rate_mode === 1) {
+                return <span>Stable Debt</span>;
+              } else if (row.rate_mode === 2) {
+                return <span>Variable Debt</span>;
+              }
+            },
             headerAlign: "left",
             align: "left",
           },
@@ -120,7 +134,6 @@ function WalletActivityTable(props) {
             headerAlign: "right",
             align: "right",
           },
-
           {
             dataField: "tx_hash",
             text: "Tx Hash",
@@ -153,4 +166,4 @@ function WalletActivityTable(props) {
   );
 }
 
-export default withErrorBoundary(WalletActivityTable);
+export default withErrorBoundary(WalletRawActivityTable);
