@@ -76,19 +76,25 @@ function WalletInfo(props) {
     },
     {
       title: "risk",
-      normalValue: (
-        <>
-          {data.protection_score ? (
-            <Badge
-              id="riskBadge"
-              color={badgeColorMap[data.protection_score.protection_score]}
-            >
-              {data.protection_score.protection_score} risk
-            </Badge>
-          ) : (
-            "-"
-          )}
-        </>
+      bigValue: (
+        <Row className="mb3">
+          <Col className="d-flex align-items-center">
+            <div style={{ visibility: "hidden" }}>-</div>
+          </Col>
+          <Col className="d-flex align-items-center">
+            {data.protection_score ? (
+              <Badge
+                style={{ fontSize: "0.8rem" }}
+                id="riskBadge"
+                color={badgeColorMap[data.protection_score.protection_score]}
+              >
+                {data.protection_score.protection_score} risk
+              </Badge>
+            ) : (
+              "-"
+            )}
+          </Col>
+        </Row>
       ),
     },
   ];
