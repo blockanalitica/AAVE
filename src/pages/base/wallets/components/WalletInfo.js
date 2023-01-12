@@ -59,7 +59,7 @@ function WalletInfo(props) {
     },
     {
       title: "health rate",
-      normalValue: (
+      bigValue: (
         <Row className="mb3">
           <Col className="d-flex align-items-center">
             <div>{health_rate}</div>
