@@ -145,7 +145,9 @@ function Layout(props) {
                   ) : null}
                 </NavItem>
 
-                {prefix.includes("optimism") || locationPrefix.length === 0 ? null : (
+                {prefix.includes("optimism") ||
+                prefix.includes("arbitrum") ||
+                locationPrefix.length === 0 ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}ecosystem/`}>
                       Ecosystem
