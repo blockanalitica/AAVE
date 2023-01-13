@@ -58,23 +58,34 @@ function WalletInfo(props) {
     },
     {
       title: "health rate",
-      bigValue: health_rate,
+      bigValue: (
+        <div className="d-flex align-items-center">
+          <div className="flex-grow-1">{health_rate}</div>
+          {data.user_mode === 1 ? (
+            <Badge style={{ fontSize: "0.8rem" }} color="primary">
+              e-mode
+            </Badge>
+          ) : null}
+        </div>
+      ),
     },
     {
       title: "risk",
-      normalValue: (
-        <>
+      bigValue: (
+        <div className="lh-sm">
           {data.protection_score ? (
             <Badge
+              style={{ fontSize: "0.8rem" }}
               id="riskBadge"
               color={badgeColorMap[data.protection_score.protection_score]}
+              className="align-middle"
             >
               {data.protection_score.protection_score} risk
             </Badge>
           ) : (
             "-"
           )}
-        </>
+        </div>
       ),
     },
   ];
