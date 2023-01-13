@@ -25,10 +25,10 @@ function NetworkSelector(props) {
         value: "optimism",
         text: "optimism",
       },
-      //{
-      //  value: "arbitrum",
-      //  text: "arbitrum",
-      //},
+      {
+        value: "arbitrum",
+        text: "arbitrum",
+      },
     ],
   };
 
@@ -52,11 +52,9 @@ function NetworkSelector(props) {
   return (
     <div>
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle
-          caret
-          tag="span"
-          className={styles.dropdownToggle}
-        ></DropdownToggle>
+        <DropdownToggle caret tag="span" className={styles.dropdownToggle}>
+          <CryptoIcon size="1.5rem" className="me-2" name={currentNetwork.value} />
+        </DropdownToggle>
         <DropdownMenu>
           <DropdownItem header className="text-center">
             v2
@@ -77,18 +75,23 @@ function NetworkSelector(props) {
           <DropdownItem header className="text-center">
             v3
           </DropdownItem>
-          {options.v3.map((network) => (
-            <DropdownItem
-              key={`v3-${network.value}`}
-              //        active={currentVersion === "v3" && currentNetwork.value === network.value}
-              onClick={() => {
-                onItemClick("v3", network);
-              }}
-            >
-              <CryptoIcon size="1.5rem" className="me-2" name={network.value} />
-              {network.text}
-            </DropdownItem>
-          ))}
+
+          {options.v3.map((network) =>
+            network.value !== "arbitrum" ? (
+              <DropdownItem
+                key={`v3-${network.value}`}
+                active={
+                  currentVersion === "v3" && currentNetwork.value === network.value
+                }
+                onClick={() => {
+                  onItemClick("v3", network);
+                }}
+              >
+                <CryptoIcon size="1.5rem" className="me-2" name={network.value} />
+                {network.text}
+              </DropdownItem>
+            ) : null
+          )}
         </DropdownMenu>
       </Dropdown>
     </div>
