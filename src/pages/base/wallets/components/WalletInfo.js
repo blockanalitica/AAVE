@@ -4,7 +4,6 @@ import Value from "../../../../components/Value/Value.js";
 import ValueChange from "../../../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../../../hoc.js";
 import StatsBar from "../../../../components/Stats/StatsBar.js";
-import { Row, Col } from "reactstrap";
 
 function WalletInfo(props) {
   let { data } = props;
@@ -60,41 +59,33 @@ function WalletInfo(props) {
     {
       title: "health rate",
       bigValue: (
-        <Row className="mb3">
-          <Col className="d-flex align-items-center">
-            <div>{health_rate}</div>
-          </Col>
-          <Col className="d-flex align-items-center">
-            {data.user_mode === 1 ? (
-              <Badge style={{ fontSize: "0.8rem" }} color="primary">
-                e-mode
-              </Badge>
-            ) : null}
-          </Col>
-        </Row>
+        <div className="d-flex align-items-center">
+          <div className="flex-grow-1">{health_rate}</div>
+          {data.user_mode === 1 ? (
+            <Badge style={{ fontSize: "0.8rem" }} color="primary">
+              e-mode
+            </Badge>
+          ) : null}
+        </div>
       ),
     },
     {
       title: "risk",
       bigValue: (
-        <Row className="mb3">
-          <Col className="d-flex align-items-center">
-            <div style={{ visibility: "hidden" }}>-</div>
-          </Col>
-          <Col className="d-flex align-items-center">
-            {data.protection_score ? (
-              <Badge
-                style={{ fontSize: "0.8rem" }}
-                id="riskBadge"
-                color={badgeColorMap[data.protection_score.protection_score]}
-              >
-                {data.protection_score.protection_score} risk
-              </Badge>
-            ) : (
-              "-"
-            )}
-          </Col>
-        </Row>
+        <div className="lh-sm">
+          {data.protection_score ? (
+            <Badge
+              style={{ fontSize: "0.8rem" }}
+              id="riskBadge"
+              color={badgeColorMap[data.protection_score.protection_score]}
+              className="align-middle"
+            >
+              {data.protection_score.protection_score} risk
+            </Badge>
+          ) : (
+            "-"
+          )}
+        </div>
       ),
     },
   ];
