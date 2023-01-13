@@ -25,10 +25,10 @@ function NetworkSelector(props) {
         value: "optimism",
         text: "optimism",
       },
-      {
-        value: "arbitrum",
-        text: "arbitrum",
-      },
+      //{
+      //  value: "arbitrum",
+      //  text: "arbitrum",
+      //},
     ],
   };
 
@@ -52,10 +52,11 @@ function NetworkSelector(props) {
   return (
     <div>
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle caret tag="span" className={styles.dropdownToggle}>
-          <CryptoIcon size="1.5rem" className="me-2" name={currentNetwork.text} />
-          {currentVersion} {currentNetwork.text}
-        </DropdownToggle>
+        <DropdownToggle
+          caret
+          tag="span"
+          className={styles.dropdownToggle}
+        ></DropdownToggle>
         <DropdownMenu>
           <DropdownItem header className="text-center">
             v2
@@ -79,7 +80,7 @@ function NetworkSelector(props) {
           {options.v3.map((network) => (
             <DropdownItem
               key={`v3-${network.value}`}
-              active={currentVersion === "v3" && currentNetwork.value === network.value}
+              //        active={currentVersion === "v3" && currentNetwork.value === network.value}
               onClick={() => {
                 onItemClick("v3", network);
               }}
