@@ -22,6 +22,7 @@ function MarketsChartLine(props) {
 
   const results_eth_v2 = [];
   const results_opt_v3 = [];
+  const results_arb_v3 = [];
   const grouped = _.groupBy(data.historic, "key");
   Object.entries(grouped).forEach(([key, rows]) =>
     rows.forEach((row) => {
@@ -31,8 +32,13 @@ function MarketsChartLine(props) {
             x: row["dt"],
             y: row["supply"],
           });
-        } else {
+        } else if (key === "optimism") {
           results_opt_v3.push({
+            x: row["dt"],
+            y: row["supply"],
+          });
+        } else {
+          results_arb_v3.push({
             x: row["dt"],
             y: row["supply"],
           });
@@ -45,8 +51,13 @@ function MarketsChartLine(props) {
             x: row["dt"],
             y: row["borrow"],
           });
-        } else {
+        } else if (key === "optimism") {
           results_opt_v3.push({
+            x: row["dt"],
+            y: row["borrow"],
+          });
+        } else {
+          results_arb_v3.push({
             x: row["dt"],
             y: row["borrow"],
           });
@@ -58,8 +69,13 @@ function MarketsChartLine(props) {
             x: row["dt"],
             y: row["tvl"],
           });
-        } else {
+        } else if (key === "optimism") {
           results_opt_v3.push({
+            x: row["dt"],
+            y: row["tvl"],
+          });
+        } else {
+          results_arb_v3.push({
             x: row["dt"],
             y: row["tvl"],
           });
@@ -77,6 +93,10 @@ function MarketsChartLine(props) {
     {
       label: "Optimism V3 " + dataType,
       data: results_opt_v3,
+    },
+    {
+      label: "Arbitrum V3 " + dataType,
+      data: results_arb_v3,
     },
   ];
 

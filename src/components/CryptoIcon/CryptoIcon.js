@@ -43,13 +43,16 @@ import lusdIcon from "../../images/crypto/color/lusd.svg";
 import oneinchIcon from "../../images/crypto/color/1inch.svg";
 import maticIcon from "../../images/crypto/color/matic.svg";
 import avaxIcon from "../../images/crypto/color/avax.svg";
+import arbitrumIcon from "../../images/crypto/color/arbitrum.svg";
 import optimismIcon from "../../images/crypto/color/optimism.svg";
+import eursIcon from "../../images/crypto/color/eurs.svg";
 import { smartEtherscanUrl } from "../../utils/url.js";
 
 function CryptoIcon(props) {
   const location = useLocation();
   const { name, size, address, ...rest } = props;
   const mapping = {
+    EURS: eursIcon,
     AAVE: aaveIcon,
     AMPL: amplIcon,
     BAT: batIcon,
@@ -97,6 +100,7 @@ function CryptoIcon(props) {
     polygon: maticIcon,
     ethereum: ethIcon,
     AVAX: avaxIcon,
+    arbitrum: arbitrumIcon,
     avalanche: avaxIcon,
     optimism: optimismIcon,
   };
