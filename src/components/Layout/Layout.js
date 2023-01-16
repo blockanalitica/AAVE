@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -41,6 +41,8 @@ function Layout(props) {
 
   const location = useLocation();
   const locationPrefix = smartLocationPrefix(location);
+
+  const HomepageRoute = [{ path: "/homepage", element: <Homepage /> }];
 
   const v2EthereumRoutes = [
     { path: "/", element: <HomepageBase /> },
@@ -144,7 +146,6 @@ function Layout(props) {
                     </NavLink>
                   ) : null}
                 </NavItem>
-
                 {prefix.includes("optimism") ||
                 prefix.includes("arbitrum") ||
                 locationPrefix.length === 0 ? null : (
@@ -176,7 +177,7 @@ function Layout(props) {
         <main>
           <BreadcrumbHistory />
           <Routes>
-            <Route index element={<Homepage />} />
+            <Route index element={<Navigate replace to="/v2/ethereum/" />} />
 
             {/* old redirects */}
             {oldRedirects.map((path) => {
@@ -187,6 +188,12 @@ function Layout(props) {
                   element={<SimpleRedirect replace to={`/v2/ethereum/${path}`} />}
                 />
               );
+            })}
+
+            {/* Homepage */}
+            {HomepageRoute.map((route) => {
+              const path = `/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
             })}
 
             {/* V2 Ethereum */}
