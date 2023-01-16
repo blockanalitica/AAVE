@@ -24,11 +24,7 @@ function Homepage(props) {
   }
 
   const onRowClick = (row) => {
-    if (row.network === "arbitrum") {
-      return;
-    } else {
-      navigate(`/${row.version}/${row.network}/`);
-    }
+    navigate(`/${row.version}/${row.network}/`);
   };
 
   return (
