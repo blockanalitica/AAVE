@@ -111,7 +111,7 @@ function Layout(props) {
       <Container>
         <header className="mb-4">
           <Navbar expand="md" className="fw-bolder" dark container={false}>
-            <NavbarBrand className={styles.navbarBrand} tag={Link} to={"/"}>
+            <NavbarBrand className={styles.navbarBrand} tag={Link} to={`${prefix}`}>
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
             {locationPrefix.length > 0 ? <NetworkSelector /> : null}
@@ -146,6 +146,7 @@ function Layout(props) {
                     </NavLink>
                   ) : null}
                 </NavItem>
+
                 {prefix.includes("optimism") ||
                 prefix.includes("arbitrum") ||
                 locationPrefix.length === 0 ? null : (

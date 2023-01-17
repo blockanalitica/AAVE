@@ -54,6 +54,7 @@ function NetworkSelector(props) {
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
         <DropdownToggle caret tag="span" className={styles.dropdownToggle}>
           <CryptoIcon size="1.5rem" className="me-2" name={currentNetwork.value} />
+          {currentVersion} {currentNetwork.value}
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem header className="text-center">
