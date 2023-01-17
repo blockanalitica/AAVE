@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import Graph from "../../../../components/Graph/Graph.js";
 import Loader from "../../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../../hoc.js";
@@ -19,36 +20,54 @@ function MarketsChartLine(props) {
     return <ErrorFallbackComponent />;
   }
 
+  const grouped = _.groupBy(data.results.risk, "drop");
   const results = [];
   const real_results = [];
-  data.results.forEach((row) => {
-    if (dataType === "supply") {
-      results.push({
-        x: row.dt,
-        y: row.supply,
+  const drop_results = [];
+
+  if (dataType === "debt-risk") {
+    Object.entries(grouped).forEach(([key, rows]) => {
+      drop_results.push({
+        label: key + "%",
+        data: rows.map((row) => {
+          return {
+            x: row.dt,
+            y: row.total_amount_usd,
+          };
+        }),
       });
-      real_results.push({
-        x: row.dt,
-        y: row.real_supply,
-      });
-    }
-    if (dataType === "borrow") {
-      results.push({
-        x: row.dt,
-        y: row.borrow,
-      });
-      real_results.push({
-        x: row.dt,
-        y: row.real_borrow,
-      });
-    }
-    if (dataType === "tvl") {
-      results.push({
-        x: row.dt,
-        y: row.supply - row.borrow,
-      });
-    }
-  });
+    });
+  } else {
+    data.results.stats.forEach((row) => {
+      if (dataType === "supply") {
+        results.push({
+          x: row.dt,
+          y: row.supply,
+        });
+        real_results.push({
+          x: row.dt,
+          y: row.real_supply,
+        });
+      }
+      if (dataType === "borrow") {
+        results.push({
+          x: row.dt,
+          y: row.borrow,
+        });
+        real_results.push({
+          x: row.dt,
+          y: row.real_borrow,
+        });
+      }
+      if (dataType === "tvl") {
+        results.push({
+          x: row.dt,
+          y: row.supply - row.borrow,
+        });
+      }
+    });
+  }
+
   let series = [];
   if (dataType === "tvl") {
     series = [
@@ -57,6 +76,8 @@ function MarketsChartLine(props) {
         data: results,
       },
     ];
+  } else if (dataType === "debt-risk") {
+    series = drop_results;
   } else {
     series = [
       {

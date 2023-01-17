@@ -27,6 +27,7 @@ function MarketsSection(props) {
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
     { id: "tvl", text: "total TVL" },
+    { id: "debt-risk", text: "Debt at risk" },
   ];
 
   const timeSwitch = (
@@ -55,6 +56,9 @@ function MarketsSection(props) {
       "total borrow for all markets, real borrow removes recursive positions.";
   } else if (type === "tvl") {
     title = `total TVL for last ${timePeriod} days`;
+  } else if (type === "debt-risk") {
+    title = `Debt at risk per drop, for the last ${timePeriod} days`;
+    description = "Historical overview across different price drops";
   }
 
   if (type === "at-risk") {
@@ -81,9 +85,13 @@ function MarketsSection(props) {
               content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
             },
             {
-              id: "bar",
-              title: <FontAwesomeIcon icon={faChartBar} />,
-              content: <MarketsChartBar dataType={`${type}-share`} />,
+              id: type === "debt-risk" ? null : "bar",
+              title:
+                type === "debt-risk" ? null : <FontAwesomeIcon icon={faChartBar} />,
+              content:
+                type === "debt-risk" ? null : (
+                  <MarketsChartBar dataType={type} timePeriod={timePeriod} />
+                ),
             },
           ]}
         />
