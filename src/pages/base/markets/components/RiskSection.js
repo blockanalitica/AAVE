@@ -10,12 +10,19 @@ function RiskSection(props) {
   const { symbol, isTokenCurrencyTotal } = props;
   const [type, setType] = useState("at-risk");
 
-  let tabs = [{ id: "at-risk", text: "markets price drop" }];
+  let tabs = [
+    { id: "at-risk", text: "markets price drop" },
+    { id: "debt-risk", text: "debt at risk - historic" },
+  ];
 
   let content = null;
-  if (type === "at-risk") {
+  if (type === "at-risk" || type === "debt-risk") {
     content = (
-      <TokenAtRiskTab symbol={symbol} isTokenCurrencyTotal={isTokenCurrencyTotal} />
+      <TokenAtRiskTab
+        symbol={symbol}
+        isTokenCurrencyTotal={isTokenCurrencyTotal}
+        type={type}
+      />
     );
   }
   let showPrice = true;
