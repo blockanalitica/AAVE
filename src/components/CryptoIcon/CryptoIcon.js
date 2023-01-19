@@ -52,6 +52,7 @@ function CryptoIcon(props) {
   const location = useLocation();
   const { name, size, address, ...rest } = props;
   const mapping = {
+    OP: optimismIcon,
     EURS: eursIcon,
     AAVE: aaveIcon,
     AMPL: amplIcon,

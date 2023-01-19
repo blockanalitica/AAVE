@@ -27,6 +27,12 @@ function Homepage(props) {
     return <ErrorFallbackComponent />;
   }
 
+  let options = [
+    { key: 1, value: "1 day" },
+    { key: 7, value: "7 days" },
+    { key: 30, value: "30 days" },
+    { key: 90, value: "90 days" },
+  ];
   const onValueClick = (e, url) => {
     navigate(url);
     e.stopPropagation();
@@ -136,7 +142,12 @@ function Homepage(props) {
     <>
       <div className="d-flex align-items-center">
         <div className="mb-2 flex-grow-1 d-flex align-items-center justify-content-end">
-          <TimeSwitch activeOption={timePeriod} label={""} onChange={setTimePeriod} />
+          <TimeSwitch
+            activeOption={timePeriod}
+            label={""}
+            onChange={setTimePeriod}
+            options={options}
+          />
         </div>
       </div>
       <Row className="mb-4">
