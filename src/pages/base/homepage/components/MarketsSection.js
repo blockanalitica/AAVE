@@ -7,6 +7,7 @@ import { withErrorBoundary } from "../../../../hoc.js";
 import IconTabs from "../../../../components/Tabs/IconTabs.js";
 import TimeSwitch from "../../../../components/TimeSwitch/TimeSwitch.js";
 import MarketsChartLine from "./MarketsChartLine.js";
+import MarketsChartLineDebtAtRisk from "./MarketsChartLineDebtAtRisk.js";
 import MarketsChartBar from "./MarketsChartBar.js";
 import TotalAtRiskSection from "./TotalAtRiskSection.js";
 
@@ -18,6 +19,7 @@ function MarketsSection(props) {
   const options = [
     { key: 7, value: "7 days" },
     { key: 30, value: "30 days" },
+    { key: 90, value: "90 days" },
     { key: 180, value: "180 days" },
     { key: 365, value: "1 year" },
   ];
@@ -27,6 +29,7 @@ function MarketsSection(props) {
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
     { id: "tvl", text: "total TVL" },
+    { id: "debt-risk", text: "Debt at risk" },
   ];
 
   const timeSwitch = (
@@ -55,6 +58,10 @@ function MarketsSection(props) {
       "total borrow for all markets, real borrow removes recursive positions.";
   } else if (type === "tvl") {
     title = `total TVL for last ${timePeriod} days`;
+    description = "total TVL for all markets";
+  } else if (type === "debt-risk") {
+    title = `Debt at risk per drop, for the last ${timePeriod} days`;
+    description = "Historical overview across different price drops";
   }
 
   if (type === "at-risk") {
@@ -70,23 +77,27 @@ function MarketsSection(props) {
         <h4>{title}</h4>
         <p className="gray">{description}</p>
         {timeswitchContent}
-        <IconTabs
-          activeTab={currentTab}
-          onTabChange={setCurrentTab}
-          label="charts:"
-          tabs={[
-            {
-              id: "line",
-              title: <FontAwesomeIcon icon={faChartLine} />,
-              content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
-            },
-            {
-              id: "bar",
-              title: <FontAwesomeIcon icon={faChartBar} />,
-              content: <MarketsChartBar dataType={`${type}-share`} />,
-            },
-          ]}
-        />
+        {type !== "debt-risk" ? (
+          <IconTabs
+            activeTab={currentTab}
+            onTabChange={setCurrentTab}
+            label="charts:"
+            tabs={[
+              {
+                id: "line",
+                title: <FontAwesomeIcon icon={faChartLine} />,
+                content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
+              },
+              {
+                id: "bar",
+                title: <FontAwesomeIcon icon={faChartBar} />,
+                content: <MarketsChartBar dataType={type} timePeriod={timePeriod} />,
+              },
+            ]}
+          />
+        ) : (
+          <MarketsChartLineDebtAtRisk dataType={type} timePeriod={timePeriod} />
+        )}
       </>
     );
   }

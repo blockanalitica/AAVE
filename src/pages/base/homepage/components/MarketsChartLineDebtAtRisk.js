@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import Graph from "../../../../components/Graph/Graph.js";
 import Loader from "../../../../components/Loader/Loader.js";
 import { withErrorBoundary } from "../../../../hoc.js";
@@ -6,10 +7,10 @@ import { useFetch } from "../../../../hooks";
 import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../../utils/graph.js";
 import { compact } from "../../../../utils/number.js";
 
-function MarketsChartLine(props) {
-  const { timePeriod, dataType } = props;
+function DebtDropChartLine(props) {
+  const { timePeriod } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `markets/total-stats/`,
+    `markets/total-stats/debt-drop/`,
     { days_ago: timePeriod }
   );
 
@@ -19,58 +20,22 @@ function MarketsChartLine(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const results = [];
-  const real_results = [];
+  const grouped = _.groupBy(data.results, "drop");
 
-  data.results.forEach((row) => {
-    if (dataType === "supply") {
-      results.push({
-        x: row.dt,
-        y: row.supply,
-      });
-      real_results.push({
-        x: row.dt,
-        y: row.real_supply,
-      });
-    }
-    if (dataType === "borrow") {
-      results.push({
-        x: row.dt,
-        y: row.borrow,
-      });
-      real_results.push({
-        x: row.dt,
-        y: row.real_borrow,
-      });
-    }
-    if (dataType === "tvl") {
-      results.push({
-        x: row.dt,
-        y: row.supply - row.borrow,
-      });
-    }
+  const series = [];
+
+  Object.entries(grouped).forEach(([key, rows]) => {
+    series.push({
+      label: key + "%",
+      data: rows.map((row) => {
+        return {
+          x: row.dt,
+          y: row.total_amount_usd,
+        };
+      }),
+    });
   });
 
-  let series = [];
-  if (dataType === "tvl") {
-    series = [
-      {
-        label: dataType,
-        data: results,
-      },
-    ];
-  } else {
-    series = [
-      {
-        label: dataType,
-        data: results,
-      },
-      {
-        label: "real " + dataType,
-        data: real_results,
-      },
-    ];
-  }
   const options = {
     interaction: {
       axis: "x",
@@ -79,7 +44,7 @@ function MarketsChartLine(props) {
       x: {
         type: "time",
         time: {
-          unit: "day",
+          unit: timePeriod > 30 ? "day" : "hour",
         },
       },
       y: {
@@ -109,4 +74,4 @@ function MarketsChartLine(props) {
   return <Graph series={series} options={options} />;
 }
 
-export default withErrorBoundary(MarketsChartLine);
+export default withErrorBoundary(DebtDropChartLine);

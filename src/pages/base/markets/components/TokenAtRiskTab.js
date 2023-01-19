@@ -9,13 +9,15 @@ import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import IconTabs from "../../../../components/Tabs/IconTabs.js";
 import { withErrorBoundary } from "../../../../hoc.js";
 import TokenAtRiskChart from "./TokenAtRiskChart.js";
+import DebtAtRiskChart from "./DebtAtRiskChart.js";
 import TimeSwitch from "../../../../components/TimeSwitch/TimeSwitch.js";
 
 function TokenAtRiskTab(props) {
-  const { symbol, isTokenCurrencyTotal } = props;
+  const { symbol, isTokenCurrencyTotal, type } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
   const toggleModalOpen = () => setModalOpen(!modalOpen);
+  const [timePeriod, setTimePeriod] = useState(30);
 
   const [drop, setDrop] = useState(80);
 
@@ -27,55 +29,90 @@ function TokenAtRiskTab(props) {
     { key: 80, value: "80%" },
   ];
 
+  const options = [
+    { key: 7, value: "7 days" },
+    { key: 30, value: "30 days" },
+    { key: 90, value: "90 days" },
+    { key: 180, value: "180 days" },
+    { key: 365, value: "365 days" },
+  ];
+
+  const timeSwitch = (
+    <TimeSwitch
+      className="justify-content-end mb-3"
+      activeOption={timePeriod}
+      label={"days ago:"}
+      onChange={setTimePeriod}
+      options={options}
+    />
+  );
+  const dropSwitch = (
+    <TimeSwitch
+      className="justify-content-end mb-3"
+      activeOption={drop}
+      label={"drop:"}
+      onChange={setDrop}
+      options={dropOptions}
+    />
+  );
+
+  let title;
+  let description;
+  if (type === "at-risk") {
+    title = `${symbol} at risk`;
+    description =
+      "simulation of markets price drop (all assets fall for x% at the same time) and {symbol} is always used as collateral to liquidate. When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.";
+  } else if (type === "debt-risk") {
+    title = `Debt at risk per drop, for the last ${timePeriod} days`;
+    description = "historical overview across different price drops";
+  }
+
   return (
     <>
       <div className="d-flex flex-direction-row justify-content-left align-items-center">
-        <h4 className="mr-4">{symbol} at risk</h4>
-        <span role="button" className="link-primary" onClick={toggleModalOpen}>
-          <FontAwesomeIcon icon={faInfoCircle} />
-        </span>
+        <h4 className="mr-4">{title}</h4>
+        {type === "debt-risk" ? null : (
+          <span role="button" className="link-primary" onClick={toggleModalOpen}>
+            <FontAwesomeIcon icon={faInfoCircle} />
+          </span>
+        )}
       </div>
-      <p className="gray">
-        Simulation of markets price drop (all assets fall for x% at the same time) and{" "}
-        {symbol} is always used as collateral to liquidate. When wallet reach health
-        rate under 1, 50% (or max 5M) of debt position is liquidated.
-      </p>
+      <p className="gray">{description}</p>
       <div className="d-flex flex-direction-row justify-content-end align-items-center">
-        <TimeSwitch
-          className="mb-3 justify-content-end"
-          label="drop:"
-          activeOption={drop}
-          onChange={setDrop}
-          options={dropOptions}
-        />
+        {type === "at-risk" ? dropSwitch : timeSwitch}
       </div>
-      <IconTabs
-        tabs={[
-          {
-            title: <FontAwesomeIcon icon={faChartArea} />,
-            content: (
-              <TokenAtRiskChart
-                symbol={symbol}
-                drop={drop}
-                chartType="line"
-                isTokenCurrencyTotal={isTokenCurrencyTotal}
-              />
-            ),
-          },
-          {
-            title: <FontAwesomeIcon icon={faChartBar} />,
-            content: (
-              <TokenAtRiskChart
-                symbol={symbol}
-                drop={drop}
-                chartType="bar"
-                isTokenCurrencyTotal={isTokenCurrencyTotal}
-              />
-            ),
-          },
-        ]}
-        label="charts:"
-      />
+      {type === "debt-risk" ? (
+        <DebtAtRiskChart symbol={symbol} timePeriod={timePeriod} />
+      ) : (
+        <IconTabs
+          tabs={[
+            {
+              title: <FontAwesomeIcon icon={faChartArea} />,
+              content: (
+                <TokenAtRiskChart
+                  symbol={symbol}
+                  drop={drop}
+                  chartType="line"
+                  isTokenCurrencyTotal={isTokenCurrencyTotal}
+                />
+              ),
+            },
+            {
+              title: type === "at-risk" ? <FontAwesomeIcon icon={faChartBar} /> : null,
+              content: (
+                <TokenAtRiskChart
+                  symbol={symbol}
+                  drop={drop}
+                  chartType="bar"
+                  isTokenCurrencyTotal={isTokenCurrencyTotal}
+                />
+              ),
+            },
+          ]}
+          label="charts:"
+        />
+      )}
+
       <Modal isOpen={modalOpen} toggle={toggleModalOpen}>
         <ModalHeader toggle={toggleModalOpen}>Wallet Protection Score</ModalHeader>
         <ModalBody>
