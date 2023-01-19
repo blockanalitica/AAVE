@@ -13,7 +13,7 @@ function DebtAtRiskChart(props) {
   const { symbol, timePeriod } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `markets/${symbol}/at-risk/protection-score/`,
+    `markets/${symbol}/dept-drop/historic/`,
     { days_ago: timePeriod }
   );
   if (isLoading) {
@@ -26,11 +26,11 @@ function DebtAtRiskChart(props) {
     return <div>No data</div>;
   }
 
-  const { drops, last_updated } = data;
+  const { results, last_updated } = data;
 
   let grouped;
 
-  grouped = _.groupBy(drops, "drop");
+  grouped = _.groupBy(results, "drop");
   let series = [];
 
   Object.entries(grouped).forEach(([key, rows]) => {

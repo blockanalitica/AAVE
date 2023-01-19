@@ -7,6 +7,7 @@ import { withErrorBoundary } from "../../../../hoc.js";
 import IconTabs from "../../../../components/Tabs/IconTabs.js";
 import TimeSwitch from "../../../../components/TimeSwitch/TimeSwitch.js";
 import MarketsChartLine from "./MarketsChartLine.js";
+import MarketsChartLineDebtAtRisk from "./MarketsChartLineDebtAtRisk.js";
 import MarketsChartBar from "./MarketsChartBar.js";
 import TotalAtRiskSection from "./TotalAtRiskSection.js";
 
@@ -82,7 +83,12 @@ function MarketsSection(props) {
             {
               id: "line",
               title: <FontAwesomeIcon icon={faChartLine} />,
-              content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
+              content:
+                type === "debt-risk" ? (
+                  <MarketsChartLineDebtAtRisk dataType={type} timePeriod={timePeriod} />
+                ) : (
+                  <MarketsChartLine dataType={type} timePeriod={timePeriod} />
+                ),
             },
             {
               id: type === "debt-risk" ? null : "bar",
