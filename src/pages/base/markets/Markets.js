@@ -32,6 +32,12 @@ function Markets(props) {
   } else if (isError) {
     return <ErrorFallbackComponent />;
   }
+  let options = [
+    { key: 1, value: "1 day" },
+    { key: 7, value: "7 days" },
+    { key: 30, value: "30 days" },
+    { key: 90, value: "90 days" },
+  ];
 
   const onRowClick = (row) => {
     navigate(`${row.symbol}/`);
@@ -43,7 +49,12 @@ function Markets(props) {
         <h3 className="mb-4">markets</h3>
       </div>
       <div className="d-flex flex-direction-row justify-content-between mt-4">
-        <TimeSwitch activeOption={timePeriod} label={""} onChange={setTimePeriod} />
+        <TimeSwitch
+          activeOption={timePeriod}
+          label={""}
+          onChange={setTimePeriod}
+          options={options}
+        />
 
         <div className="mb-2 flex-grow-1 d-flex align-items-right justify-content-end">
           <CurrencySwitch
