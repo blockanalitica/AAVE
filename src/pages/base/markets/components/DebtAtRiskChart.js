@@ -13,7 +13,7 @@ function DebtAtRiskChart(props) {
   const { symbol, timePeriod } = props;
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `markets/${symbol}/dept-drop/historic/`,
+    `markets/${symbol}/debt-drop/historic/`,
     { days_ago: timePeriod }
   );
   if (isLoading) {
