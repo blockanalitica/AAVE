@@ -61,55 +61,58 @@ function TokenAtRiskTab(props) {
   if (type === "at-risk") {
     title = `${symbol} at risk`;
     description =
-      "Simulation of markets price drop (all assets fall for x% at the same time) and {symbol} is always used as collateral to liquidate. When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.";
+      "simulation of markets price drop (all assets fall for x% at the same time) and {symbol} is always used as collateral to liquidate. When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.";
   } else if (type === "debt-risk") {
     title = `Debt at risk per drop, for the last ${timePeriod} days`;
-    description = "Historical overview across different price drops";
+    description = "historical overview across different price drops";
   }
 
   return (
     <>
       <div className="d-flex flex-direction-row justify-content-left align-items-center">
         <h4 className="mr-4">{title}</h4>
-        <span role="button" className="link-primary" onClick={toggleModalOpen}>
-          <FontAwesomeIcon icon={faInfoCircle} />
-        </span>
+        {type === "debt-risk" ? null : (
+          <span role="button" className="link-primary" onClick={toggleModalOpen}>
+            <FontAwesomeIcon icon={faInfoCircle} />
+          </span>
+        )}
       </div>
       <p className="gray">{description}</p>
       <div className="d-flex flex-direction-row justify-content-end align-items-center">
         {type === "at-risk" ? dropSwitch : timeSwitch}
       </div>
-      <IconTabs
-        tabs={[
-          {
-            title: <FontAwesomeIcon icon={faChartArea} />,
-            content:
-              type === "at-risk" ? (
+      {type === "debt-risk" ? (
+        <DebtAtRiskChart symbol={symbol} timePeriod={timePeriod} />
+      ) : (
+        <IconTabs
+          tabs={[
+            {
+              title: <FontAwesomeIcon icon={faChartArea} />,
+              content: (
                 <TokenAtRiskChart
                   symbol={symbol}
                   drop={drop}
                   chartType="line"
                   isTokenCurrencyTotal={isTokenCurrencyTotal}
                 />
-              ) : (
-                <DebtAtRiskChart symbol={symbol} timePeriod={timePeriod} />
               ),
-          },
-          {
-            title: type === "at-risk" ? <FontAwesomeIcon icon={faChartBar} /> : null,
-            content:
-              type === "at-risk" ? (
+            },
+            {
+              title: type === "at-risk" ? <FontAwesomeIcon icon={faChartBar} /> : null,
+              content: (
                 <TokenAtRiskChart
                   symbol={symbol}
                   drop={drop}
                   chartType="bar"
                   isTokenCurrencyTotal={isTokenCurrencyTotal}
                 />
-              ) : null,
-          },
-        ]}
-        label="charts:"
-      />
+              ),
+            },
+          ]}
+          label="charts:"
+        />
+      )}
+
       <Modal isOpen={modalOpen} toggle={toggleModalOpen}>
         <ModalHeader toggle={toggleModalOpen}>Wallet Protection Score</ModalHeader>
         <ModalBody>

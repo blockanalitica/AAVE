@@ -44,7 +44,7 @@ function DebtDropChartLine(props) {
       x: {
         type: "time",
         time: {
-          unit: "day",
+          unit: timePeriod > 30 ? "day" : "hour",
         },
       },
       y: {

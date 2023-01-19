@@ -77,32 +77,27 @@ function MarketsSection(props) {
         <h4>{title}</h4>
         <p className="gray">{description}</p>
         {timeswitchContent}
-        <IconTabs
-          activeTab={currentTab}
-          onTabChange={setCurrentTab}
-          label="charts:"
-          tabs={[
-            {
-              id: "line",
-              title: <FontAwesomeIcon icon={faChartLine} />,
-              content:
-                type === "debt-risk" ? (
-                  <MarketsChartLineDebtAtRisk dataType={type} timePeriod={timePeriod} />
-                ) : (
-                  <MarketsChartLine dataType={type} timePeriod={timePeriod} />
-                ),
-            },
-            {
-              id: type === "debt-risk" ? null : "bar",
-              title:
-                type === "debt-risk" ? null : <FontAwesomeIcon icon={faChartBar} />,
-              content:
-                type === "debt-risk" ? null : (
-                  <MarketsChartBar dataType={type} timePeriod={timePeriod} />
-                ),
-            },
-          ]}
-        />
+        {type !== "debt-risk" ? (
+          <IconTabs
+            activeTab={currentTab}
+            onTabChange={setCurrentTab}
+            label="charts:"
+            tabs={[
+              {
+                id: "line",
+                title: <FontAwesomeIcon icon={faChartLine} />,
+                content: <MarketsChartLine dataType={type} timePeriod={timePeriod} />,
+              },
+              {
+                id: "bar",
+                title: <FontAwesomeIcon icon={faChartBar} />,
+                content: <MarketsChartBar dataType={type} timePeriod={timePeriod} />,
+              },
+            ]}
+          />
+        ) : (
+          <MarketsChartLineDebtAtRisk dataType={type} timePeriod={timePeriod} />
+        )}
       </>
     );
   }
