@@ -19,6 +19,7 @@ function MarketsSection(props) {
   const options = [
     { key: 7, value: "7 days" },
     { key: 30, value: "30 days" },
+    { key: 90, value: "90 days" },
     { key: 180, value: "180 days" },
     { key: 365, value: "1 year" },
   ];
@@ -57,6 +58,7 @@ function MarketsSection(props) {
       "total borrow for all markets, real borrow removes recursive positions.";
   } else if (type === "tvl") {
     title = `total TVL for last ${timePeriod} days`;
+    description = "total TVL for all markets";
   } else if (type === "debt-risk") {
     title = `Debt at risk per drop, for the last ${timePeriod} days`;
     description = "Historical overview across different price drops";
