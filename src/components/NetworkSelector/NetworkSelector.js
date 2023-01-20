@@ -29,6 +29,10 @@ function NetworkSelector(props) {
         value: "arbitrum",
         text: "arbitrum",
       },
+      {
+        value: "ethereum",
+        text: "ethereum",
+      },
     ],
   };
 
@@ -78,7 +82,7 @@ function NetworkSelector(props) {
           </DropdownItem>
 
           {options.v3.map((network) =>
-            network.value !== "arbitrum" ? (
+            network.value !== "arbitrum" && network.value !== "ethereum" ? (
               <DropdownItem
                 key={`v3-${network.value}`}
                 active={
