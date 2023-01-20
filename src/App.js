@@ -42,7 +42,7 @@ function App() {
       dsn: config.sentryDSN,
       environment: config.environment,
       integrations: [browserTracing],
-      tracesSampleRate: 0.25,
+      tracesSampleRate: 0.01,
       ignoreErrors: [/^Request failed with status code 404$/],
     });
   }, [routingInstrumentation]);
