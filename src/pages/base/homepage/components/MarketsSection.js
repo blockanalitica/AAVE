@@ -29,7 +29,7 @@ function MarketsSection(props) {
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
     { id: "tvl", text: "total TVL" },
-    { id: "debt-risk", text: "Debt at risk" },
+    { id: "debt-risk", text: "debt at risk" },
   ];
 
   const timeSwitch = (
@@ -60,8 +60,8 @@ function MarketsSection(props) {
     title = `total TVL for last ${timePeriod} days`;
     description = "total TVL for all markets";
   } else if (type === "debt-risk") {
-    title = `Debt at risk per drop, for the last ${timePeriod} days`;
-    description = "Historical overview across different price drops";
+    title = `debt at risk per drop, for the last ${timePeriod} days`;
+    description = "historical overview across different price drops";
   }
 
   if (type === "at-risk") {
