@@ -53,7 +53,7 @@ function DebtAtRiskChart(props) {
       x: {
         type: "time",
         time: {
-          unit: timePeriod > 30 ? "day" : "hour",
+          unit: "day",
         },
       },
       y: {

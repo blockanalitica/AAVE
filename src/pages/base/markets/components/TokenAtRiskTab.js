@@ -63,7 +63,7 @@ function TokenAtRiskTab(props) {
     description =
       "simulation of markets price drop (all assets fall for x% at the same time) and {symbol} is always used as collateral to liquidate. When wallet reach health rate under 1, 50% (or max 5M) of debt position is liquidated.";
   } else if (type === "debt-risk") {
-    title = `Debt at risk per drop, for the last ${timePeriod} days`;
+    title = `debt at risk per drop, for the last ${timePeriod} days`;
     description = "historical overview across different price drops";
   }
 
