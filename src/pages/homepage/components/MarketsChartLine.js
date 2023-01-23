@@ -23,63 +23,106 @@ function MarketsChartLine(props) {
   const results_eth_v2 = [];
   const results_opt_v3 = [];
   const results_arb_v3 = [];
+  const results_eth_v3 = [];
   const grouped = _.groupBy(data.historic, "key");
+
   Object.entries(grouped).forEach(([key, rows]) =>
     rows.forEach((row) => {
-      if (dataType === "supply") {
-        if (key === "ethereum") {
-          results_eth_v2.push({
-            x: row["dt"],
-            y: row["supply"],
-          });
-        } else if (key === "optimism") {
-          results_opt_v3.push({
-            x: row["dt"],
-            y: row["supply"],
-          });
-        } else {
-          results_arb_v3.push({
-            x: row["dt"],
-            y: row["supply"],
-          });
-        }
-      }
+      switch (dataType) {
+        case "supply":
+          switch (key) {
+            case "ethereum":
+              results_eth_v2.push({
+                x: row["dt"],
+                y: row["supply"],
+              });
+              break;
+            case "optimism":
+              results_opt_v3.push({
+                x: row["dt"],
+                y: row["supply"],
+              });
+              break;
+            case "arbitrum":
+              results_arb_v3.push({
+                x: row["dt"],
+                y: row["supply"],
+              });
+              break;
+            case "ethereum_v3":
+              results_eth_v3.push({
+                x: row["dt"],
+                y: row["supply"],
+              });
+              break;
+            default:
+              break;
+          }
+          break;
+        case "borrow":
+          switch (key) {
+            case "ethereum":
+              results_eth_v2.push({
+                x: row["dt"],
+                y: row["borrow"],
+              });
+              break;
+            case "optimism":
+              results_opt_v3.push({
+                x: row["dt"],
+                y: row["borrow"],
+              });
+              break;
+            case "arbitrum":
+              results_arb_v3.push({
+                x: row["dt"],
+                y: row["borrow"],
+              });
+              break;
+            case "ethereum_v3":
+              results_eth_v3.push({
+                x: row["dt"],
+                y: row["borrow"],
+              });
+              break;
+            default:
+              break;
+          }
 
-      if (dataType === "borrow") {
-        if (key === "ethereum") {
-          results_eth_v2.push({
-            x: row["dt"],
-            y: row["borrow"],
-          });
-        } else if (key === "optimism") {
-          results_opt_v3.push({
-            x: row["dt"],
-            y: row["borrow"],
-          });
-        } else {
-          results_arb_v3.push({
-            x: row["dt"],
-            y: row["borrow"],
-          });
-        }
-      }
-      if (dataType === "tvl") {
-        if (key === "ethereum") {
-          results_eth_v2.push({
-            x: row["dt"],
-            y: row["tvl"],
-          });
-        } else if (key === "optimism") {
-          results_opt_v3.push({
-            x: row["dt"],
-            y: row["tvl"],
-          });
-        } else {
-          results_arb_v3.push({
-            x: row["dt"],
-            y: row["tvl"],
-          });
-        }
+          break;
+        case "tvl":
+          switch (key) {
+            case "ethereum":
+              results_eth_v2.push({
+                x: row["dt"],
+                y: row["tvl"],
+              });
+              break;
+            case "optimism":
+              results_opt_v3.push({
+                x: row["dt"],
+                y: row["tvl"],
+              });
+              break;
+            case "arbitrum":
+              results_arb_v3.push({
+                x: row["dt"],
+                y: row["tvl"],
+              });
+              break;
+            case "ethereum_v3":
+              results_eth_v3.push({
+                x: row["dt"],
+                y: row["tvl"],
+              });
+              break;
+            default:
+              break;
+          }
+
+          break;
+        default:
+          break;
       }
     })
   );
@@ -98,6 +141,11 @@ function MarketsChartLine(props) {
       label: "Arbitrum V3 " + dataType,
       data: results_arb_v3,
     },
+    // Uncomment once Ethereum V3 is live
+    // {
+    //   label: "Ethereum V3 " + dataType,
+    //   data: results_eth_v3,
+    // },
   ];
 
   const options = {

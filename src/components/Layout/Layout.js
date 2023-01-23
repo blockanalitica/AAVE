@@ -60,6 +60,20 @@ function Layout(props) {
     { path: "ecosystem/", element: <EcosystemBase /> },
   ];
 
+  const v3EthereumRoutes = [
+    { path: "/", element: <HomepageBase /> },
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+    { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
+    { path: "wallets-at-risk/", element: <AtRiskBase /> },
+    { path: "activity/", element: <ActivityBase /> },
+  ];
+
   const v3OptimismRoutes = [
     { path: "/", element: <HomepageBase /> },
     { path: "markets/", element: <MarketsBase /> },
@@ -210,6 +224,11 @@ function Layout(props) {
             {/* V3 Arbitrum */}
             {v3ArbitrumRoutes.map((route) => {
               const path = `v3/arbitrum/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* V3 Ethereum */}
+            {v3EthereumRoutes.map((route) => {
+              const path = `v3/ethereum/${route.path}`;
               return <Route key={path} path={path} element={route.element} />;
             })}
 
