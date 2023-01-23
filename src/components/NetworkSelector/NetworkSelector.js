@@ -19,6 +19,10 @@ function NetworkSelector(props) {
         value: "ethereum",
         text: "ethereum",
       },
+      {
+        value: "avalanche",
+        text: "avalanche",
+      },
     ],
     v3: [
       {
@@ -64,18 +68,22 @@ function NetworkSelector(props) {
           <DropdownItem header className="text-center">
             v2
           </DropdownItem>
-          {options.v2.map((network) => (
-            <DropdownItem
-              key={`v2-${network.value}`}
-              active={currentVersion === "v2" && currentNetwork.value === network.value}
-              onClick={() => {
-                onItemClick("v2", network);
-              }}
-            >
-              <CryptoIcon size="1.5rem" className="me-2" name={network.value} />
-              {network.text}
-            </DropdownItem>
-          ))}
+          {options.v2.map((network) =>
+            network.value !== "avalanche" ? (
+              <DropdownItem
+                key={`v2-${network.value}`}
+                active={
+                  currentVersion === "v2" && currentNetwork.value === network.value
+                }
+                onClick={() => {
+                  onItemClick("v2", network);
+                }}
+              >
+                <CryptoIcon size="1.5rem" className="me-2" name={network.value} />
+                {network.text}
+              </DropdownItem>
+            ) : null
+          )}
           <DropdownItem divider />
           <DropdownItem header className="text-center">
             v3
