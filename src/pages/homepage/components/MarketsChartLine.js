@@ -20,6 +20,7 @@ function MarketsChartLine(props) {
     return <ErrorFallbackComponent />;
   }
 
+  const results_avax_v2 = [];
   const results_eth_v2 = [];
   const results_opt_v3 = [];
   const results_arb_v3 = [];
@@ -55,6 +56,12 @@ function MarketsChartLine(props) {
                 y: row["supply"],
               });
               break;
+            case "avalanche_v2":
+              results_avax_v2.push({
+                x: row["dt"],
+                y: row["supply"],
+              });
+              break;
             default:
               break;
           }
@@ -81,6 +88,12 @@ function MarketsChartLine(props) {
               break;
             case "ethereum_v3":
               results_eth_v3.push({
+                x: row["dt"],
+                y: row["borrow"],
+              });
+              break;
+            case "avalanche_v2":
+              results_avax_v2.push({
                 x: row["dt"],
                 y: row["borrow"],
               });
@@ -116,6 +129,12 @@ function MarketsChartLine(props) {
                 y: row["tvl"],
               });
               break;
+            case "avalanche_v2":
+              results_avax_v2.push({
+                x: row["dt"],
+                y: row["tvl"],
+              });
+              break;
             default:
               break;
           }
@@ -146,6 +165,10 @@ function MarketsChartLine(props) {
     //   label: "Ethereum V3 " + dataType,
     //   data: results_eth_v3,
     // },
+    //{
+    //  label: "Avalanche V2 " + dataType,
+    //  data: results_avax_v2,
+    //},
   ];
 
   const options = {

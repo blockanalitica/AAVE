@@ -44,6 +44,22 @@ function Layout(props) {
 
   const HomepageRoute = [{ path: "/homepage", element: <Homepage /> }];
 
+  const v2AvalancheRoutes = [
+    { path: "/", element: <HomepageBase /> },
+    { path: "markets/", element: <MarketsBase /> },
+    { path: "markets/:symbol/", element: <MarketBase /> },
+    { path: "markets/:symbol/wallets/", element: <MarketWalletsBase /> },
+    { path: "markets/:symbol/wallets/top5/", element: <Top5Base /> },
+    { path: "wallets/", element: <WalletsBase /> },
+    { path: "wallets/:address/", element: <WalletBase /> },
+    { path: "liquidations/", element: <LiquidationsBase /> },
+    { path: "wallets-at-risk/", element: <AtRiskBase /> },
+    { path: "liquidations/liquidators/:address/", element: <LiquidatorBase /> },
+    { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
+    { path: "activity/", element: <ActivityBase /> },
+    { path: "ecosystem/", element: <EcosystemBase /> },
+  ];
+
   const v2EthereumRoutes = [
     { path: "/", element: <HomepageBase /> },
     { path: "markets/", element: <MarketsBase /> },
@@ -214,6 +230,11 @@ function Layout(props) {
             {/* V2 Ethereum */}
             {v2EthereumRoutes.map((route) => {
               const path = `v2/ethereum/${route.path}`;
+              return <Route key={path} path={path} element={route.element} />;
+            })}
+            {/* V2 Avalanche */}
+            {v2AvalancheRoutes.map((route) => {
+              const path = `v2/avalanche/${route.path}`;
               return <Route key={path} path={path} element={route.element} />;
             })}
             {/* V3 Optimism */}
