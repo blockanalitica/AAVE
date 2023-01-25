@@ -57,7 +57,7 @@ function AtRisk(props) {
     },
     {
       title: "high risk debt",
-      bigValue: <Value value={riskyDebtLow || 0} decimals={2} prefix="$" compact />,
+      bigValue: <Value value={riskyDebtHigh || 0} decimals={2} prefix="$" compact />,
     },
     {
       title: "medium risk debt",
@@ -65,7 +65,7 @@ function AtRisk(props) {
     },
     {
       title: "low risk debt",
-      bigValue: <Value value={riskyDebtHigh || 0} decimals={2} prefix="$" compact />,
+      bigValue: <Value value={riskyDebtLow || 0} decimals={2} prefix="$" compact />,
     },
     {
       title: "total debt at risk",
