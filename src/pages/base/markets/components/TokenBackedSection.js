@@ -22,6 +22,8 @@ function TokenBackedSection(props) {
     { key: 7, value: "7 days" },
     { key: 30, value: "30 days" },
     { key: 90, value: "90 days" },
+    { key: 180, value: "180 days" },
+    { key: 365, value: "1 year" },
   ];
   let title;
   let description;
