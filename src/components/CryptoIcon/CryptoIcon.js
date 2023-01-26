@@ -1,27 +1,35 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { useLocation } from "react-router-dom";
+import oneinchIcon from "../../images/crypto/color/1inch.svg";
 import aaveIcon from "../../images/crypto/color/aave.svg";
 import amplIcon from "../../images/crypto/color/ampl.svg";
+import arbitrumIcon from "../../images/crypto/color/arbitrum.svg";
+import avaxIcon from "../../images/crypto/color/avax.svg";
 import balIcon from "../../images/crypto/color/bal.svg";
 import batIcon from "../../images/crypto/color/bat.svg";
 import bnbIcon from "../../images/crypto/color/bnb.svg";
 import btcIcon from "../../images/crypto/color/btc.svg";
 import compIcon from "../../images/crypto/color/comp.svg";
 import crvIcon from "../../images/crypto/color/crv.svg";
+import cvxIcon from "../../images/crypto/color/cvx.svg";
 import daiIcon from "../../images/crypto/color/dai.svg";
 import dpiIcon from "../../images/crypto/color/dpi.svg";
 import enjIcon from "../../images/crypto/color/enj.svg";
 import ensIcon from "../../images/crypto/color/ens.svg";
 import ethIcon from "../../images/crypto/color/eth.svg";
+import eursIcon from "../../images/crypto/color/eurs.svg";
 import feiIcon from "../../images/crypto/color/fei.svg";
 import filIcon from "../../images/crypto/color/fil.svg";
 import fraxIcon from "../../images/crypto/color/frax.svg";
 import gusdIcon from "../../images/crypto/color/gusd.svg";
 import kncIcon from "../../images/crypto/color/knc.svg";
 import linkIcon from "../../images/crypto/color/link.svg";
+import lusdIcon from "../../images/crypto/color/lusd.svg";
 import manaIcon from "../../images/crypto/color/mana.svg";
+import maticIcon from "../../images/crypto/color/matic.svg";
 import mkrIcon from "../../images/crypto/color/mkr.svg";
+import optimismIcon from "../../images/crypto/color/optimism.svg";
 import paxIcon from "../../images/crypto/color/pax.svg";
 import raiIcon from "../../images/crypto/color/rai.svg";
 import renIcon from "../../images/crypto/color/ren.svg";
@@ -38,14 +46,6 @@ import ustIcon from "../../images/crypto/color/ust.svg";
 import wbtcIcon from "../../images/crypto/color/wbtc.svg";
 import yfiIcon from "../../images/crypto/color/yfi.svg";
 import zrxIcon from "../../images/crypto/color/zrx.svg";
-import cvxIcon from "../../images/crypto/color/cvx.svg";
-import lusdIcon from "../../images/crypto/color/lusd.svg";
-import oneinchIcon from "../../images/crypto/color/1inch.svg";
-import maticIcon from "../../images/crypto/color/matic.svg";
-import avaxIcon from "../../images/crypto/color/avax.svg";
-import arbitrumIcon from "../../images/crypto/color/arbitrum.svg";
-import optimismIcon from "../../images/crypto/color/optimism.svg";
-import eursIcon from "../../images/crypto/color/eurs.svg";
 import { smartEtherscanUrl } from "../../utils/url.js";
 
 function CryptoIcon(props) {
@@ -80,6 +80,7 @@ function CryptoIcon(props) {
     WBTC: wbtcIcon,
     WETH: ethIcon,
     stETH: stEthIcon,
+    wstETH: stEthIcon,
     MANA: manaIcon,
     renFIL: filIcon,
     YFI: yfiIcon,
