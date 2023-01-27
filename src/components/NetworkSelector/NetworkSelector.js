@@ -90,7 +90,7 @@ function NetworkSelector(props) {
           </DropdownItem>
 
           {options.v3.map((network) =>
-            network.value !== "arbitrum" && network.value !== "ethereum" ? (
+            network.value !== "arbitrum" ? (
               <DropdownItem
                 key={`v3-${network.value}`}
                 active={
