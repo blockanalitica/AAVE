@@ -17,7 +17,6 @@ import baLogo from "../../images/logo-light.svg";
 import ActivityBase from "../../pages/base/activity/Activity.js";
 import AtRiskBase from "../../pages/base/atRisk/AtRisk.js";
 import EcosystemBase from "../../pages/base/ecosystem/Ecosystem";
-import Homepage from "../../pages/homepage/Homepage.js";
 import HomepageBase from "../../pages/base/homepage/Homepage.js";
 import LiquidationsBase from "../../pages/base/liquidations/Liquidations.js";
 import LiquidatorBase from "../../pages/base/liquidations/Liquidator.js";
@@ -30,6 +29,7 @@ import WalletBase from "../../pages/base/wallets/Wallet.js";
 import WalletsBase from "../../pages/base/wallets/Wallets.js";
 import Changelog from "../../pages/changelog/Changelog";
 import ErrorPage from "../../pages/error/ErrorPage.js";
+import Homepage from "../../pages/homepage/Homepage.js";
 import { smartLocationPrefix } from "../../utils/url.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
@@ -177,9 +177,7 @@ function Layout(props) {
                   ) : null}
                 </NavItem>
 
-                {prefix.includes("optimism") ||
-                prefix.includes("arbitrum") ||
-                locationPrefix.length === 0 ? null : (
+                {prefix.includes("v3") || locationPrefix.length === 0 ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}ecosystem/`}>
                       Ecosystem
