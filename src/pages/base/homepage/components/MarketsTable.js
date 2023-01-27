@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Row } from "reactstrap";
 import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import Loader from "../../../../components/Loader/Loader.js";
@@ -8,7 +8,6 @@ import Value from "../../../../components/Value/Value.js";
 import ValueChange from "../../../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../../../hoc.js";
 import { useFetch } from "../../../../hooks";
-import { Link } from "react-router-dom";
 
 function Homepage(props) {
   const { daysAgo } = props;
@@ -38,7 +37,7 @@ function Homepage(props) {
             onRowClick={onRowClick}
             defaultSorted={[
               {
-                dataField: "tvl_usd",
+                dataField: "total_supply_usd",
                 order: "desc",
               },
             ]}
@@ -79,28 +78,7 @@ function Homepage(props) {
                 headerAlign: "right",
                 align: "right",
               },
-              {
-                dataField: "tvl_usd",
-                text: "TVL",
-                sort: true,
-                formatter: (cell, row) => (
-                  <>
-                    <Value value={cell} decimals={2} prefix="$" compact />
-                    <br />
-                    <ValueChange
-                      value={cell - row["change"]["tvl_usd"]}
-                      decimals={2}
-                      prefix="$"
-                      compact
-                      icon
-                      hideIfZero
-                      tooltipValue={row["change"]["tvl_usd"]}
-                    />
-                  </>
-                ),
-                headerAlign: "right",
-                align: "right",
-              },
+
               {
                 dataField: "total_supply_usd",
                 text: "Supply",
@@ -139,6 +117,28 @@ function Homepage(props) {
                       icon
                       hideIfZero
                       tooltipValue={row["change"]["total_borrow_usd"]}
+                    />
+                  </>
+                ),
+                headerAlign: "right",
+                align: "right",
+              },
+              {
+                dataField: "tvl_usd",
+                text: "TVL",
+                sort: true,
+                formatter: (cell, row) => (
+                  <>
+                    <Value value={cell} decimals={2} prefix="$" compact />
+                    <br />
+                    <ValueChange
+                      value={cell - row["change"]["tvl_usd"]}
+                      decimals={2}
+                      prefix="$"
+                      compact
+                      icon
+                      hideIfZero
+                      tooltipValue={row["change"]["tvl_usd"]}
                     />
                   </>
                 ),

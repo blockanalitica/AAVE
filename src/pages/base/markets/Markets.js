@@ -1,16 +1,16 @@
 import React, { useState } from "react";
+import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
 import { Col, Row } from "reactstrap";
-import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
+import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
 import Loader from "../../../components/Loader/Loader.js";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import LinkTable from "../../../components/Table/LinkTable.js";
+import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch, usePageTitle } from "../../../hooks";
-import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 
 function Markets(props) {
   usePageTitle("Markets");
@@ -80,7 +80,7 @@ function Markets(props) {
             })}
             defaultSorted={[
               {
-                dataField: "tvl_usd",
+                dataField: "total_supply_usd",
                 order: "desc",
               },
             ]}
@@ -122,34 +122,7 @@ function Markets(props) {
                 headerAlign: "right",
                 align: "right",
               },
-              {
-                dataField: `tvl${fieldSuffix}`,
-                text: "TVL",
-                sort: true,
-                formatExtraData: { isTokenCurrency },
-                formatter: (cell, row) => (
-                  <>
-                    <Value
-                      value={cell}
-                      decimals={2}
-                      prefix={isTokenCurrency ? "" : "$"}
-                      compact
-                    />
-                    <br />
-                    <ValueChange
-                      value={cell - row["change"][`tvl${fieldSuffix}`]}
-                      decimals={2}
-                      prefix={isTokenCurrency ? "" : "$"}
-                      compact
-                      icon
-                      hideIfZero
-                      tooltipValue={row["change"][`tvl${fieldSuffix}`]}
-                    />
-                  </>
-                ),
-                headerAlign: "right",
-                align: "right",
-              },
+
               {
                 dataField: `total_supply${fieldSuffix}`,
                 text: "Supply",
@@ -200,6 +173,34 @@ function Markets(props) {
                       icon
                       hideIfZero
                       tooltipValue={row["change"][`total_borrow${fieldSuffix}`]}
+                    />
+                  </>
+                ),
+                headerAlign: "right",
+                align: "right",
+              },
+              {
+                dataField: `tvl${fieldSuffix}`,
+                text: "TVL",
+                sort: true,
+                formatExtraData: { isTokenCurrency },
+                formatter: (cell, row) => (
+                  <>
+                    <Value
+                      value={cell}
+                      decimals={2}
+                      prefix={isTokenCurrency ? "" : "$"}
+                      compact
+                    />
+                    <br />
+                    <ValueChange
+                      value={cell - row["change"][`tvl${fieldSuffix}`]}
+                      decimals={2}
+                      prefix={isTokenCurrency ? "" : "$"}
+                      compact
+                      icon
+                      hideIfZero
+                      tooltipValue={row["change"][`tvl${fieldSuffix}`]}
                     />
                   </>
                 ),
