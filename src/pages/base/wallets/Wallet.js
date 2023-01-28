@@ -80,7 +80,7 @@ function Wallet(props) {
             label="view events"
             options={[
               { key: "pool", value: "Pool" },
-              { key: "raw", value: "Raw" },
+              { key: "raw", value: "Token" },
             ]}
             onChange={(option) => setEventView(option === "raw")}
           />
