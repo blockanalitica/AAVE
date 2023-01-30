@@ -38,8 +38,6 @@ function MarketsRawActivityTable(props) {
     return _.uniqueId("amount-");
   };
 
-  console.log(data.results);
-
   return (
     <>
       <RemoteTable
