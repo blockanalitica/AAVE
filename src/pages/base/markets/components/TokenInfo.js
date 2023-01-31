@@ -161,10 +161,15 @@ function TokenInfo(props) {
     {
       title: "total real borrow",
       bigValue: isTokenCurrencyTotal ? (
-        <Value value={data.net_borrow} decimals={2} className="text-big" compact />
+        <Value
+          value={data.net_borrow_usd > 0 ? data.net_borrow_usd : 0}
+          decimals={2}
+          className="text-big"
+          compact
+        />
       ) : (
         <Value
-          value={data.net_borrow_usd}
+          value={data.net_borrow_usd > 0 ? data.net_borrow_usd : 0}
           decimals={2}
           prefix="$"
           className="text-big"
