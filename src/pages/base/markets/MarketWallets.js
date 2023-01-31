@@ -20,6 +20,8 @@ import {
   useSmartNavigate,
 } from "../../../hooks";
 import EventStatsChart from "./components/EventStatsChart.js";
+import MarketsActivityTable from "./components/MarketsActivityTable.js";
+import MarketsRawActivityTable from "./components/MarketsRawActivityTable.js";
 import styles from "./MarketWallets.module.scss";
 
 function MarketWallets(props) {
@@ -33,6 +35,8 @@ function MarketWallets(props) {
     { key: 1, value: "1 day" },
     { key: 7, value: "7 days" },
   ];
+
+  const [isEventRaw, setEventView] = useState(false);
 
   const page = parseInt(queryParams.get("page")) || 1;
   const searchText = queryParams.get("search");
@@ -181,7 +185,6 @@ function MarketWallets(props) {
           />
         </Col>
       </Row>
-
       <EventStatsChart
         className="mb-4"
         symbol={symbol}
@@ -224,6 +227,28 @@ function MarketWallets(props) {
           </div>
         )}
       </ToolkitProvider>
+
+      <Row className="mb-3">
+        <Col className="d-flex align-items-center">
+          <h3 className="mb-0">activity</h3>
+        </Col>
+        <Col className="d-flex justify-content-end">
+          <CurrencySwitch
+            label="view events"
+            options={[
+              { key: "pool", value: "Pool" },
+              { key: "raw", value: "Token" },
+            ]}
+            onChange={(option) => setEventView(option === "raw")}
+          />
+        </Col>
+      </Row>
+
+      {isEventRaw ? (
+        <MarketsRawActivityTable symbol={symbol} />
+      ) : (
+        <MarketsActivityTable symbol={symbol} />
+      )}
     </>
   );
 }
