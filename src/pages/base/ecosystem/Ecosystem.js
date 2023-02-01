@@ -29,7 +29,7 @@ function Ecosystem(props) {
 
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     "ecosystem/reserves/",
-    { type, days_ago: timePeriod }
+    { type, days_ago: timePeriod !== "all" ? timePeriod : null }
   );
 
   if (isLoading) {
