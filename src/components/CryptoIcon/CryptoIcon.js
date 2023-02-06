@@ -10,6 +10,7 @@ import balIcon from "../../images/crypto/color/bal.svg";
 import batIcon from "../../images/crypto/color/bat.svg";
 import bnbIcon from "../../images/crypto/color/bnb.svg";
 import btcIcon from "../../images/crypto/color/btc.svg";
+import cbethIcon from "../../images/crypto/color/cbeth.svg";
 import compIcon from "../../images/crypto/color/comp.svg";
 import crvIcon from "../../images/crypto/color/crv.svg";
 import cvxIcon from "../../images/crypto/color/cvx.svg";
@@ -94,6 +95,7 @@ function CryptoIcon(props) {
     RAI: raiIcon,
     ENS: ensIcon,
     UST: ustIcon,
+    cbETH: cbethIcon,
     stkAAVE: stkAaveIcon,
     CVX: cvxIcon,
     "1INCH": oneinchIcon,
