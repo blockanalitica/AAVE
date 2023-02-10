@@ -130,7 +130,10 @@
   "eslintConfig": {
     "extends": [
       "react-app"
-    ]
+    ],
+    "rules": {
+      "no-console": 2
+    }
   },
   "prettier": {
     "printWidth": 88
