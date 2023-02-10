@@ -3,13 +3,21 @@ import "chartjs-adapter-luxon";
 import { MatrixController, MatrixElement } from "chartjs-chart-matrix";
 import annotationPlugin from "chartjs-plugin-annotation";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { SankeyController, Flow } from "chartjs-chart-sankey";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 import { Chart } from "react-chartjs-2";
 import { SYMBOLS_PALETTE } from "../../utils/colors.js";
 
-ChartJS.register(...registerables, annotationPlugin, MatrixElement, MatrixController);
+ChartJS.register(
+  ...registerables,
+  annotationPlugin,
+  MatrixElement,
+  MatrixController,
+  SankeyController,
+  Flow
+);
 ChartJS.defaults.color = "#F6F7F8";
 
 const PROTECTION_SCORE_PALETTE = {
@@ -116,6 +124,9 @@ function Graph(props) {
       defaultOptions["plugins"]["legend"]["position"] = "right";
       plugins.push(ChartDataLabels);
       break;
+    case "sankey":
+      defaultOptions["plugins"]["tooltip"]["displayColors"] = false;
+      break;
     case "heatmap":
       if (series.length !== 1) {
         throw Error("Heatmap supports only one serie");
@@ -180,7 +191,6 @@ function Graph(props) {
           return value.z || "";
         },
       };
-
       break;
     default: // pass
   }
@@ -188,7 +198,15 @@ function Graph(props) {
 
   const updatedSeries = series.map((serie, index) => {
     let bgColor = DEFAULT_PALETTE[index];
-    if (type === "pie") {
+    if (type === "sankey") {
+      return {
+        colorFrom: "#03A9F4",
+        colorTo: "#FF4560",
+        color: "white",
+        borderWidth: 0,
+        ...serie,
+      };
+    } else if (type === "pie") {
       return {
         backgroundColor: serie.protocols ? bgColor : DEFAULT_PALETTE,
         borderColor: serie.protocols ? bgColor : DEFAULT_PALETTE,

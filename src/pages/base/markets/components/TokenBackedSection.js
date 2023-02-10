@@ -1,4 +1,9 @@
-import { faChartArea, faChartLine, faPercent } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartArea,
+  faChartLine,
+  faPercent,
+  faChartGantt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
@@ -11,6 +16,7 @@ import SupplyBorrowChart from "./SupplyBorrowChart.js";
 import TokenBackedHistoric from "./TokenBackedHistoric.js";
 import TokenBackedHistoricShare from "./TokenBackedHistoricShare.js";
 import TokenBackedHistoricStacked from "./TokenBackedHistoricStacked.js";
+import TokenBackedSankey from "./TokenBackedSankey.js";
 import UtilizationChart from "./UtilizationChart.js";
 
 function TokenBackedSection(props) {
@@ -94,6 +100,11 @@ function TokenBackedSection(props) {
           withLtv={withLtv}
         />
       ),
+    });
+
+    icontabs.push({
+      title: <FontAwesomeIcon icon={faChartGantt} />,
+      content: <TokenBackedSankey symbol={symbol} />,
     });
   }
 
