@@ -34,6 +34,7 @@ import optimismIcon from "../../images/crypto/color/optimism.svg";
 import paxIcon from "../../images/crypto/color/pax.svg";
 import raiIcon from "../../images/crypto/color/rai.svg";
 import renIcon from "../../images/crypto/color/ren.svg";
+import rethIcon from "../../images/crypto/color/reth.svg";
 import snxIcon from "../../images/crypto/color/snx.svg";
 import stEthIcon from "../../images/crypto/color/steth.svg";
 import stkAaveIcon from "../../images/crypto/color/stkaave.svg";
@@ -95,6 +96,7 @@ function CryptoIcon(props) {
     RAI: raiIcon,
     ENS: ensIcon,
     UST: ustIcon,
+    rETH: rethIcon,
     cbETH: cbethIcon,
     stkAAVE: stkAaveIcon,
     CVX: cvxIcon,
