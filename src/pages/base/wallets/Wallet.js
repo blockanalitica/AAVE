@@ -41,7 +41,7 @@ function Wallet(props) {
   const blockie = makeBlockie(address);
   const etherscanUrl = smartEtherscanUrl(location);
   const link = `${etherscanUrl}address/${address}`;
-  const name = data.name || data.ens;
+  const name = data ? data.name || data.ens : null;
 
   return (
     <>
