@@ -86,11 +86,9 @@ function MarketWallets(props) {
 
   // The formatExtraData: { timePeriod } is set per column so that
   // it invalidates the column cache, otherwise it won't render correct values on change
+  // same for fieldSuffix if the value of {cell} doesn't change, fieldSuffix wouldn't be updated
 
-  let fieldSuffix = "_usd";
-  if (isTokenCurrency) {
-    fieldSuffix = "";
-  }
+  let fieldSuffix = isTokenCurrency ? "" : "_usd";
 
   const columns = [
     {
@@ -114,6 +112,7 @@ function MarketWallets(props) {
       dataField: `supply${fieldSuffix}`,
       text: "Supply",
       sort: true,
+      formatExtraData: { fieldSuffix },
       formatter: priceFormatter,
       headerAlign: "right",
       align: "right",
@@ -122,7 +121,7 @@ function MarketWallets(props) {
       dataField: `supply_change_${timePeriod}d${fieldSuffix}`,
       text: "Supply Change",
       sort: true,
-      formatExtraData: { timePeriod },
+      formatExtraData: { timePeriod, fieldSuffix },
       formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
@@ -131,6 +130,7 @@ function MarketWallets(props) {
       dataField: `borrow${fieldSuffix}`,
       text: "Borrow",
       sort: true,
+      formatExtraData: { fieldSuffix },
       formatter: priceFormatter,
       headerAlign: "right",
       align: "right",
@@ -139,7 +139,7 @@ function MarketWallets(props) {
       dataField: `borrow_change_${timePeriod}d${fieldSuffix}`,
       text: "Borrow Change",
       sort: true,
-      formatExtraData: { timePeriod },
+      formatExtraData: { timePeriod, fieldSuffix },
       formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
