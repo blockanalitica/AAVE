@@ -148,7 +148,7 @@ function MarketWallets(props) {
       dataField: `account_liquidity${fieldSuffix}`,
       text: "token liquidity",
       sort: true,
-
+      formatExtraData: { timePeriod, fieldSuffix },
       formatter: priceChangeFormatter,
       headerAlign: "right",
       align: "right",
