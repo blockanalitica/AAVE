@@ -66,7 +66,9 @@ function Top5(props) {
             {
               dataField: field,
               text: fieldText,
-              formatter: (cell, row) => <Value value={cell} decimals={2} compact />,
+              formatter: (cell, row) => (
+                <Value value={parseFloat(cell.toFixed(2))} decimals={2} compact />
+              ),
               sort: true,
               headerAlign: "right",
               align: "right",
