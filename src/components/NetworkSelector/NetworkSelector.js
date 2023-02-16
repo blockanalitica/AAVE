@@ -37,6 +37,10 @@ function NetworkSelector(props) {
         value: "ethereum",
         text: "ethereum",
       },
+      {
+        value: "avalanche",
+        text: "avalanche",
+      },
     ],
   };
 
