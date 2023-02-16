@@ -75,9 +75,7 @@ function WalletPositionsCard(props) {
         dataField: "variable_borrow",
         text: "Variable Borrow",
         sort: true,
-        formatter: (cell, row) => (
-          <Value value={cell} decimals={2} compact hideIfZero />
-        ),
+        formatter: (cell, row) => <Value value={parseFloat(cell.toFixed(4))} compact />,
         headerAlign: "right",
         align: "right",
       },
@@ -95,9 +93,7 @@ function WalletPositionsCard(props) {
         dataField: "borrow",
         text: "Total Borrow",
         sort: true,
-        formatter: (cell, row) => (
-          <Value value={cell} decimals={2} compact hideIfZero />
-        ),
+        formatter: (cell, row) => <Value value={parseFloat(cell.toFixed(4))} compact />,
         headerAlign: "right",
         align: "right",
       },
