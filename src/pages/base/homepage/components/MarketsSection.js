@@ -10,6 +10,7 @@ import MarketsChartLine from "./MarketsChartLine.js";
 import MarketsChartLineDebtAtRisk from "./MarketsChartLineDebtAtRisk.js";
 import MarketsChartBar from "./MarketsChartBar.js";
 import TotalAtRiskSection from "./TotalAtRiskSection.js";
+import TotalAtRiskAssetSection from "./TotalAtRiskAssetSection.js";
 
 function MarketsSection(props) {
   const [type, setType] = useState("at-risk");
@@ -26,6 +27,7 @@ function MarketsSection(props) {
 
   const tabs = [
     { id: "at-risk", text: "collateral at risk" },
+    { id: "asset", text: "assets at risk" },
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
     { id: "tvl", text: "total TVL" },
@@ -63,8 +65,11 @@ function MarketsSection(props) {
     title = `debt at risk per drop, for the last ${timePeriod} days`;
     description = "historical overview across different price drops";
   }
-
-  if (type === "at-risk") {
+  if (type === "asset") {
+    title = `assets at risk for last  days`;
+    description = "assets at risk for all markets";
+    content = <TotalAtRiskAssetSection />;
+  } else if (type === "at-risk") {
     content = <TotalAtRiskSection />;
   } else {
     if (currentTab === "line") {
