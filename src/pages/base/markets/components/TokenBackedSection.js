@@ -127,7 +127,7 @@ function TokenBackedSection(props) {
     description = `supply/borrow APY changes`;
     content = <RateHistoryChart symbol={symbol} timePeriod={timePeriod} />;
   } else {
-    content = <IconTabs tabs={icontabs} label="charts:" />;
+    content = <IconTabs key={type} tabs={icontabs} label="charts:" />;
   }
 
   return (
