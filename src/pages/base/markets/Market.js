@@ -36,13 +36,7 @@ function Market(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const {
-    symbol: underlyingSymbol,
-    price,
-    atoken_address,
-    underlying_address,
-    ...statsData
-  } = data;
+  const { symbol: underlyingSymbol, price, atoken_address, ...statsData } = data;
 
   return (
     <>
@@ -99,7 +93,7 @@ function Market(props) {
         isTokenCurrencyTotal={isTokenCurrencyTotal}
         className="mb-4"
       />
-      <Top5 address={underlying_address} className="mb-4" />
+      <Top5 symbol={symbol} className="mb-4" />
     </>
   );
 }
