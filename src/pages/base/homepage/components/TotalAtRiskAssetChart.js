@@ -101,12 +101,9 @@ function TotalAtRiskAssetChart(props) {
       tooltip: {
         callbacks: {
           title: (tooltipItems) => {
-            const total = tooltipItems.reduce(
-              (total, tooltip) => total + tooltip.parsed.y,
-              0
-            );
-            return "Total: $" + total.toFixed(2);
+            return `At ${tooltipItems[0].parsed.x}% markets price drop`;
           },
+
           label: (tooltipItem) => {
             return tooltipLabelNumber(tooltipItem, "$");
           },
@@ -115,7 +112,7 @@ function TotalAtRiskAssetChart(props) {
               (total, tooltip) => total + tooltip.parsed.y,
               0
             );
-            return "Total: $" + total.toFixed(2);
+            return "Total: $" + compact(total.toFixed(2));
           },
         },
       },
