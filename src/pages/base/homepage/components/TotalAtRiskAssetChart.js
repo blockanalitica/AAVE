@@ -25,35 +25,45 @@ function TotalAtRiskAssetChart(props) {
     return <div>No data</div>;
   }
 
-  let y;
-  if (chartType === "bar") {
-    y = "total_amount_usd";
-  } else {
-    y = "total_amount_usd";
-  }
-
   const { results, last_updated } = data;
+  const grouped = _.groupBy(results, "underlying_symbol");
 
-  let grouped;
-  grouped = _.groupBy(results, "underlying_symbol");
-  const series = [];
+  const seriesData = [];
+  const otherData = {};
+
   Object.entries(grouped)
     .sort((a, b) => b[1][0].total_amount_usd - a[1][0].total_amount_usd)
-    .forEach(([key, rows]) => {
-      let item = {
-        label: key + " risk",
-        protection_score: key,
-        data: rows.map((row) =>
-          row.drop <= 100
-            ? {
-                x: row["drop"],
-                y: row[y],
-              }
-            : true
-        ),
-      };
-      series.push(item);
+    .forEach(([key, rows], index) => {
+      if (index < 10) {
+        let item = {
+          label: key + " risk",
+          data: rows.map((row) => ({
+            x: row["drop"],
+            y: row["total_amount_usd"],
+          })),
+        };
+        seriesData.push(item);
+      } else {
+        rows.forEach((row) => {
+          otherData[row.drop] = otherData[row.drop] || 0;
+          otherData[row.drop] += row["total_amount_usd"];
+        });
+      }
     });
+
+  const otherDataArray = Object.entries(otherData).map(([drop, value]) => ({
+    x: drop,
+    y: value,
+  }));
+
+  if (otherDataArray.length > 0) {
+    seriesData.push({
+      label: "Other",
+      data: otherDataArray,
+    });
+  }
+
+  const series = seriesData;
 
   const options = {
     aspectRatio: 2.5,
@@ -91,7 +101,11 @@ function TotalAtRiskAssetChart(props) {
       tooltip: {
         callbacks: {
           title: (tooltipItems) => {
-            return `At ${tooltipItems[0].parsed.x}% markets price drop`;
+            const total = tooltipItems.reduce(
+              (total, tooltip) => total + tooltip.parsed.y,
+              0
+            );
+            return "Total: $" + total.toFixed(2);
           },
           label: (tooltipItem) => {
             return tooltipLabelNumber(tooltipItem, "$");
@@ -101,7 +115,7 @@ function TotalAtRiskAssetChart(props) {
               (total, tooltip) => total + tooltip.parsed.y,
               0
             );
-            return "Total: $" + compact(total, 2, true);
+            return "Total: $" + total.toFixed(2);
           },
         },
       },
