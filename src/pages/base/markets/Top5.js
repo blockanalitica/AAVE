@@ -5,9 +5,9 @@ import { useFetch } from "../../../hooks";
 import Top5Wallets from "./components/Top5Wallets";
 
 function Top5(props) {
-  const { symbol, ...rest } = props;
+  const { address, ...rest } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    `markets/${symbol}/wallets/top5/`
+    `markets/${address}/wallets/top5/`
   );
 
   if (isLoading) {
