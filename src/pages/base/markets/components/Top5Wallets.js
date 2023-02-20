@@ -7,6 +7,7 @@ import Value from "../../../../components/Value/Value.js";
 import { withErrorBoundary } from "../../../../hoc.js";
 import { useSmartNavigate } from "../../../../hooks";
 import styles from "./../MarketWallets.module.scss";
+
 function Top5(props) {
   const navigate = useSmartNavigate();
 
