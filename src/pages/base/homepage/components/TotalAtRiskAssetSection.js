@@ -14,11 +14,6 @@ function TotalAtRiskAssetSection(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const toggleModalOpen = () => setModalOpen(!modalOpen);
 
-  let description;
-
-  description =
-    "simulation of markets price drop (all assets fall for x% at the same time). When wallet reach health rate under 1, 50% or max 5M of debt position is liquidated.";
-
   return (
     <>
       <div>
@@ -30,7 +25,11 @@ function TotalAtRiskAssetSection(props) {
                 <FontAwesomeIcon icon={faInfoCircle} />
               </span>
             </div>
-            <p className="gray">{description}</p>
+            <p className="gray">
+              simulation of markets price drop (all assets fall for x% at the same
+              time). When wallet reach health rate under 1, 50% or max 5M of debt
+              position is liquidated.
+            </p>
             <div className="d-flex flex-direction-row justify-content-end align-items-center"></div>
 
             <IconTabs
