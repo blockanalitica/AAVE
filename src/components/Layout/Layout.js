@@ -34,6 +34,7 @@ import { smartLocationPrefix } from "../../utils/url.js";
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory.js";
 import NetworkSelector from "../NetworkSelector/NetworkSelector.js";
 import styles from "./Layout.module.scss";
+import AssetMarketsSection from "../../pages/base/homepage/components/AssetMarketsSection.js";
 
 function Layout(props) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -58,6 +59,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "activity/", element: <ActivityBase /> },
     { path: "ecosystem/", element: <EcosystemBase /> },
+    { path: "asset-at-risk/", element: <AssetMarketsSection /> },
   ];
 
   const v2EthereumRoutes = [
@@ -74,6 +76,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "activity/", element: <ActivityBase /> },
     { path: "ecosystem/", element: <EcosystemBase /> },
+    { path: "asset-at-risk/", element: <AssetMarketsSection /> },
   ];
 
   const v3EthereumRoutes = [
@@ -88,6 +91,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "activity/", element: <ActivityBase /> },
+    { path: "asset-at-risk/", element: <AssetMarketsSection /> },
   ];
 
   const v3OptimismRoutes = [
@@ -102,6 +106,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "activity/", element: <ActivityBase /> },
+    { path: "asset-at-risk/", element: <AssetMarketsSection /> },
   ];
 
   const v3ArbitrumRoutes = [
@@ -116,6 +121,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "activity/", element: <ActivityBase /> },
+    { path: "asset-at-risk/", element: <AssetMarketsSection /> },
   ];
 
   const oldRedirects = [
