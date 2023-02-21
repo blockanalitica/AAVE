@@ -1,29 +1,18 @@
-import {
-  faChartBar,
-  faChartArea,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChartBar, faChartArea } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 import IconTabs from "../../../../components/Tabs/IconTabs.js";
 import { withErrorBoundary } from "../../../../hoc.js";
 import TotalAtRiskAssetChart from "./TotalAtRiskAssetChart.js";
 
 function TotalAtRiskAssetSection(props) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const toggleModalOpen = () => setModalOpen(!modalOpen);
-
   return (
     <>
       <div>
         <Row>
           <Col xl={12}>
             <div className="d-flex flex-direction-row justify-content-left align-items-center">
-              <h4 className="mr-4">collateral at risk </h4>
-              <span role="button" className="link-primary" onClick={toggleModalOpen}>
-                <FontAwesomeIcon icon={faInfoCircle} />
-              </span>
+              <h4 className="mr-4">assets at risk </h4>
             </div>
             <p className="gray">
               simulation of markets price drop (all assets fall for x% at the same
