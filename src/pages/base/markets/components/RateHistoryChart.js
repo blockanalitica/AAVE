@@ -50,7 +50,7 @@ function RateHistoryChart(props) {
       data: borrow,
     },
   ];
-  if (data[0].stable_borrow_rate_enabled === true) {
+  if (stable_borrow_apy.length > 0) {
     series.push({
       label: "stable borrow APY",
       data: stable_borrow_apy,
