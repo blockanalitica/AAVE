@@ -96,11 +96,11 @@ function PositionsTable(props) {
               dataField: null,
               text: "Collateral prediction",
               formatter: (_, row) => {
-                let cId = uniqueId();
+                let collId = uniqueId();
                 return (
                   <span className={styles.liquidationIcons}>
-                    <CryptoIcon name={row.collateral_symbol} size="2em" id={cId} />
-                    <UncontrolledTooltip placement="bottom" target={cId}>
+                    <CryptoIcon name={row.collateral_symbol} size="2em" id={collId} />
+                    <UncontrolledTooltip placement="bottom" target={collId}>
                       {"Collateral: " + row.collateral_symbol}
                     </UncontrolledTooltip>
                   </span>
