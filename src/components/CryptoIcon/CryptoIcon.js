@@ -27,6 +27,7 @@ import gusdIcon from "../../images/crypto/color/gusd.svg";
 import kncIcon from "../../images/crypto/color/knc.svg";
 import linkIcon from "../../images/crypto/color/link.svg";
 import lusdIcon from "../../images/crypto/color/lusd.svg";
+import maiIcon from "../../images/crypto/color/mai.svg";
 import manaIcon from "../../images/crypto/color/mana.svg";
 import maticIcon from "../../images/crypto/color/matic.svg";
 import mkrIcon from "../../images/crypto/color/mkr.svg";
@@ -35,6 +36,7 @@ import paxIcon from "../../images/crypto/color/pax.svg";
 import raiIcon from "../../images/crypto/color/rai.svg";
 import renIcon from "../../images/crypto/color/ren.svg";
 import rethIcon from "../../images/crypto/color/reth.svg";
+import savaxIcon from "../../images/crypto/color/savax.svg";
 import snxIcon from "../../images/crypto/color/snx.svg";
 import stEthIcon from "../../images/crypto/color/steth.svg";
 import stkAaveIcon from "../../images/crypto/color/stkaave.svg";
@@ -99,7 +101,10 @@ function CryptoIcon(props) {
     rETH: rethIcon,
     cbETH: cbethIcon,
     stkAAVE: stkAaveIcon,
+    WAVAX: avaxIcon,
+    sAVAX: savaxIcon,
     CVX: cvxIcon,
+    MAI: maiIcon,
     "1INCH": oneinchIcon,
     LUSD: lusdIcon,
     MATIC: maticIcon,
