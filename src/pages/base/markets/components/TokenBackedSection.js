@@ -64,8 +64,13 @@ function TokenBackedSection(props) {
   }
 
   let content = null;
-  let icontabs = [
-    {
+  let icontabs = [];
+  if (type === "backed") {
+    icontabs.push({
+      title: <FontAwesomeIcon icon={faChartGantt} />,
+      content: <TokenBackedSankey symbol={symbol} />,
+    });
+    icontabs.push({
       title: <FontAwesomeIcon icon={faChartLine} />,
       content: (
         <TokenBackedHistoric
@@ -75,8 +80,8 @@ function TokenBackedSection(props) {
           withLtv={withLtv}
         />
       ),
-    },
-    {
+    });
+    icontabs.push({
       title: <FontAwesomeIcon icon={faChartArea} />,
       content: (
         <TokenBackedHistoricStacked
@@ -86,10 +91,7 @@ function TokenBackedSection(props) {
           withLtv={withLtv}
         />
       ),
-    },
-  ];
-
-  if (type === "backed") {
+    });
     icontabs.push({
       title: <FontAwesomeIcon icon={faPercent} />,
       content: (
@@ -101,10 +103,28 @@ function TokenBackedSection(props) {
         />
       ),
     });
-
+  } else {
     icontabs.push({
-      title: <FontAwesomeIcon icon={faChartGantt} />,
-      content: <TokenBackedSankey symbol={symbol} />,
+      title: <FontAwesomeIcon icon={faChartLine} />,
+      content: (
+        <TokenBackedHistoric
+          symbol={symbol}
+          type={type}
+          timePeriod={timePeriod}
+          withLtv={withLtv}
+        />
+      ),
+    });
+    icontabs.push({
+      title: <FontAwesomeIcon icon={faChartArea} />,
+      content: (
+        <TokenBackedHistoricStacked
+          symbol={symbol}
+          type={type}
+          timePeriod={timePeriod}
+          withLtv={withLtv}
+        />
+      ),
     });
   }
 
@@ -128,6 +148,10 @@ function TokenBackedSection(props) {
     content = <RateHistoryChart symbol={symbol} timePeriod={timePeriod} />;
   } else {
     content = <IconTabs key={type} tabs={icontabs} label="charts:" />;
+  }
+
+  if (type === "borrow") {
+    content = icontabs[0].content;
   }
 
   return (
