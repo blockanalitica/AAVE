@@ -136,6 +136,7 @@ function Layout(props) {
     { path: "liquidations/liquidators/", element: <LiquidatorsBase /> },
     { path: "wallets-at-risk/", element: <AtRiskBase /> },
     { path: "activity/", element: <ActivityBase /> },
+    { path: "asset-at-risk/", element: <AssetMarketsSection /> },
   ];
 
   const oldRedirects = [
