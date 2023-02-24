@@ -86,6 +86,7 @@ function CryptoIcon(props) {
     USDP: paxIcon,
     USDT: usdtIcon,
     USDt: usdtIcon,
+    "USDT.e": usdtIcon,
     WBTC: wbtcIcon,
     "WBTC.e": wbtcIcon,
     "BTC.b": wbtcIcon,
