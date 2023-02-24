@@ -8,7 +8,6 @@ export const SYMBOLS_PALETTE = {
   BTC: "#ef8e19",
   "BTC.b": "#ef8e19",
   "WBTC.e": "#ef8e19",
-  "WBTC.e": "#efd219",
   stETH: "#00a3ff",
   DAI: "#f4b731",
   "DAI.e": "#f4b731",
