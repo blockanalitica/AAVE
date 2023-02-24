@@ -27,7 +27,7 @@ function MarketsSection(props) {
 
   const tabs = [
     { id: "at-risk", text: "collateral at risk" },
-    //{ id: "asset", text: "assets at risk" },
+    { id: "asset", text: "assets at risk" },
     { id: "supply", text: "total supply" },
     { id: "borrow", text: "total borrow" },
     { id: "tvl", text: "total TVL" },
