@@ -40,4 +40,6 @@ export const SYMBOLS_PALETTE = {
   RAI: "#52bea1",
   xSUSHI: "#d65892",
   ZRX: "#FFFFF0",
+  wstETH: "#00aaff",
+  cbETH: "#00f29e",
 };

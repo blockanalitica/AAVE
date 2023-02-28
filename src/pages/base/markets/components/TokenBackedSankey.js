@@ -7,10 +7,10 @@ import { compact } from "../../../../utils/number.js";
 import { SYMBOLS_PALETTE } from "../../../../utils/colors.js";
 
 function TokenBackedSankey(props) {
-  const { symbol } = props;
+  const { symbol, type } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `markets/${symbol}/backed/history/share/`,
-    { type: "backed", days_ago: 7, with_ltv: 0, apply_ltv: 1 }
+    { type: type, days_ago: 7, with_ltv: 0, apply_ltv: 1 }
   );
 
   if (isLoading) {
