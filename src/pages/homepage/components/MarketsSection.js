@@ -8,7 +8,7 @@ import TimeSwitch from "../../../components/TimeSwitch/TimeSwitch.js";
 import MarketsChartLine from "./MarketsChartLine.js";
 
 function MarketsSection(props) {
-  const [type, setType] = useState("tvl");
+  const [type, setType] = useState("supply");
   const [timePeriod, setTimePeriod] = useState(7);
   const [currentTab, setCurrentTab] = useState("line");
 

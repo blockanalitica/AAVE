@@ -25,6 +25,7 @@ function MarketsChartLine(props) {
   const results_opt_v3 = [];
   const results_arb_v3 = [];
   const results_eth_v3 = [];
+  const results_avax_v3 = [];
   const grouped = _.groupBy(data.historic, "key");
 
   Object.entries(grouped).forEach(([key, rows]) =>
@@ -62,6 +63,12 @@ function MarketsChartLine(props) {
                 y: row["supply"],
               });
               break;
+            case "avalanche_v3":
+              results_avax_v3.push({
+                x: row["dt"],
+                y: row["supply"],
+              });
+              break;
             default:
               break;
           }
@@ -94,6 +101,12 @@ function MarketsChartLine(props) {
               break;
             case "avalanche_v2":
               results_avax_v2.push({
+                x: row["dt"],
+                y: row["borrow"],
+              });
+              break;
+            case "avalanche_v3":
+              results_avax_v3.push({
                 x: row["dt"],
                 y: row["borrow"],
               });
@@ -135,6 +148,12 @@ function MarketsChartLine(props) {
                 y: row["tvl"],
               });
               break;
+            case "avalanche_v3":
+              results_avax_v3.push({
+                x: row["dt"],
+                y: row["tvl"],
+              });
+              break;
             default:
               break;
           }
@@ -160,15 +179,18 @@ function MarketsChartLine(props) {
       label: "Arbitrum V3 " + dataType,
       data: results_arb_v3,
     },
-    // Uncomment once Ethereum V3 is live
-    // {
-    //   label: "Ethereum V3 " + dataType,
-    //   data: results_eth_v3,
-    // },
-    //{
-    //  label: "Avalanche V2 " + dataType,
-    //  data: results_avax_v2,
-    //},
+    {
+      label: "Ethereum V3 " + dataType,
+      data: results_eth_v3,
+    },
+    {
+      label: "Avalanche V3 " + dataType,
+      data: results_avax_v3,
+    },
+    {
+      label: "Avalanche V2 " + dataType,
+      data: results_avax_v2,
+    },
   ];
 
   const options = {
@@ -204,6 +226,7 @@ function MarketsChartLine(props) {
         },
       },
     },
+    fill: true,
   };
 
   return <Graph series={series} options={options} />;
