@@ -65,10 +65,10 @@ function TokenBackedSection(props) {
 
   let content = null;
   let icontabs = [];
-  if (type === "backed") {
+  if (type === "backed" || type === "collateral") {
     icontabs.push({
       title: <FontAwesomeIcon icon={faChartGantt} />,
-      content: <TokenBackedSankey symbol={symbol} />,
+      content: <TokenBackedSankey symbol={symbol} type={type} />,
     });
     icontabs.push({
       title: <FontAwesomeIcon icon={faChartLine} />,
