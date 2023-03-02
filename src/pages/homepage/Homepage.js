@@ -32,20 +32,23 @@ function Homepage(props) {
       title: "TVL",
       bigValue: (
         <>
-          <Value value={stats[0].tvl + stats[1].tvl} decimals={2} prefix="$" compact />
+          <Value
+            value={stats.reduce((sum, item) => sum + item.tvl, 0)}
+            decimals={2}
+            prefix="$"
+            compact
+          />
         </>
       ),
       smallValue: (
         <ValueChange
-          value={
-            stats[0].tvl + stats[1].tvl - stats[0].tvl_change - stats[1].tvl_change
-          }
+          value={stats.reduce((sum, item) => sum + item.tvl - item.tvl_change, 0)}
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats[0].tvl_change + stats[1].tvl_change}
+          tooltipValue={stats.reduce((sum, item) => sum + item.tvl_change, 0)}
         />
       ),
     },
@@ -54,7 +57,7 @@ function Homepage(props) {
       bigValue: (
         <>
           <Value
-            value={stats[0].supply + stats[1].supply}
+            value={stats.reduce((sum, item) => sum + item.supply, 0)}
             decimals={2}
             prefix="$"
             compact
@@ -63,18 +66,13 @@ function Homepage(props) {
       ),
       smallValue: (
         <ValueChange
-          value={
-            stats[0].supply +
-            stats[1].supply -
-            stats[0].supply_change -
-            stats[1].supply_change
-          }
+          value={stats.reduce((sum, item) => sum + item.supply - item.supply_change, 0)}
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats[0].supply_change + stats[1].supply_change}
+          tooltipValue={stats.reduce((sum, item) => sum + item.supply_change, 0)}
         />
       ),
     },
@@ -83,7 +81,7 @@ function Homepage(props) {
       bigValue: (
         <>
           <Value
-            value={stats[0].borrow + stats[1].borrow}
+            value={stats.reduce((sum, item) => sum + item.borrow, 0)}
             decimals={2}
             prefix="$"
             compact
@@ -92,18 +90,13 @@ function Homepage(props) {
       ),
       smallValue: (
         <ValueChange
-          value={
-            stats[0].borrow +
-            stats[1].borrow -
-            stats[0].borrow_change -
-            stats[1].borrow_change
-          }
+          value={stats.reduce((sum, item) => sum + item.borrow - item.borrow_change, 0)}
           decimals={2}
           prefix="$"
           compact
           icon
           hideIfZero
-          tooltipValue={stats[0].borrow_change + stats[1].borrow_change}
+          tooltipValue={stats.reduce((sum, item) => sum + item.borrow_change, 0)}
         />
       ),
     },
