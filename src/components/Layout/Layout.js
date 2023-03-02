@@ -43,7 +43,7 @@ function Layout(props) {
   const location = useLocation();
   const locationPrefix = smartLocationPrefix(location);
 
-  const HomepageRoute = [{ path: "/homepage", element: <Homepage /> }];
+  const OverviewRoute = [{ path: "/overview", element: <Homepage /> }];
 
   const v2AvalancheRoutes = [
     { path: "/", element: <HomepageBase /> },
@@ -165,10 +165,17 @@ function Layout(props) {
             <NavbarBrand className={styles.navbarBrand} tag={Link} to={`${prefix}`}>
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
-            {locationPrefix.length > 0 ? <NetworkSelector /> : null}
+            <NetworkSelector />
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={isNavbarOpen} navbar>
               <Nav className="flex-grow-1 justify-content-end" navbar>
+                <NavItem>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`${prefix}`}>
+                      Overview
+                    </NavLink>
+                  ) : null}
+                </NavItem>
                 <NavItem>
                   {locationPrefix.length > 0 ? (
                     <NavLink tag={Link} to={`${prefix}markets/`}>
@@ -212,6 +219,13 @@ function Layout(props) {
                     </NavLink>
                   ) : null}
                 </NavItem>
+                <NavItem>
+                  {locationPrefix.length > 0 ? (
+                    <NavLink tag={Link} to={`/overview`}>
+                      Home
+                    </NavLink>
+                  ) : null}
+                </NavItem>
                 {locationPrefix.length === 0 || locationPrefix.length > 0 ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}oracles/`}>
@@ -227,7 +241,7 @@ function Layout(props) {
         <main>
           <BreadcrumbHistory />
           <Routes>
-            <Route index element={<Navigate replace to="/v2/ethereum/" />} />
+            <Route index element={<Navigate replace to="/overview/" />} />
 
             {/* old redirects */}
             {oldRedirects.map((path) => {
@@ -240,8 +254,8 @@ function Layout(props) {
               );
             })}
 
-            {/* Homepage */}
-            {HomepageRoute.map((route) => {
+            {/* Overview */}
+            {OverviewRoute.map((route) => {
               const path = `/${route.path}`;
               return <Route key={path} path={path} element={route.element} />;
             })}
