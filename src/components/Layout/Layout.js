@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Collapse,
   Container,
@@ -43,7 +43,7 @@ function Layout(props) {
   const location = useLocation();
   const locationPrefix = smartLocationPrefix(location);
 
-  const OverviewRoute = [{ path: "/overview", element: <Homepage /> }];
+  const HomeRoute = [{ path: "/", element: <Homepage /> }];
 
   const v2AvalancheRoutes = [
     { path: "/", element: <HomepageBase /> },
@@ -221,7 +221,7 @@ function Layout(props) {
                 </NavItem>
                 <NavItem>
                   {locationPrefix.length > 0 ? (
-                    <NavLink tag={Link} to={`/overview`}>
+                    <NavLink tag={Link} to={`/`}>
                       Home
                     </NavLink>
                   ) : null}
@@ -241,8 +241,6 @@ function Layout(props) {
         <main>
           <BreadcrumbHistory />
           <Routes>
-            <Route index element={<Navigate replace to="/overview/" />} />
-
             {/* old redirects */}
             {oldRedirects.map((path) => {
               return (
@@ -254,8 +252,8 @@ function Layout(props) {
               );
             })}
 
-            {/* Overview */}
-            {OverviewRoute.map((route) => {
+            {/* Home */}
+            {HomeRoute.map((route) => {
               const path = `/${route.path}`;
               return <Route key={path} path={path} element={route.element} />;
             })}

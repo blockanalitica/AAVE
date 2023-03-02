@@ -47,11 +47,8 @@ function NetworkSelector(props) {
   const currentVersion = paths[0];
 
   let currentNetwork;
-  if (paths[1] === "overview") {
-    currentNetwork = null;
-  } else {
-    currentNetwork = options[paths[0]]?.find((network) => network.value === paths[1]);
-  }
+
+  currentNetwork = options[paths[0]]?.find((network) => network.value === paths[1]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
