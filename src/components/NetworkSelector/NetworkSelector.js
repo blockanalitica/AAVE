@@ -45,9 +45,10 @@ function NetworkSelector(props) {
   };
 
   const currentVersion = paths[0];
-  const currentNetwork = options[paths[0]].find(
-    (network) => network.value === paths[1]
-  );
+
+  let currentNetwork;
+
+  currentNetwork = options[paths[0]]?.find((network) => network.value === paths[1]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -65,9 +66,12 @@ function NetworkSelector(props) {
     <div>
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
         <DropdownToggle caret tag="span" className={styles.dropdownToggle}>
-          <CryptoIcon size="1.5rem" className="me-2" name={currentNetwork.value} />
-          {currentVersion} {currentNetwork.value}
+          <CryptoIcon size="1.5rem" className="me-2" name={currentNetwork?.value} />
+          {currentVersion && currentNetwork
+            ? `${currentVersion} ${currentNetwork.value}`
+            : "select version"}
         </DropdownToggle>
+
         <DropdownMenu>
           <DropdownItem header className="text-center">
             v2
@@ -92,7 +96,6 @@ function NetworkSelector(props) {
           <DropdownItem header className="text-center">
             v3
           </DropdownItem>
-
           {options.v3.map((network) =>
             network.value !== "" ? (
               <DropdownItem
