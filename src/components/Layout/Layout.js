@@ -205,13 +205,14 @@ function Layout(props) {
                   ) : null}
                 </NavItem>
 
-                {prefix.includes("v3") || locationPrefix.length === 0 ? null : (
+                {location.pathname.includes("/v2/ethereum") ? (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}ecosystem/`}>
                       Ecosystem
                     </NavLink>
                   </NavItem>
-                )}
+                ) : null}
+
                 <NavItem>
                   {locationPrefix.length > 0 ? (
                     <NavLink tag={Link} to={`${prefix}activity/`}>
