@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import Graph from "../../../components/Graph/Graph.js";
 import Loader from "../../../components/Loader/Loader.js";
@@ -5,7 +6,6 @@ import { withErrorBoundary } from "../../../hoc.js";
 import { useFetch } from "../../../hooks";
 import { tooltipLabelNumber, tooltipTitleDateTime } from "../../../utils/graph.js";
 import { compact } from "../../../utils/number.js";
-import _ from "lodash";
 
 function MarketsChartLine(props) {
   const { timePeriod, dataType } = props;
@@ -209,6 +209,7 @@ function MarketsChartLine(props) {
         ticks: {
           callback: (value) => "$" + compact(value, 2, true),
         },
+        beginAtZero: true,
       },
     },
     plugins: {
