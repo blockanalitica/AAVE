@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Col, Row } from "reactstrap";
 import { useParams } from "react-router-dom";
 import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
 import CurrencySwitch from "../../../components/CurrencySwitch/CurrencySwitch.js";
@@ -12,6 +13,8 @@ import RiskSection from "./components/RiskSection.js";
 import TokenBackedSection from "./components/TokenBackedSection.js";
 import TokenInfo from "./components/TokenInfo.js";
 import Top5 from "./Top5.js";
+import MarketActivityTable from "./components/MarketActivityTable.js";
+import MarketRawActivityTable from "./components/MarketRawActivityTable.js";
 
 function Market(props) {
   const { symbol } = useParams();
@@ -19,7 +22,7 @@ function Market(props) {
 
   const [timePeriod, setTimePeriod] = useState(1);
   const [isTokenCurrencyTotal, setIsTokenCurrencyTotal] = useState(false);
-
+  const [isEventRaw, setEventView] = useState(false);
   const currencyOptions = [
     { key: "USD", value: "$" },
     { key: symbol, value: symbol },
@@ -94,6 +97,27 @@ function Market(props) {
         className="mb-4"
       />
       <Top5 symbol={symbol} className="mb-4" />
+      <Row className="mb-3">
+        <Col className="d-flex align-items-center">
+          <h3 className="mb-0">activity</h3>
+        </Col>
+        <Col className="d-flex justify-content-end">
+          <CurrencySwitch
+            label="view events"
+            options={[
+              { key: "pool", value: "Pool" },
+              { key: "raw", value: "Token" },
+            ]}
+            onChange={(option) => setEventView(option === "raw")}
+          />
+        </Col>
+      </Row>
+
+      {isEventRaw ? (
+        <MarketRawActivityTable symbol={symbol} />
+      ) : (
+        <MarketActivityTable symbol={symbol} />
+      )}
     </>
   );
 }
