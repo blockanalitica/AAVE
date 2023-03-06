@@ -94,6 +94,21 @@ function WalletRawActivityTable(props) {
             align: "left",
           },
           {
+            dataField: "rate_mode",
+            text: "Rate Mode",
+            formatter: (cell, row) => {
+              if (row.rate_mode === 0) {
+                return <span>Supply</span>;
+              } else if (row.rate_mode === 1) {
+                return <span>Stable Debt</span>;
+              } else if (row.rate_mode === 2) {
+                return <span>Variable Debt</span>;
+              }
+            },
+            headerAlign: "left",
+            align: "left",
+          },
+          {
             dataField: "amount",
             text: "Amount",
             formatter: (cell, row) => (
