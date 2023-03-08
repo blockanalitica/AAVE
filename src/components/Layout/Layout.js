@@ -165,7 +165,17 @@ function Layout(props) {
             <NavbarBrand className={styles.navbarBrand} tag={Link} to={`${prefix}`}>
               <img className={styles.logo} src={logoAave} alt="Aave" />
             </NavbarBrand>
-            <NetworkSelector />
+            <Nav className="mr-auto" navbar>
+              <NavItem>
+                <NavLink tag={Link} to={`/`}>
+                  Home
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <Nav className="ml-auto" navbar style={{ marginLeft: "30px" }}>
+              <NetworkSelector />
+            </Nav>
+
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={isNavbarOpen} navbar>
               <Nav className="flex-grow-1 justify-content-end" navbar>
@@ -220,13 +230,7 @@ function Layout(props) {
                     </NavLink>
                   ) : null}
                 </NavItem>
-                <NavItem>
-                  {locationPrefix.length > 0 ? (
-                    <NavLink tag={Link} to={`/`}>
-                      Home
-                    </NavLink>
-                  ) : null}
-                </NavItem>
+
                 {locationPrefix.length === 0 || locationPrefix.length > 0 ? null : (
                   <NavItem>
                     <NavLink tag={Link} to={`${prefix}oracles/`}>
