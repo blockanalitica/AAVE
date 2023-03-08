@@ -10,7 +10,9 @@ function TokenBackedSankey(props) {
   const { symbol, type } = props;
   const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
     `markets/${symbol}/backed/history/share/`,
-    { type: type, days_ago: 7, with_ltv: 0, apply_ltv: 1 }
+    type === "collateral"
+      ? { days_ago: 7, with_ltv: undefined, apply_ltv: undefined, type: type }
+      : { days_ago: 7, with_ltv: 0, apply_ltv: 1, type: type }
   );
 
   if (isLoading) {
