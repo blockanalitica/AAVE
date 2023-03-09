@@ -2,26 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Row } from "reactstrap";
 import CryptoIcon from "../../../components/CryptoIcon/CryptoIcon.js";
-import Loader from "../../../components/Loader/Loader.js";
 import LinkTable from "../../../components/Table/LinkTable.js";
 import Value from "../../../components/Value/Value.js";
 import ValueChange from "../../../components/Value/ValueChange.js";
 import { withErrorBoundary } from "../../../hoc.js";
-import { useFetch } from "../../../hooks";
 
 function Homepage(props) {
-  const { daysAgo } = props;
+  const { data } = props;
   const navigate = useNavigate();
-  const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
-    "aave/protocols/stats/",
-    { days_ago: daysAgo }
-  );
-
-  if (isLoading) {
-    return <Loader />;
-  } else if (isError) {
-    return <ErrorFallbackComponent />;
-  }
 
   const onRowClick = (row) => {
     navigate(`/${row.version}/${row.network}/`);
