@@ -15,6 +15,8 @@ import TokenInfo from "./components/TokenInfo.js";
 import Top5 from "./Top5.js";
 import MarketActivityTable from "./components/MarketActivityTable.js";
 import MarketRawActivityTable from "./components/MarketRawActivityTable.js";
+import { smartLocationPrefix } from "../../../utils/url.js";
+import { useLocation } from "react-router-dom";
 
 function Market(props) {
   const { symbol } = useParams();
@@ -28,15 +30,20 @@ function Market(props) {
     { key: symbol, value: symbol },
   ];
 
-  const { data, isLoading, isError, ErrorFallbackComponent } = useFetch(
+  const { data, isLoading, isError, ErrorFallbackComponent, error } = useFetch(
     `markets/${symbol}/`,
     { days_ago: timePeriod }
   );
+  const location = useLocation();
+  const locationPrefix = smartLocationPrefix(location);
 
   if (isLoading) {
     return <Loader />;
   } else if (isError) {
-    return <ErrorFallbackComponent />;
+    if (error.response.status !== 404) {
+      return <ErrorFallbackComponent />;
+    }
+    window.location.href = `${locationPrefix}markets`;
   }
 
   const { symbol: underlyingSymbol, price, atoken_address, ...statsData } = data;

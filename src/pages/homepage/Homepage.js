@@ -122,7 +122,7 @@ function Homepage(props) {
       <Row className="mb-4">
         <h3>protocols</h3>
         <Col>
-          <MarketsTable daysAgo={timePeriod} />
+          <MarketsTable data={data} />
         </Col>
       </Row>
     </>
