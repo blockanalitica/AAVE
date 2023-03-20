@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "build:production": "cross-env PUBLIC_URL='https://aave.blockanalitica.com' REACT_APP_API_ENDPOINT='papi.blockanalitica.com' REACT_APP_ENVIRONMENT='aave-js' REACT_APP_SENTRY_DSN='https://54a742d9dc844fa8ac5612a5e3ac6499@o818836.ingest.sentry.io/4504536786534400' node scripts/build.js",
-    "build:staging": "cross-env PUBLIC_URL='https://staging-aave.blockanalitica.com' REACT_APP_API_ENDPOINT='papi.blockanalitica.com' REACT_APP_ENVIRONMENT='aave-staging-js' node scripts/build.js",
     "start": "node scripts/start.js",
-    "start:backend": "node scripts/start.js",
     "test": "node scripts/test.js",
     "lint": "cross-env NODE_ENV=development yarn lint:eslint && yarn lint:prettier",
     "lint:prettier": "prettier --check './**/*.js'",
