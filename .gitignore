@@ -12,9 +12,3 @@
 .env
 
 npm-debug.log*
-
-.pnp.*
-.yarn/*
-!.yarn/plugins
-!.yarn/versions
-!.yarn/releases

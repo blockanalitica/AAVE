@@ -14,12 +14,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
-      - name: Update yarn
-        run: yarn set version 3.1.x
-      - name: Yarn Install
-        run: |
-          yarn install
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci --force
       - name: Lint
-        run: |
-          yarn run lint
+        run: npm run lint

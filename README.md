@@ -7,8 +7,8 @@ An open source [AAVE risk dashboard](https://aave.blockanalitica.com)
 Install it and run:
 
 ```sh
-yarn install
-yarn start
+npm ci
+npm run start
 ```
 
 ## Contribution
