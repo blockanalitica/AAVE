@@ -3,7 +3,7 @@
 ## Lint
 
 ```bash
-yarn lint
+npm run lint
 ```
 
 ## Code style
