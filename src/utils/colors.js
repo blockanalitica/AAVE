@@ -42,4 +42,5 @@ export const SYMBOLS_PALETTE = {
   ZRX: "#FFFFF0",
   wstETH: "#00aaff",
   cbETH: "#00f29e",
+  LDO: "#F69988",
 };
