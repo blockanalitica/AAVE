@@ -27,6 +27,7 @@ import gusdIcon from "../../images/crypto/color/gusd.svg";
 import kncIcon from "../../images/crypto/color/knc.svg";
 import linkIcon from "../../images/crypto/color/link.svg";
 import lusdIcon from "../../images/crypto/color/lusd.svg";
+import ldoIcon from "../../images/crypto/color/ldo.svg";
 import maiIcon from "../../images/crypto/color/mai.svg";
 import manaIcon from "../../images/crypto/color/mana.svg";
 import maticIcon from "../../images/crypto/color/matic.svg";
@@ -123,6 +124,7 @@ function CryptoIcon(props) {
     arbitrum: arbitrumIcon,
     avalanche: avaxIcon,
     optimism: optimismIcon,
+    LDO: ldoIcon,
   };
   const icon = mapping[name];
   if (!icon) {
