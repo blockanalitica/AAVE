@@ -124,7 +124,7 @@ function CryptoIcon(props) {
     arbitrum: arbitrumIcon,
     avalanche: avaxIcon,
     optimism: optimismIcon,
-    ldo: ldoIcon,
+    LDO: ldoIcon,
   };
   const icon = mapping[name];
   if (!icon) {
