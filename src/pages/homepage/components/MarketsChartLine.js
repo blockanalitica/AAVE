@@ -14,184 +14,65 @@ function MarketsChartLine(props) {
     { days_ago: timePeriod }
   );
 
+
   if (isLoading) {
     return <Loader />;
   } else if (isError) {
     return <ErrorFallbackComponent />;
   }
+  
 
-  const results_avax_v2 = [];
-  const results_eth_v2 = [];
-  const results_opt_v3 = [];
-  const results_arb_v3 = [];
-  const results_eth_v3 = [];
-  const results_avax_v3 = [];
+  const results = {
+  ethereum: [],
+  optimism: [],
+  arbitrum: [],
+  ethereum_v3: [],
+  avalanche_v2: [],
+  avalanche_v3: [],
+};
   const grouped = _.groupBy(data.historic, "key");
 
-  Object.entries(grouped).forEach(([key, rows]) =>
+  Object.entries(grouped).forEach(([key, rows]) => {
+  if (!(key in results)) {
+    return;  // Skip this key if it's not in the results mapping
+  }
     rows.forEach((row) => {
-      switch (dataType) {
-        case "supply":
-          switch (key) {
-            case "ethereum":
-              results_eth_v2.push({
-                x: row["dt"],
-                y: row["supply"],
-              });
-              break;
-            case "optimism":
-              results_opt_v3.push({
-                x: row["dt"],
-                y: row["supply"],
-              });
-              break;
-            case "arbitrum":
-              results_arb_v3.push({
-                x: row["dt"],
-                y: row["supply"],
-              });
-              break;
-            case "ethereum_v3":
-              results_eth_v3.push({
-                x: row["dt"],
-                y: row["supply"],
-              });
-              break;
-            case "avalanche_v2":
-              results_avax_v2.push({
-                x: row["dt"],
-                y: row["supply"],
-              });
-              break;
-            case "avalanche_v3":
-              results_avax_v3.push({
-                x: row["dt"],
-                y: row["supply"],
-              });
-              break;
-            default:
-              break;
-          }
-          break;
-        case "borrow":
-          switch (key) {
-            case "ethereum":
-              results_eth_v2.push({
-                x: row["dt"],
-                y: row["borrow"],
-              });
-              break;
-            case "optimism":
-              results_opt_v3.push({
-                x: row["dt"],
-                y: row["borrow"],
-              });
-              break;
-            case "arbitrum":
-              results_arb_v3.push({
-                x: row["dt"],
-                y: row["borrow"],
-              });
-              break;
-            case "ethereum_v3":
-              results_eth_v3.push({
-                x: row["dt"],
-                y: row["borrow"],
-              });
-              break;
-            case "avalanche_v2":
-              results_avax_v2.push({
-                x: row["dt"],
-                y: row["borrow"],
-              });
-              break;
-            case "avalanche_v3":
-              results_avax_v3.push({
-                x: row["dt"],
-                y: row["borrow"],
-              });
-              break;
-            default:
-              break;
-          }
 
-          break;
-        case "tvl":
-          switch (key) {
-            case "ethereum":
-              results_eth_v2.push({
-                x: row["dt"],
-                y: row["tvl"],
-              });
-              break;
-            case "optimism":
-              results_opt_v3.push({
-                x: row["dt"],
-                y: row["tvl"],
-              });
-              break;
-            case "arbitrum":
-              results_arb_v3.push({
-                x: row["dt"],
-                y: row["tvl"],
-              });
-              break;
-            case "ethereum_v3":
-              results_eth_v3.push({
-                x: row["dt"],
-                y: row["tvl"],
-              });
-              break;
-            case "avalanche_v2":
-              results_avax_v2.push({
-                x: row["dt"],
-                y: row["tvl"],
-              });
-              break;
-            case "avalanche_v3":
-              results_avax_v3.push({
-                x: row["dt"],
-                y: row["tvl"],
-              });
-              break;
-            default:
-              break;
-          }
+    const value = row[dataType];
 
-          break;
-        default:
-          break;
-      }
-    })
-  );
+    results[key].push({
+      x: row["dt"],
+      y: value,
+    });
+  });
+});
 
-  let series = [];
-  series = [
-    {
-      label: "Ethereum V2 " + dataType,
-      data: results_eth_v2,
-    },
-    {
-      label: "Optimism V3 " + dataType,
-      data: results_opt_v3,
-    },
-    {
-      label: "Arbitrum V3 " + dataType,
-      data: results_arb_v3,
-    },
-    {
-      label: "Ethereum V3 " + dataType,
-      data: results_eth_v3,
-    },
-    {
-      label: "Avalanche V3 " + dataType,
-      data: results_avax_v3,
-    },
-    {
-      label: "Avalanche V2 " + dataType,
-      data: results_avax_v2,
-    },
-  ];
+let series = [
+  {
+    label: "Ethereum V2 " + dataType,
+    data: results["ethereum"],
+  },
+  {
+    label: "Optimism V3 " + dataType,
+    data: results["optimism"],
+  },
+  {
+    label: "Arbitrum V3 " + dataType,
+    data: results["arbitrum"],
+  },
+  {
+    label: "Ethereum V3 " + dataType,
+    data: results["ethereum_v3"],
+  },
+  {
+    label: "Avalanche V3 " + dataType,
+    data: results["avalanche_v3"],
+  },
+  {
+    label: "Avalanche V2 " + dataType,
+    data: results["avalanche_v2"],
+  },
+];
 
   const options = {
     interaction: {
