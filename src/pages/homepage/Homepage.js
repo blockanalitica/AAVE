@@ -115,7 +115,6 @@ function Homepage(props) {
         </Col>
       </Row>
       <Row className="mb-4">
-        <h3>protocols</h3>
         <Col>
           <MarketsTable data={data} />
         </Col>
