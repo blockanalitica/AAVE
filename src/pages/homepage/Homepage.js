@@ -116,13 +116,12 @@ function Homepage(props) {
       </Row>
       <Row className="mb-4">
         <Col>
-          <MarketsSection />
+          <MarketsTable data={data} />
         </Col>
       </Row>
       <Row className="mb-4">
-        <h3>protocols</h3>
         <Col>
-          <MarketsTable data={data} />
+          <MarketsSection />
         </Col>
       </Row>
     </>
