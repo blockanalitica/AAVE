@@ -41,6 +41,10 @@ function NetworkSelector(props) {
         value: "avalanche",
         text: "avalanche",
       },
+      {
+        value: "polygon",
+        text: "polygon",
+      },
     ],
   };
 
