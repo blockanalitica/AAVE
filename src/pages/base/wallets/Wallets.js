@@ -198,7 +198,7 @@ function Wallets(props) {
 
           {
             dataField: "last_activity",
-            text: "lastest activity",
+            text: "latest activity",
             sort: true,
             formatter: (cell, row) => (
               <DateTimeAgo dateTime={parseUTCDateTime(cell)} inDays />
