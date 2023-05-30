@@ -41,6 +41,10 @@ function NetworkSelector(props) {
         value: "avalanche",
         text: "avalanche",
       },
+      {
+        value: "polygon",
+        text: "polygon",
+      },
     ],
   };
 
@@ -97,7 +101,7 @@ function NetworkSelector(props) {
             v3
           </DropdownItem>
           {options.v3.map((network) =>
-            network.value !== "" ? (
+            (network.value !== "") & (network.value !== "polygon") ? (
               <DropdownItem
                 key={`v3-${network.value}`}
                 active={
