@@ -51,6 +51,12 @@ import ustIcon from "../../images/crypto/color/ust.svg";
 import wbtcIcon from "../../images/crypto/color/wbtc.svg";
 import yfiIcon from "../../images/crypto/color/yfi.svg";
 import zrxIcon from "../../images/crypto/color/zrx.svg";
+import ghstIcon from "../../images/crypto/color/ghst.svg";
+import maticxIcon from "../../images/crypto/color/maticx.svg";
+import stmaticIcon from "../../images/crypto/color/stmatic.svg";
+import wmaticIcon from "../../images/crypto/color/wmatic.svg";
+import jeurIcon from "../../images/crypto/color/jeur.svg";
+import ageurIcon from "../../images/crypto/color/ageur.svg";
 import { smartEtherscanUrl } from "../../utils/url.js";
 
 function CryptoIcon(props) {
@@ -125,6 +131,13 @@ function CryptoIcon(props) {
     avalanche: avaxIcon,
     optimism: optimismIcon,
     LDO: ldoIcon,
+    GHST: ghstIcon,
+    MaticX: maticxIcon,
+    stMATIC: stmaticIcon,
+    WMATIC: wmaticIcon,
+    miMATIC: maiIcon,
+    jEUR: jeurIcon,
+    agEUR: ageurIcon,
   };
   const icon = mapping[name];
   if (!icon) {
