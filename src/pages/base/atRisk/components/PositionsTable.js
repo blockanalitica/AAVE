@@ -2,9 +2,8 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import makeBlockie from "ethereum-blockies-base64";
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Badge, UncontrolledTooltip } from "reactstrap";
+import { Badge } from "reactstrap";
 import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import Loader from "../../../../components/Loader/Loader.js";
 import RemoteTable from "../../../../components/Table/RemoteTable.js";
@@ -43,10 +42,6 @@ function PositionsTable(props) {
   } else if (isError) {
     return <ErrorFallbackComponent />;
   }
-
-  const uniqueId = () => {
-    return _.uniqueId("prediction-");
-  };
 
   const onRowClick = (row) => {
     navigate(`wallets/${row.address}/`);
@@ -96,13 +91,9 @@ function PositionsTable(props) {
               dataField: null,
               text: "Collateral prediction",
               formatter: (_, row) => {
-                let collId = uniqueId();
                 return (
                   <span className={styles.liquidationIcons}>
-                    <CryptoIcon name={row.collateral_symbol} size="2em" id={collId} />
-                    <UncontrolledTooltip placement="bottom" target={collId}>
-                      {"Collateral: " + row.collateral_symbol}
-                    </UncontrolledTooltip>
+                    <CryptoIcon name={row.collateral_symbol} size="2em" />
                   </span>
                 );
               },
@@ -162,19 +153,19 @@ function PositionsTable(props) {
               dataField: null,
               text: "Prediction",
               formatter: (cell, row) => {
-                let collId = uniqueId();
-                let debtId = uniqueId();
                 return (
                   <span className={styles.liquidationIcons}>
-                    <CryptoIcon name={row.debt_symbol} size="2em" id={debtId} />
-                    <UncontrolledTooltip placement="bottom" target={debtId}>
-                      {"Debt: " + row.debt_symbol}
-                    </UncontrolledTooltip>
+                    <CryptoIcon
+                      name={row.debt_symbol}
+                      text={"Collateral:"}
+                      size="2em"
+                    />
                     <FontAwesomeIcon icon={faArrowRight} />
-                    <CryptoIcon name={row.collateral_symbol} size="2em" id={collId} />
-                    <UncontrolledTooltip placement="bottom" target={collId}>
-                      {"Collateral: " + row.collateral_symbol}
-                    </UncontrolledTooltip>
+                    <CryptoIcon
+                      name={row.collateral_symbol}
+                      text={"Debt:"}
+                      size="2em"
+                    />
                   </span>
                 );
               },
