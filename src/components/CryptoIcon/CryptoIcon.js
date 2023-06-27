@@ -2,9 +2,14 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 import _ from "lodash";
+
 function CryptoIcon(props) {
   const { name, size, text, ...rest } = props;
+
   const uniqueIdentifier = `icon-${_.uniqueId()}`;
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
   let updatedName = name;
 
   if (name === "ethereum") {
@@ -40,7 +45,7 @@ function CryptoIcon(props) {
   } else if (name === "sAVAX") {
     updatedName = "avax";
   } else if (name === undefined) {
-    updatedName = "dropdown";
+    return null;
   } else if (name === "stMATIC") {
     updatedName = "matic";
   }
@@ -50,9 +55,7 @@ function CryptoIcon(props) {
   const baseUrl = "https://icons.blockanalitica.com/currency/";
   const src = `${baseUrl}${updatedName.toLowerCase()}.svg`;
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  return (
+  return name ? (
     <>
       <img
         {...rest}
@@ -62,14 +65,13 @@ function CryptoIcon(props) {
         style={{ width: size, height: size }}
         onLoad={() => setIsLoaded(true)}
       />
-
       {isLoaded && (
         <UncontrolledTooltip placement="bottom" target={id}>
           {text ? `${text} ${updatedName}` : updatedName}
         </UncontrolledTooltip>
       )}
     </>
-  );
+  ) : null;
 }
 
 CryptoIcon.propTypes = {
