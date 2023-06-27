@@ -93,7 +93,11 @@ function PositionsTable(props) {
               formatter: (_, row) => {
                 return (
                   <span className={styles.liquidationIcons}>
-                    <CryptoIcon name={row.collateral_symbol} size="2em" />
+                    <CryptoIcon
+                      name={row.collateral_symbol}
+                      text={"Collateral :"}
+                      size="2em"
+                    />
                   </span>
                 );
               },
@@ -155,15 +159,11 @@ function PositionsTable(props) {
               formatter: (cell, row) => {
                 return (
                   <span className={styles.liquidationIcons}>
-                    <CryptoIcon
-                      name={row.debt_symbol}
-                      text={"Collateral:"}
-                      size="2em"
-                    />
+                    <CryptoIcon name={row.debt_symbol} text={"Debt:"} size="2em" />
                     <FontAwesomeIcon icon={faArrowRight} />
                     <CryptoIcon
                       name={row.collateral_symbol}
-                      text={"Debt:"}
+                      text={"Collateral:"}
                       size="2em"
                     />
                   </span>
