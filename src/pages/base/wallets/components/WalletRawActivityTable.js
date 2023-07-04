@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { UncontrolledTooltip } from "reactstrap";
-import _ from "lodash";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EtherscanShort from "../../../../components/EtherscanShort/EtherscanShort.js";
@@ -34,10 +32,6 @@ function WalletRawActivityTable(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const uniqueId = () => {
-    return _.uniqueId("amount-");
-  };
-
   return (
     <>
       <RemoteTable
@@ -57,27 +51,23 @@ function WalletRawActivityTable(props) {
             text: "Token",
             formatter: (cell, row) => {
               if (row.event_type === "LiquidationCall") {
-                let debtId = uniqueId();
-                let collId = uniqueId();
                 return (
                   <span>
-                    <CryptoIcon name={row.debt_symbol} size="2em" id={debtId} />
-                    <UncontrolledTooltip placement="bottom" target={debtId}>
-                      {row.debt_symbol}
-                    </UncontrolledTooltip>
+                    <CryptoIcon name={row.debt_symbol} size="2em" />
                     <FontAwesomeIcon icon={faArrowRight} className="mx-2" />
-                    <CryptoIcon name={row.symbol} size="2em" id={collId} />
-                    <UncontrolledTooltip placement="bottom" target={collId}>
-                      {cell}
-                    </UncontrolledTooltip>
+                    <CryptoIcon name={row.symbol} size="2em" />
                   </span>
                 );
               } else {
-                let id = uniqueId();
                 return (
                   <>
                     <span>
-                      <CryptoIcon name={cell} size="2em" id={id} className="me-4" />
+                      <CryptoIcon
+                        name={cell}
+                        text={"Collateral :"}
+                        size="2em"
+                        className="me-4"
+                      />
                       {cell}
                     </span>
                   </>
@@ -87,6 +77,7 @@ function WalletRawActivityTable(props) {
             headerAlign: "left",
             align: "left",
           },
+
           {
             dataField: "event",
             text: "Event",

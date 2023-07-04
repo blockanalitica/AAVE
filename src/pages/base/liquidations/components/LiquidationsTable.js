@@ -1,9 +1,7 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import _ from "lodash";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UncontrolledTooltip } from "reactstrap";
 import Address from "../../../../components/Address/Address.js";
 import CryptoIcon from "../../../../components/CryptoIcon/CryptoIcon.js";
 import CurrencySwitch from "../../../../components/CurrencySwitch/CurrencySwitch.js";
@@ -43,10 +41,6 @@ function LiquidationsTable(props) {
     return <ErrorFallbackComponent />;
   }
 
-  const uniqueId = () => {
-    return _.uniqueId("amount-");
-  };
-
   const onRowClick = (row) => {
     navigate(`wallets/${row.wallet_address}/`);
   };
@@ -75,27 +69,16 @@ function LiquidationsTable(props) {
             dataField: "collateral_underlying_symbol",
             text: "Assets",
             formatter: (cell, row) => {
-              let collId = uniqueId();
-              let debtId = uniqueId();
               return (
                 <span className={styles.liquidationIcons}>
-                  <CryptoIcon
-                    name={row.debt_underlying_symbol}
-                    size="2em"
-                    id={debtId}
-                  />
-                  <UncontrolledTooltip placement="bottom" target={debtId}>
-                    {row.debt_symbol}
-                  </UncontrolledTooltip>
+                  <CryptoIcon name={row.debt_underlying_symbol} size="2em" />
                   <FontAwesomeIcon icon={faArrowRight} />
-                  <CryptoIcon name={cell} size="2em" id={collId} />
-                  <UncontrolledTooltip placement="bottom" target={collId}>
-                    {cell}
-                  </UncontrolledTooltip>
+                  <CryptoIcon name={cell} size="2em" />
                 </span>
               );
             },
           },
+
           {
             dataField: "debt_repaid",
             text: "Debt Repaid",
