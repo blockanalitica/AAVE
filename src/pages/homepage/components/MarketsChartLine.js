@@ -26,6 +26,7 @@ function MarketsChartLine(props) {
     ethereum_v3: [],
     avalanche_v2: [],
     avalanche_v3: [],
+    polygon_v3: [],
   };
   data.reduce((acc, row) => {
     const key = row.key;
@@ -65,6 +66,10 @@ function MarketsChartLine(props) {
     {
       label: "Avalanche V2 " + dataType,
       data: results["avalanche_v2"],
+    },
+    {
+      label: "Polygon V3 " + dataType,
+      data: results["polygon_v3"],
     },
   ];
 
