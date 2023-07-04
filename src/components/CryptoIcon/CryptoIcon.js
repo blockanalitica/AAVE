@@ -61,13 +61,13 @@ function CryptoIcon(props) {
         {...rest}
         id={id}
         src={src}
-        alt={updatedName}
+        alt={name}
         style={{ width: size, height: size }}
         onLoad={() => setIsLoaded(true)}
       />
       {isLoaded && (
         <UncontrolledTooltip placement="bottom" target={id}>
-          {text ? `${text} ${updatedName}` : updatedName}
+          {text ? `${text} ${name}` : name}
         </UncontrolledTooltip>
       )}
     </>
