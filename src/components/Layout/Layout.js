@@ -326,9 +326,9 @@ function Layout(props) {
           <img src={baLogo} alt="blockanalitica" className={styles.footerLogo} />
           &copy;2022
         </div>
-        <Link to="changelog/" className="gray small">
-          changelog
-        </Link>
+        <a href="https://blockanalitica.com/terms-of-service/" className="gray small">
+          Terms of Service
+        </a>
       </footer>
     </>
   );
